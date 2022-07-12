@@ -9,14 +9,24 @@ Vous devez avoir sur votre poste :
 * DOCKER (et docker-compose)
 
 ## 🚀 Démarrage
+### Application Spring-Boot
+Pour démarrer l'application, jouer la commande suivante :
 
-Pour démarrer l'application Spring-Boot, jouer la commande suivante
+* sur linux / macos : 
+    ```shell
+    ./gradlew bootRun
+    ```
+* sur windows :
+    ```shell
+    ./gradlew.bat bootRun
+    ```
 
-Pour linux / macos : 
-```shell
-./gradlew bootRun
+L'application démarre sur le port par défaut de Spring-Boot, **8080**.
+### La base de données
+Pour démarrer la BDD, il faut démarrer un container avec la commande :
+``` shell
+docker-compose up -d
 ```
-Pour windows :
-```shell
-./gradlew.bat bootRun
-```
+La BDD démarre sur le port **15432**.
+
+Les informations de la BDD comme le login, le password, le port, la bddname sont disponibles dans le fichier `docker-compose.yml`

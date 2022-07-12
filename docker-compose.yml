@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  postgres:
+    image: "postgres:14-alpine"
+    container_name: ajava_db
+    restart: always
+    ports:
+      - "15432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=passwd
+      - POSTGRES_DB=ajavadb
+    volumes:
+      - ajava-db-data:/var/lib/postgresql
+
+volumes:
+  ajava-db-data:
+    driver: local
