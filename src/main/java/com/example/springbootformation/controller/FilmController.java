@@ -1,11 +1,10 @@
-package com.example.springbootformation.infra.controller;
+package com.example.springbootformation.controller;
 
 import com.example.springbootformation.domain.Film;
-import com.example.springbootformation.usecase.ListFilmUseCase;
+import com.example.springbootformation.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,15 +13,12 @@ import java.util.List;
 @RequestMapping("/films")
 public class FilmController {
 
-    private ListFilmUseCase listFilmUseCase;
-
-    FilmController(ListFilmUseCase listFilmUseCase) {
-        this.listFilmUseCase = listFilmUseCase;
-    }
+    @Autowired
+    private FilmService filmService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Film>> list() throws Exception {
-        return ResponseEntity.ok().body(this.listFilmUseCase.handle());
+        return ResponseEntity.ok().body(filmService.list());
     }
 
     @GetMapping(value = "/{filmId}", produces = MediaType.APPLICATION_JSON_VALUE)
