@@ -1,6 +1,6 @@
-package com.example.springbootformation.infra.repository;
+package com.example.springbootformation.infra.repositories;
 
-import com.example.springbootformation.domain.FilmRepository;
+import com.example.springbootformation.domain.repositories.FilmRepository;
 import com.example.springbootformation.fixture.MockedFilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
