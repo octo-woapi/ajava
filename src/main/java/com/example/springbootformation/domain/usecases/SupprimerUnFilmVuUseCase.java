@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class SupprimerUnFilmVuUseCase {
 
-    private final FilmVuRepository filmVuRepository;
+  private final FilmVuRepository filmVuRepository;
 
-    SupprimerUnFilmVuUseCase(FilmVuRepository filmVuRepository) {
-        this.filmVuRepository = filmVuRepository;
-    }
+  SupprimerUnFilmVuUseCase(FilmVuRepository filmVuRepository) {
+    this.filmVuRepository = filmVuRepository;
+  }
 
-    public void executer() throws Exception {
-        this.filmVuRepository.supprimerUnFilmVu();
-    }
+  public void executer() throws Exception {
+    this.filmVuRepository.supprimerUnFilmVu();
+  }
 }

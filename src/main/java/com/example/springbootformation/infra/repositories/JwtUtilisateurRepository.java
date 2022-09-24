@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JwtUtilisateurRepository implements UtilisateurRepository {
-    @Override
-    public Utilisateur recupererUtilisateurConnecte() {
-        return null;
-    }
+  @Override
+  public Utilisateur recupererUtilisateurConnecte() {
+    return null;
+  }
 }

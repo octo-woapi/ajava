@@ -7,14 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecupererUtilisateurConnecteUseCase {
 
-    public final UtilisateurRepository utilisateurRepository;
+  public final UtilisateurRepository utilisateurRepository;
 
-    public RecupererUtilisateurConnecteUseCase(UtilisateurRepository utilisateurRepository) {
-        this.utilisateurRepository = utilisateurRepository;
-    }
+  public RecupererUtilisateurConnecteUseCase(UtilisateurRepository utilisateurRepository) {
+    this.utilisateurRepository = utilisateurRepository;
+  }
 
-    public Utilisateur executer() {
-        return this.utilisateurRepository.recupererUtilisateurConnecte();
-    }
-
+  public Utilisateur executer() {
+    return this.utilisateurRepository.recupererUtilisateurConnecte();
+  }
 }

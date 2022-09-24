@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class AjouterUnFilmVuUseCase {
 
-    private final FilmVuRepository filmVuRepository;
+  private final FilmVuRepository filmVuRepository;
 
-    AjouterUnFilmVuUseCase(FilmVuRepository filmVuRepository) {
-        this.filmVuRepository = filmVuRepository;
-    }
+  AjouterUnFilmVuUseCase(FilmVuRepository filmVuRepository) {
+    this.filmVuRepository = filmVuRepository;
+  }
 
-    public FilmVu executer() throws Exception {
-        return this.filmVuRepository.ajouterUnFilmVu();
-    }
+  public FilmVu executer() throws Exception {
+    return this.filmVuRepository.ajouterUnFilmVu();
+  }
 }
