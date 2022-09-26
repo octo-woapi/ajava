@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public record Film(
     UUID id,
-    String description,
+    String titre,
     String synopsis,
     List<String> genres,
     LocalDate dateDeSortie
