@@ -1,6 +1,7 @@
 package com.octo.ajava.ajava.infra.controllers;
 
 import com.octo.ajava.ajava.domain.Film;
+import com.octo.ajava.ajava.domain.exceptions.FilmNotFoundException;
 import com.octo.ajava.ajava.domain.usecases.RecupererLesFilmsUseCase;
 import com.octo.ajava.ajava.fixture.FilmFixture;
 import com.octo.ajava.ajava.utils.JsonMapperForTesting;
@@ -61,5 +62,17 @@ class FilmControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.length()").value(0))
                 .andExpect(content().json("[]"));
+    }
+
+    @Test
+    public void doit_renvoyer_une_erreur_404_quand_le_film_demande_nest_pas_trouve() throws Exception {
+        // given
+        String bodyAttendu = "{\"message\":\"La ressource demandée Batman n'a pas été trouvée\"}";
+        when(recupererLesFilmsUseCaseMocked.executer()).thenThrow(new FilmNotFoundException("Batman"));
+        // when-then
+        mockMvc.perform(get("/films"))
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(bodyAttendu));
     }
 }

@@ -1,6 +1,7 @@
 package com.octo.ajava.ajava.infra.repositories;
 
 import com.octo.ajava.ajava.domain.FilmVu;
+import com.octo.ajava.ajava.domain.exceptions.FilmNotFoundException;
 import com.octo.ajava.ajava.domain.repositories.FilmVuRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ public class DatabaseFilmVuRepository implements FilmVuRepository {
 
     @Override
     public FilmVu ajouterUnFilmVu() throws Exception {
-        return null;
+        throw new FilmNotFoundException("TITRE_VIDE");
     }
 
     @Override
