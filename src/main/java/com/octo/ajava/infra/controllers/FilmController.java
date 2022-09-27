@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/films")
+@RequestMapping("/api/films")
 public class FilmController {
 
   private final RecupererLesFilmsUseCase recupererLesFilmsUseCase;

@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(FilmController.class)
 class FilmControllerTest {
 
+  private static final String URL_FILMS = "/api/films";
   @Autowired private MockMvc mockMvc;
   @MockBean private RecupererLesFilmsUseCase recupererLesFilmsUseCaseMocked;
 
@@ -35,7 +36,7 @@ class FilmControllerTest {
     // given
     when(recupererLesFilmsUseCaseMocked.executer()).thenReturn(expectedFilms);
     // when-then
-    mockMvc.perform(get("/films")).andDo(print()).andExpect(status().isOk());
+    mockMvc.perform(get(URL_FILMS)).andDo(print()).andExpect(status().isOk());
   }
 
   @Test
@@ -44,7 +45,7 @@ class FilmControllerTest {
     when(recupererLesFilmsUseCaseMocked.executer()).thenReturn(expectedFilms);
     // when-then
     mockMvc
-        .perform(get("/films"))
+        .perform(get(URL_FILMS))
         .andDo(print())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.length()").value(2))
@@ -58,7 +59,7 @@ class FilmControllerTest {
     when(recupererLesFilmsUseCaseMocked.executer()).thenReturn(Collections.emptyList());
     // when-then
     mockMvc
-        .perform(get("/films"))
+        .perform(get(URL_FILMS))
         .andDo(print())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.length()").value(0))
@@ -73,7 +74,7 @@ class FilmControllerTest {
     when(recupererLesFilmsUseCaseMocked.executer()).thenThrow(new FilmNotFoundException("Batman"));
     // when-then
     mockMvc
-        .perform(get("/films"))
+        .perform(get(URL_FILMS))
         .andDo(print())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(content().json(bodyAttendu));
