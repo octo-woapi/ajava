@@ -1,12 +1,11 @@
-package com.example.springbootformation.usecase;
+package com.octo.ajava.domain.usecases;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-import com.example.springbootformation.domain.Film;
-import com.example.springbootformation.domain.repositories.FilmRepository;
-import com.example.springbootformation.domain.usecases.RecupererLesFilmsUseCase;
-import java.util.Date;
+import com.octo.ajava.domain.Film;
+import com.octo.ajava.domain.repositories.FilmRepository;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -27,11 +26,11 @@ public class RecupererLesFilmsUseCaseTest {
     // Given
     Film unFilm =
         new Film(
-            UUID.fromString("dc2e6bd1-8156-4886-adff-b39e6043af0c"),
-            "Spirited Away",
-            "Spirited Away is an Oscar winning Japanese animated film about a ten year old girl who wanders away from her parents along a path that leads to a world ruled by strange and unusual monster-like animals. Her parents have been changed into pigs along with others inside a bathhouse full of these creatures. Will she ever see the world how it once was?",
-            List.of(),
-            new Date());
+            UUID.fromString("5b64010d-8863-496a-b845-89c00a9d6139"),
+            "Pulp Fiction",
+            "Les vies de deux hommes de main...",
+            List.of("Policier", "Drame"),
+            LocalDate.of(1994, 9, 23));
 
     when(filmRepository.recupererLesFilms()).thenReturn(List.of(unFilm));
 

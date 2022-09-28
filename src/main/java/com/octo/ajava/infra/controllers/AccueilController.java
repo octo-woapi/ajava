@@ -1,15 +1,15 @@
-package com.example.springbootformation.infra.controller;
+package com.octo.ajava.infra.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/")
-public class ApiController {
+@RequestMapping("/accueil")
+public class AccueilController {
 
   @GetMapping
-  public String presentationDeLApi() {
-    return "Présentation de l'API Films";
+  public String accueil() {
+    return "Bienvenue à la formation AJAVA.";
   }
 }

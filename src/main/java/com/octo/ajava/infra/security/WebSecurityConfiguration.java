@@ -1,4 +1,4 @@
-package com.example.springbootformation.infra.security;
+package com.octo.ajava.infra.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,10 +1,10 @@
-package com.example.springbootformation.infra.controller;
+package com.octo.ajava.infra.controllers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import com.example.springbootformation.ApiIntegrationTest;
+import com.octo.ajava.ApiIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.mock.web.MockHttpServletResponse;

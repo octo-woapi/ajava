@@ -1,10 +1,10 @@
-package com.example.springbootformation.infra.security;
+package com.octo.ajava.infra.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import com.example.springbootformation.infra.controller.AccueilController;
+import com.octo.ajava.infra.controllers.AccueilController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
