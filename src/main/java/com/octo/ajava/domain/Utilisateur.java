@@ -1,5 +1,17 @@
 package com.octo.ajava.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.UUID;
 
-public record Utilisateur(UUID id, String nom, String prénom, String motDePasse) {}
+@Entity
+public class Utilisateur {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String nom;
+    private String prénom;
+    private String motDePasse;
+}

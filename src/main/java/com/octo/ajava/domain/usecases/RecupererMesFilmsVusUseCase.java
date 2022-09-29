@@ -14,7 +14,7 @@ public class RecupererMesFilmsVusUseCase {
     this.filmVuRepository = filmVuRepository;
   }
 
-  public List<FilmVu> executer() throws Exception {
-    return this.filmVuRepository.recupererMesFilmsVus();
+  public List<FilmVu> executer(String userId) throws Exception {
+    return this.filmVuRepository.recupererMesFilmsVus(userId);
   }
 }

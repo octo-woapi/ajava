@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=passwd
       - POSTGRES_DB=ajavadb
     volumes:
-      - ajava-db-data:/var/lib/postgresql
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
 
 volumes:
   ajava-db-data:

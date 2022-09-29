@@ -2,7 +2,6 @@ package com.octo.ajava.fixture;
 
 import com.octo.ajava.domain.Film;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
 public class FilmFixture {
@@ -16,7 +15,7 @@ public class FilmFixture {
             List.of("Policier", "Drame"),
             LocalDate.of(1994, 9, 23)),
         new Film(
-            22,
+            2,
             "Les Dents de la Mer",
             "Un shérif local, un biologiste marin et un vieux marin...",
             List.of("Aventure", "Thriller"),
@@ -29,13 +28,13 @@ public class FilmFixture {
                     297761,
                     "Suicide Squad",
                     "From DC Comics comes the Suicide Squad...",
-                    Collections.emptyList(),
+                    List.of(),
                     LocalDate.of(2016, 8, 3)),
             new Film(
                     324668,
                     "Jason Bourne",
                     "The most dangerous former operative of the CIA...",
-                    Collections.emptyList(),
+                    List.of(),
                     LocalDate.of(2016, 7, 27))
     );
   }

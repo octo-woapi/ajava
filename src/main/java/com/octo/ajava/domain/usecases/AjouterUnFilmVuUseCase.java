@@ -13,7 +13,7 @@ public class AjouterUnFilmVuUseCase {
     this.filmVuRepository = filmVuRepository;
   }
 
-  public FilmVu executer() throws Exception {
-    return this.filmVuRepository.ajouterUnFilmVu();
+  public FilmVu executer(FilmVu filmVu) throws Exception {
+    return this.filmVuRepository.ajouterUnFilmVu(filmVu);
   }
 }

@@ -1,22 +1,34 @@
 package com.octo.ajava.infra.repositories;
 
 import com.octo.ajava.domain.FilmVu;
-import com.octo.ajava.domain.exceptions.FilmNotFoundException;
 import com.octo.ajava.domain.repositories.FilmVuRepository;
 import java.util.List;
+
+import org.aspectj.lang.annotation.Before;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class DatabaseFilmVuRepository implements FilmVuRepository {
 
-  @Override
-  public FilmVu ajouterUnFilmVu() throws Exception {
-    throw new FilmNotFoundException("TITRE_VIDE");
+  @Autowired
+  private final DatabaseFilmDAO databaseFilmDAO;
+
+  public DatabaseFilmVuRepository(DatabaseFilmDAO databaseFilmDAO) {
+    this.databaseFilmDAO = databaseFilmDAO;
   }
 
   @Override
-  public List<FilmVu> recupererMesFilmsVus() throws Exception {
-    return null;
+  @Transactional
+  public FilmVu ajouterUnFilmVu(FilmVu filmVu) {
+    return this.databaseFilmDAO.save(filmVu);
+  }
+
+  @Override
+  public List<FilmVu> recupererMesFilmsVus(String userId) {
+    return this.databaseFilmDAO.findAllByUtilisateurId(userId);
   }
 
   @Override
