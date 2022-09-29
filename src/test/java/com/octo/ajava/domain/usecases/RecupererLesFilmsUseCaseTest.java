@@ -26,7 +26,7 @@ public class RecupererLesFilmsUseCaseTest {
     // Given
     Film unFilm =
         new Film(
-            UUID.fromString("5b64010d-8863-496a-b845-89c00a9d6139"),
+            1,
             "Pulp Fiction",
             "Les vies de deux hommes de main...",
             List.of("Policier", "Drame"),

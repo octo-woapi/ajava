@@ -39,6 +39,7 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'
     testImplementation 'com.h2database:h2:2.1.214'
+    testImplementation "com.github.tomakehurst:wiremock-jre8:2.34.0"
 }
 
 dependencyManagement {
