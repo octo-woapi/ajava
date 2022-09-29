@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import com.octo.ajava.ApiIntegrationTest;
@@ -20,21 +19,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @WebMvcTest(FilmController.class)
 class FilmControllerTest extends ApiIntegrationTest {
 
-  private static final String URL_FILMS = "/api/films";
+  private static final String URL_FILMS = "/films";
   @MockBean private RecupererLesFilmsUseCase recupererLesFilmsUseCaseMocked;
 
   private final List<Film> expectedFilms = FilmFixture.uneListeDeFilms();
-
-  @Test
-  void devrait_renvoyer_http_401_quand_la_route_est_appelee_sans_authentification()
-      throws Exception {
-    laRouteEstProtegee(MockMvcRequestBuilders.get(URL_FILMS));
-  }
 
   @Test
   public void doit_renvoyer_le_code_http_200_quand_lister_des_films_a_renvoye_des_resultats()
@@ -44,11 +36,7 @@ class FilmControllerTest extends ApiIntegrationTest {
 
     // when
     MockHttpServletResponse response =
-        mockMvc
-            .perform(
-                get(URL_FILMS).with(httpBasic("user", "password")).contentType(APPLICATION_JSON))
-            .andReturn()
-            .getResponse();
+        mockMvc.perform(get(URL_FILMS).contentType(APPLICATION_JSON)).andReturn().getResponse();
 
     // then
     assertThat(response.getStatus()).isEqualTo(OK.value());
@@ -62,11 +50,7 @@ class FilmControllerTest extends ApiIntegrationTest {
 
     // when
     MockHttpServletResponse response =
-        mockMvc
-            .perform(
-                get(URL_FILMS).with(httpBasic("user", "password")).contentType(APPLICATION_JSON))
-            .andReturn()
-            .getResponse();
+        mockMvc.perform(get(URL_FILMS).contentType(APPLICATION_JSON)).andReturn().getResponse();
 
     // then
     Film[] filmsRenvoyes = convertirJsonEnObjet(response, Film[].class);
@@ -80,11 +64,7 @@ class FilmControllerTest extends ApiIntegrationTest {
 
     // when
     MockHttpServletResponse response =
-        mockMvc
-            .perform(
-                get(URL_FILMS).with(httpBasic("user", "password")).contentType(APPLICATION_JSON))
-            .andReturn()
-            .getResponse();
+        mockMvc.perform(get(URL_FILMS).contentType(APPLICATION_JSON)).andReturn().getResponse();
 
     // then
     Film[] filmsRenvoyes = convertirJsonEnObjet(response, Film[].class);
@@ -101,11 +81,7 @@ class FilmControllerTest extends ApiIntegrationTest {
 
     // when
     MockHttpServletResponse response =
-        mockMvc
-            .perform(
-                get(URL_FILMS).with(httpBasic("user", "password")).contentType(APPLICATION_JSON))
-            .andReturn()
-            .getResponse();
+        mockMvc.perform(get(URL_FILMS).contentType(APPLICATION_JSON)).andReturn().getResponse();
 
     // then
     assertThat(response.getStatus()).isEqualTo(NOT_FOUND.value());

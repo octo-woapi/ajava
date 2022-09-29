@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/")
-public class ApiController {
+@RequestMapping("/basic/")
+public class AccueilBasicAuthController {
 
   @GetMapping
-  public String presentationDeLApi() {
-    return "Présentation de l'API Films";
+  public String accueilAvecBasicAuth() {
+    return "Accès avec BASIC AUTH - Bienvenue à la formation AJAVA !";
   }
 }

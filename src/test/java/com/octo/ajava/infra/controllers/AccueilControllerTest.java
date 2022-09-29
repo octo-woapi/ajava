@@ -15,9 +15,9 @@ class AccueilControllerTest extends ApiIntegrationTest {
   @Test
   void devrait_renvoyer_http_200_et_un_message_d_accueil() throws Exception {
     // Given
-    String texteAttendu = "Bienvenue à la formation AJAVA.";
+    String texteAttendu = "Bienvenue à la formation AJAVA !";
     // When
-    MockHttpServletResponse response = mockMvc.perform(get("/accueil")).andReturn().getResponse();
+    MockHttpServletResponse response = mockMvc.perform(get("/")).andReturn().getResponse();
 
     // Then
     assertThat(response.getStatus()).isEqualTo(OK.value());

@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/accueil")
+@RequestMapping("/")
 public class AccueilController {
 
   @GetMapping
   public String accueil() {
-    return "Bienvenue à la formation AJAVA.";
+    return "Bienvenue à la formation AJAVA !";
   }
 }
