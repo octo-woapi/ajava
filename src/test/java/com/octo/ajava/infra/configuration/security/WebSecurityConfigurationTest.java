@@ -1,4 +1,4 @@
-package com.octo.ajava.infra.security;
+package com.octo.ajava.infra.configuration.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
@@ -19,10 +19,10 @@ public class WebSecurityConfigurationTest {
   @Autowired protected MockMvc mockMvc;
 
   @Test
-  void devrait_renvoyer_http_401_sur_une_route_securisee_utilisee_sans_authentification()
+  void devrait_renvoyer_http_401_lorsque_la_route_basic_est_utilisee_sans_authentification()
       throws Exception {
     // When
-    MockHttpServletResponse response = mockMvc.perform(get("/api/")).andReturn().getResponse();
+    MockHttpServletResponse response = mockMvc.perform(get("/basic/")).andReturn().getResponse();
 
     // Then
     assertThat(response.getStatus()).isEqualTo(UNAUTHORIZED.value());

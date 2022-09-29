@@ -1,4 +1,4 @@
-package com.octo.ajava.infra.security;
+package com.octo.ajava.infra.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,14 +19,14 @@ public class WebSecurityConfiguration {
     return http.headers()
         .and()
         .authorizeRequests()
-        .antMatchers("/accueil")
-        .permitAll()
-        .and()
-        .authorizeRequests()
-        .antMatchers("/api/**")
+        .antMatchers("/basic/**")
         .authenticated()
         .and()
         .httpBasic()
+        .and()
+        .authorizeRequests()
+        .antMatchers("/*")
+        .permitAll()
         .and()
         .csrf()
         .disable()

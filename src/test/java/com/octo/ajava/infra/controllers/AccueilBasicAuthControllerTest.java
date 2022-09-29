@@ -10,23 +10,22 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-@WebMvcTest(ApiController.class)
-class ApiControllerTest extends ApiIntegrationTest {
+@WebMvcTest(AccueilBasicAuthController.class)
+class AccueilBasicAuthControllerTest extends ApiIntegrationTest {
 
-  @Test
-  void devrait_renvoyer_http_401_quand_la_route_est_appelee_sans_authentification()
-      throws Exception {
-    laRouteEstProtegee(get("/api/"));
-  }
+  private static final String URL_BASIC = "/basic/";
 
   @Test
   void devrait_renvoyer_http_200_avec_un_message_de_presentation() throws Exception {
     // Given
-    String messageAttendu = "Présentation de l'API Films";
+    String messageAttendu = "Accès avec BASIC AUTH - Bienvenue à la formation AJAVA !";
 
     // When
     MockHttpServletResponse response =
-        mockMvc.perform(get("/api/").with(httpBasic("user", "password"))).andReturn().getResponse();
+        mockMvc
+            .perform(get(URL_BASIC).with(httpBasic("user", "password")))
+            .andReturn()
+            .getResponse();
 
     // Then
     assertThat(response.getStatus()).isEqualTo(OK.value());
