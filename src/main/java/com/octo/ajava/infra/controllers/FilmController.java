@@ -6,7 +6,6 @@ import com.octo.ajava.domain.usecases.AjouterUnFilmVuUseCase;
 import com.octo.ajava.domain.usecases.RecupererLesFilmsUseCase;
 import java.util.List;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +30,7 @@ public class FilmController {
   }
 
   @PostMapping
-  public void ajouterFilmVu(@RequestBody FilmVuAAjouter filmVuAAjouter, @RequestHeader("Authorization") String userId) throws Exception {
-    this.ajouterUnFilmVuUseCase.executer(new FilmVu(filmVuAAjouter.filmId(), userId, filmVuAAjouter.commentaire(), filmVuAAjouter.note()));
+  public ResponseEntity<FilmVu> ajouterFilmVu(@RequestBody FilmVuAAjouter filmVuAAjouter, @RequestHeader("Authorization") String userId) throws Exception {
+    return ResponseEntity.ok().body(this.ajouterUnFilmVuUseCase.executer(new FilmVu(filmVuAAjouter.filmId(), userId, filmVuAAjouter.commentaire(), filmVuAAjouter.note())));
   }
 }

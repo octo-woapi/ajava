@@ -8,6 +8,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.octo.ajava.ApiIntegrationTest;
@@ -105,8 +107,7 @@ class FilmControllerTest extends ApiIntegrationTest {
     when(ajouterUnFilmVuUseCaseMocked.executer(filmVu)).thenReturn(filmVu);
 
     // when
-    MockHttpServletResponse response =
-        mockMvc.perform(
+    mockMvc.perform(
             post(URL_FILMS)
                 .with(httpBasic("user", "password"))
                 .contentType(APPLICATION_JSON)
@@ -114,14 +115,10 @@ class FilmControllerTest extends ApiIntegrationTest {
                     {
                       "filmId": 1,
                       "note": "10/10",
-                      "commentaire": "azaz"
+                      "commentsaire": "azaz"
                     }
                     """)
                 .accept(MediaType.APPLICATION_JSON)
-        ).andReturn().getResponse();
-
-    // then
-    assertThat(response.getStatus()).isEqualTo(OK.value());
-    assertThat(response.getContentType()).isEqualTo("application/json");
+        ).andExpect(status().isOk());
   }
 }

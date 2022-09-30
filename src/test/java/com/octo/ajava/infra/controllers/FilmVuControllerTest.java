@@ -17,6 +17,8 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(FilmVuController.class)
 class FilmVuControllerTest extends ApiIntegrationTest {
@@ -33,16 +35,30 @@ class FilmVuControllerTest extends ApiIntegrationTest {
         when(recupererMesFilmsVusUseCaseMocked.executer("Basic dXNlcjpwYXNzd29yZA==")).thenReturn(expectedFilmVus);
 
         // when
-        MockHttpServletResponse response =
-            mockMvc.perform(
+        mockMvc.perform(
                 get("/api/film_vus")
                     .contentType(APPLICATION_JSON)
                     .with(httpBasic("user", "password"))
-                ).andReturn().getResponse();
-
-        // then
-        assertThat(response.getStatus()).isEqualTo(OK.value());
-        assertThat(response.getContentType()).isEqualTo("application/json");
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    [
+                        {
+                            "id":null,
+                            "filmId":1,
+                            "utilisateurId":"Basic dXNlcjpwYXNzd29yZA==",
+                            "note":"10/10",
+                            "commentaire":"Batman c'est ouf"
+                        },
+                        {
+                            "id":null,
+                            "filmId":2,
+                            "utilisateurId":"Basic dXNlcjpwYXNzd29yZA==",
+                            "note":"1/10",
+                            "commentaire":"Star nul"
+                        }
+                    ]
+                """));
     }
 
 }
