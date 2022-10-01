@@ -6,16 +6,16 @@ import javax.persistence.*;
 @Table(name = "utilisateur")
 public class Utilisateur {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "nom")
-    private String nom;
+  @Column(name = "nom")
+  private String nom;
 
-    @Column(name = "prenom")
-    private String prénom;
+  @Column(name = "prenom")
+  private String prénom;
 
-    @Column(name = "password")
-    private String motDePasse;
+  @Column(name = "password")
+  private String motDePasse;
 }
