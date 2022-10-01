@@ -9,8 +9,8 @@ CREATE TABLE film_vu
 
 CREATE TABLE utilisateur
 (
-    id     BIGSERIAL PRIMARY KEY,
-    nom    VARCHAR(100),
-    prenom VARCHAR(100),
-    password VARCHAR (100)
+    id       BIGSERIAL PRIMARY KEY,
+    nom      VARCHAR(100),
+    prenom   VARCHAR(100),
+    password VARCHAR(100)
 );

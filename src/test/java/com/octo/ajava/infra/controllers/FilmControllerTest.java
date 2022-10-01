@@ -8,10 +8,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.octo.ajava.ApiIntegrationTest;
 import com.octo.ajava.domain.Film;
 import com.octo.ajava.domain.FilmVu;
@@ -31,10 +29,8 @@ import org.springframework.mock.web.MockHttpServletResponse;
 @WebMvcTest(FilmController.class)
 class FilmControllerTest extends ApiIntegrationTest {
 
-  @MockBean
-  private RecupererLesFilmsUseCase recupererLesFilmsUseCaseMocked;
-  @MockBean
-  private AjouterUnFilmVuUseCase ajouterUnFilmVuUseCaseMocked;
+  @MockBean private RecupererLesFilmsUseCase recupererLesFilmsUseCaseMocked;
+  @MockBean private AjouterUnFilmVuUseCase ajouterUnFilmVuUseCaseMocked;
   private static final String URL_FILMS = "/api/films";
 
   private final List<Film> expectedFilms = FilmFixture.uneListeDeFilms();
@@ -107,18 +103,20 @@ class FilmControllerTest extends ApiIntegrationTest {
     when(ajouterUnFilmVuUseCaseMocked.executer(filmVu)).thenReturn(filmVu);
 
     // when
-    mockMvc.perform(
+    mockMvc
+        .perform(
             post(URL_FILMS)
                 .with(httpBasic("user", "password"))
                 .contentType(APPLICATION_JSON)
-                .content("""
+                .content(
+                    """
                     {
                       "filmId": 1,
                       "note": "10/10",
                       "commentsaire": "azaz"
                     }
                     """)
-                .accept(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isOk());
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
   }
 }

@@ -3,18 +3,14 @@ package com.octo.ajava.infra.repositories;
 import com.octo.ajava.domain.FilmVu;
 import com.octo.ajava.domain.repositories.FilmVuRepository;
 import java.util.List;
-
-import org.aspectj.lang.annotation.Before;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 @Service
 public class DatabaseFilmVuRepository implements FilmVuRepository {
 
-  @Autowired
-  private final DatabaseFilmDAO databaseFilmDAO;
+  @Autowired private final DatabaseFilmDAO databaseFilmDAO;
 
   public DatabaseFilmVuRepository(DatabaseFilmDAO databaseFilmDAO) {
     this.databaseFilmDAO = databaseFilmDAO;

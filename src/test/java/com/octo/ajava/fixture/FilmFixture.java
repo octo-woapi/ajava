@@ -24,18 +24,17 @@ public class FilmFixture {
 
   public static List<Film> deuxFilmsProvenantDeTMDB() {
     return List.of(
-            new Film(
-                    297761,
-                    "Suicide Squad",
-                    "From DC Comics comes the Suicide Squad...",
-                    List.of(),
-                    LocalDate.of(2016, 8, 3)),
-            new Film(
-                    324668,
-                    "Jason Bourne",
-                    "The most dangerous former operative of the CIA...",
-                    List.of(),
-                    LocalDate.of(2016, 7, 27))
-    );
+        new Film(
+            297761,
+            "Suicide Squad",
+            "From DC Comics comes the Suicide Squad...",
+            List.of(),
+            LocalDate.of(2016, 8, 3)),
+        new Film(
+            324668,
+            "Jason Bourne",
+            "The most dangerous former operative of the CIA...",
+            List.of(),
+            LocalDate.of(2016, 7, 27)));
   }
 }
