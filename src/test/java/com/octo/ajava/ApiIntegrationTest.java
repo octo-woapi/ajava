@@ -33,13 +33,4 @@ public abstract class ApiIntegrationTest {
 
     objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
   }
-
-  protected void laRouteEstProtegee(MockHttpServletRequestBuilder route) throws Exception {
-    mockMvc.perform(route).andExpect(status().isUnauthorized());
-  }
-
-  protected <T> T convertirJsonEnObjet(MockHttpServletResponse response, Class<T> clazz)
-      throws Exception {
-    return objectMapper.readValue(response.getContentAsString(StandardCharsets.UTF_8), clazz);
-  }
 }

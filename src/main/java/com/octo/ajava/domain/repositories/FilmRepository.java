@@ -8,5 +8,5 @@ public interface FilmRepository {
 
   List<Film> recupererLesFilmsAvecPagination() throws Exception;
 
-  List<Film> chercherDesFilms() throws Exception;
+  List<Film> chercherDesFilms(String query) throws Exception;
 }

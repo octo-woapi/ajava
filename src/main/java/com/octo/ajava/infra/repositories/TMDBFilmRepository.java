@@ -39,7 +39,11 @@ public class TMDBFilmRepository implements FilmRepository {
   }
 
   @Override
-  public List<Film> chercherDesFilms() throws Exception {
-    return null;
+  public List<Film> chercherDesFilms(String query) throws Exception {
+    var tmdbResponse = this.tmdbHttpClient.get()
+        .getForEntity("/search/movie?query=" + query, PaginatedTMDBMovies.class);
+    var tmdbMovies = tmdbResponse.getBody();
+    if (tmdbMovies == null) return emptyList();
+    return this.tmdbFilmMapper.toFilm(tmdbMovies);
   }
 }
