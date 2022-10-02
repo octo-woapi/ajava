@@ -39,6 +39,19 @@ La BDD démarre sur le port **15432**.
 Les informations de la BDD comme le login, le password, le port, la bddname sont disponibles dans le
 fichier `docker-compose.yml`
 
+## :white_check_mark: Tests
+
+Pour lancer tous les tests :
+
+* sur linux / macos
+    ```shell
+    ./gradlew test
+    ```
+* sur windows
+    ```shell
+    ./gradlew.bat test
+    ```
+
 ---
 
 # TP Sécuriser son API Java avec [Spring Security](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#web.security)
