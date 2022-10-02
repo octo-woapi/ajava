@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,11 +23,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
 @WebMvcTest(FilmController.class)
 class FilmControllerTest extends ApiIntegrationTest {
 
+  private static final String URL_FILMS = "/api/films";
+  private final List<Film> expectedFilms = FilmFixture.uneListeDeFilms();
+
   @MockBean private RecupererLesFilmsUseCase recupererLesFilmsUseCaseMocked;
   @MockBean private ChercherDesFilmsUseCase chercherDesFilmsUseCaseMocked;
-  private static final String URL_FILMS = "/api/films";
-
-  private final List<Film> expectedFilms = FilmFixture.uneListeDeFilms();
 
   @Test
   public void doit_renvoyer_le_code_http_200_quand_lister_des_films_a_renvoye_des_resultats()
@@ -87,17 +86,14 @@ class FilmControllerTest extends ApiIntegrationTest {
   }
 
   @Test
-  public void search_doit_renvoyer_dans_body_la_liste_des_films_recherchés() throws Exception {
+  public void search_doit_renvoyer_dans_body_la_liste_des_films_recherches() throws Exception {
     // given
     when(chercherDesFilmsUseCaseMocked.executer("batman"))
         .thenReturn(FilmFixture.deuxFilmsRecherchesProvenantDeTMDB());
 
     // when
     mockMvc
-        .perform(
-            get(URL_FILMS + "/search?query=batman")
-                .with(httpBasic("user", "password"))
-                .contentType(APPLICATION_JSON))
+        .perform(get(URL_FILMS + "/search?query=batman").contentType(APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(
             content()
