@@ -1,6 +1,11 @@
 package com.octo.ajava.domain;
 
-import javax.persistence.*;
+import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "film_vu")
@@ -15,6 +20,13 @@ public class FilmVu {
   private String commentaire;
 
   public FilmVu() {}
+
+  public FilmVu(int filmId, String utilisateurId, String note, String commentaire) {
+    this.filmId = filmId;
+    this.utilisateurId = utilisateurId;
+    this.note = note;
+    this.commentaire = commentaire;
+  }
 
   public Long getId() {
     return id;
@@ -36,10 +48,23 @@ public class FilmVu {
     return commentaire;
   }
 
-  public FilmVu(int filmId, String utilisateurId, String note, String commentaire) {
-    this.filmId = filmId;
-    this.utilisateurId = utilisateurId;
-    this.note = note;
-    this.commentaire = commentaire;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FilmVu filmVu = (FilmVu) o;
+    return filmId == filmVu.filmId
+        && Objects.equals(utilisateurId, filmVu.utilisateurId)
+        && Objects.equals(note, filmVu.note)
+        && Objects.equals(commentaire, filmVu.commentaire);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(filmId, utilisateurId, note, commentaire);
   }
 }

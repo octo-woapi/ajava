@@ -16,6 +16,9 @@ import org.testcontainers.utility.MountableFile;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 class DatabaseFilmVuRepositoryTest {
+
+  private final String userId = "jdurant";
+
   @Inject private DatabaseFilmVuRepository databaseFilmVuRepository;
 
   @Container
@@ -35,7 +38,7 @@ class DatabaseFilmVuRepositoryTest {
   @Test
   public void doit_ajouter_un_utilisateur_et_retourner_le_film_ajoute_en_base() {
     // given
-    var filmVu = new FilmVu(1, "Basic dXNlcjpwYXNzd29yZA==", "10/10", "Batman c'est ouf");
+    var filmVu = new FilmVu(1, userId, "10/10", "Batman c'est ouf");
     // when
     var result = databaseFilmVuRepository.ajouterUnFilmVu(filmVu);
     // then
@@ -45,13 +48,13 @@ class DatabaseFilmVuRepositoryTest {
   @Test
   public void doit_retourner_la_liste_des_films_par_utilisateur() {
     // given
-    var unPremierFilmVu = new FilmVu(1, "Basic dXNlcjpwYXNzd29yZA==", "10/10", "Batman c'est ouf");
-    var unSecondFilmVu = new FilmVu(2, "Basic dXNlcjpwYXNzd29yZA==", "1/10", "Star nul");
+    var unPremierFilmVu = new FilmVu(1, userId, "10/10", "Batman c'est ouf");
+    var unSecondFilmVu = new FilmVu(2, userId, "1/10", "Star nul");
     databaseFilmVuRepository.ajouterUnFilmVu(unPremierFilmVu);
     databaseFilmVuRepository.ajouterUnFilmVu(unSecondFilmVu);
 
     // when
-    var result = databaseFilmVuRepository.recupererMesFilmsVus("Basic dXNlcjpwYXNzd29yZA==");
+    var result = databaseFilmVuRepository.recupererMesFilmsVus(userId);
 
     // then
     assertThat(result.size()).isEqualTo(2);

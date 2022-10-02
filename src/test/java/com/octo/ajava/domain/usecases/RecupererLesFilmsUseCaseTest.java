@@ -21,7 +21,7 @@ public class RecupererLesFilmsUseCaseTest {
   @InjectMocks private RecupererLesFilmsUseCase recupererLesFilmsUseCase;
 
   @Test
-  public void shouldReturnAListOfFilm() throws Exception {
+  public void devrait_retourner_la_liste_des_films() throws Exception {
     // Given
     Film unFilm =
         new Film(
