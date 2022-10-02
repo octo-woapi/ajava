@@ -66,4 +66,16 @@ class TMDBFilmRepositoryTest {
     // then
     assertThat(films).usingRecursiveComparison().isEqualTo(expectedFilms);
   }
+
+  @Test
+  @DisplayName("rechercherDesFilms retourne une liste de films")
+  public void rechercherDesFilms_retourne_une_liste_de_films() throws Exception {
+    // given
+    var expectedFilms = deuxFilmsProvenantDeTMDB();
+    stubFor(get("/search/movie?query=batman").willReturn(okJson(deuxFilmsDeTMDBEnJSON())));
+    // when
+    var films = tmdbFilmRepository.chercherDesFilms("batman");
+    // then
+    assertThat(films).usingRecursiveComparison().isEqualTo(expectedFilms);
+  }
 }

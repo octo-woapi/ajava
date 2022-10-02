@@ -154,7 +154,7 @@ public class InMemoryFilmRepository implements FilmRepository {
   }
 
   @Override
-  public List<Film> chercherDesFilms() throws Exception {
+  public List<Film> chercherDesFilms(String query) throws Exception {
     return null;
   }
 }
