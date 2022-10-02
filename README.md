@@ -39,6 +39,12 @@ La BDD démarre sur le port **15432**.
 Les informations de la BDD comme le login, le password, le port, la bddname sont disponibles dans le
 fichier `docker-compose.yml`
 
+### Accès à l'API avec Swagger-UI
+
+Ouvrir la page `http://localhost:8080/swagger-ui/index.html`
+
+![Swagger UI](doc/img/swagger.png)
+
 ## :white_check_mark: Tests
 
 Pour lancer tous les tests :
@@ -51,12 +57,6 @@ Pour lancer tous les tests :
     ```shell
     ./gradlew.bat test
     ```
-
-### Accès à l'API avec Swagger-UI
-
-Ouvrir la page `http://localhost:8080/swagger-ui/index.html`
-
-![Swagger UI](doc/img/swagger.png)
 
 ---
 
