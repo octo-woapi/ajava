@@ -84,8 +84,8 @@ Ouvrir la page `http://localhost:8080/swagger-ui/index.html`
 ### [Gestion d'OAuth 2.0 et du JWT Token](https://docs.spring.io/spring-security/reference/reactive/oauth2/resource-server/jwt.html)
 
 <p float="left">
-<img src="doc/img/oauth2-swagger.png" width="450" />
-<img src="doc/img/keycloak.png" width="450" />
+<img src="doc/img/oauth2-swagger.png" width="300" />
+<img src="doc/img/keycloak.png" width="300" />
 </p>
 
 ---
