@@ -17,18 +17,30 @@ public class FilmVuController {
   @Autowired private final RecupererMesFilmsVusUseCase recupererMesFilmsVusUseCase;
   @Autowired private final AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase;
 
-  FilmVuController(RecupererMesFilmsVusUseCase recupererMesFilmsVusUseCase, AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase) {
+  FilmVuController(
+      RecupererMesFilmsVusUseCase recupererMesFilmsVusUseCase,
+      AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase) {
     this.recupererMesFilmsVusUseCase = recupererMesFilmsVusUseCase;
     this.ajouterUnFilmVuUseCase = ajouterUnFilmVuUseCase;
   }
 
   @GetMapping
-  public ResponseEntity<List<FilmVu>> list(@RequestHeader("Authorization") String userId) throws Exception {
+  public ResponseEntity<List<FilmVu>> list(@RequestHeader("Authorization") String userId)
+      throws Exception {
     return ResponseEntity.ok().body(this.recupererMesFilmsVusUseCase.executer(userId));
   }
 
   @PostMapping
-  public ResponseEntity<FilmVu> ajouterFilmVu(@RequestBody FilmVuAAjouter filmVuAAjouter, @RequestHeader("Authorization") String userId) throws Exception {
-    return ResponseEntity.ok().body(this.ajouterUnFilmVuUseCase.executer(new FilmVu(filmVuAAjouter.filmId(), userId, filmVuAAjouter.commentaire(), filmVuAAjouter.note())));
+  public ResponseEntity<FilmVu> ajouterFilmVu(
+      @RequestBody FilmVuAAjouter filmVuAAjouter, @RequestHeader("Authorization") String userId)
+      throws Exception {
+    return ResponseEntity.ok()
+        .body(
+            this.ajouterUnFilmVuUseCase.executer(
+                new FilmVu(
+                    filmVuAAjouter.filmId(),
+                    userId,
+                    filmVuAAjouter.commentaire(),
+                    filmVuAAjouter.note())));
   }
 }
