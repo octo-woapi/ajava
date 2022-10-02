@@ -2,30 +2,23 @@ package com.octo.ajava.infra.controllers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.octo.ajava.ApiIntegrationTest;
 import com.octo.ajava.domain.Film;
-import com.octo.ajava.domain.FilmVu;
-import com.octo.ajava.domain.exceptions.FilmNotFoundException;
-import com.octo.ajava.domain.usecases.AjouterUnFilmVuUseCase;
 import com.octo.ajava.domain.usecases.ChercherDesFilmsUseCase;
 import com.octo.ajava.domain.usecases.RecupererLesFilmsUseCase;
 import com.octo.ajava.fixture.FilmFixture;
-import com.octo.ajava.infra.errorHandling.MessageErreurApi;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 @WebMvcTest(FilmController.class)
@@ -58,9 +51,13 @@ class FilmControllerTest extends ApiIntegrationTest {
     when(recupererLesFilmsUseCaseMocked.executer()).thenReturn(expectedFilms);
 
     // when
-    mockMvc.perform(get(URL_FILMS).contentType(APPLICATION_JSON))
+    mockMvc
+        .perform(get(URL_FILMS).contentType(APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(content().json("""
+        .andExpect(
+            content()
+                .json(
+                    """
             [
                 {
                     "id": 1,
@@ -77,8 +74,7 @@ class FilmControllerTest extends ApiIntegrationTest {
                     "dateDeSortie": "1975-06-20"
                 }
             ]
-            """)
-        );
+            """));
   }
 
   @Test
@@ -93,16 +89,20 @@ class FilmControllerTest extends ApiIntegrationTest {
   @Test
   public void search_doit_renvoyer_dans_body_la_liste_des_films_recherchés() throws Exception {
     // given
-    when(chercherDesFilmsUseCaseMocked.executer("batman")).thenReturn(FilmFixture.deuxFilmsRecherchesProvenantDeTMDB());
+    when(chercherDesFilmsUseCaseMocked.executer("batman"))
+        .thenReturn(FilmFixture.deuxFilmsRecherchesProvenantDeTMDB());
 
     // when
-    mockMvc.perform(
+    mockMvc
+        .perform(
             get(URL_FILMS + "/search?query=batman")
                 .with(httpBasic("user", "password"))
-                .contentType(APPLICATION_JSON)
-        )
+                .contentType(APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(content().json("""
+        .andExpect(
+            content()
+                .json(
+                    """
                 [
                   {
                     "id": 414906,
@@ -119,7 +119,6 @@ class FilmControllerTest extends ApiIntegrationTest {
                     "dateDeSortie": "2005-06-23"
                   }
                 ]
-                """)
-        );
+                """));
   }
 }

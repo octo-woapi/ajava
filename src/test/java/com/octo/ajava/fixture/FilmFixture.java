@@ -40,7 +40,8 @@ public class FilmFixture {
 
   public static List<Film> deuxFilmsRecherchesProvenantDeTMDB() {
     return List.of(
-        new Film(414906,
+        new Film(
+            414906,
             "The Batman",
             "In his second year of fighting crime, Batman...",
             List.of(),
@@ -50,8 +51,6 @@ public class FilmFixture {
             "Batman Begins",
             "Driven by tragedy, billionaire Bruce Wayne dedicates his life to uncovering and defeating the corruption...",
             List.of(),
-            LocalDate.of(2005, 6, 23)
-        )
-    );
+            LocalDate.of(2005, 6, 23)));
   }
 }

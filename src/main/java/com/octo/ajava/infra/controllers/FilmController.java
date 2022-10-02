@@ -4,14 +4,13 @@ import com.octo.ajava.domain.Film;
 import com.octo.ajava.domain.usecases.ChercherDesFilmsUseCase;
 import com.octo.ajava.domain.usecases.RecupererLesFilmsUseCase;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @Tag(name = "Films", description = "Route public pour la gestion des films")
@@ -21,7 +20,9 @@ public class FilmController {
   @Autowired private final RecupererLesFilmsUseCase recupererLesFilmsUseCase;
   @Autowired private final ChercherDesFilmsUseCase chercherDesFilmsUseCase;
 
-  FilmController(RecupererLesFilmsUseCase recupererLesFilmsUseCase, ChercherDesFilmsUseCase chercherDesFilmsUseCase) {
+  FilmController(
+      RecupererLesFilmsUseCase recupererLesFilmsUseCase,
+      ChercherDesFilmsUseCase chercherDesFilmsUseCase) {
     this.recupererLesFilmsUseCase = recupererLesFilmsUseCase;
     this.chercherDesFilmsUseCase = chercherDesFilmsUseCase;
   }

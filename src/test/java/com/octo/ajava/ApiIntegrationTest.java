@@ -1,7 +1,6 @@
 package com.octo.ajava;
 
 import static com.octo.ajava.AjavaApplication.FORMATEUR_DATE;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 @Import(WebSecurityConfiguration.class)
 public abstract class ApiIntegrationTest {
@@ -32,5 +30,10 @@ public abstract class ApiIntegrationTest {
     objectMapper.registerModule(javaTimeModule);
 
     objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+  }
+
+  protected <T> T convertirJsonEnObjet(MockHttpServletResponse response, Class<T> clazz)
+      throws Exception {
+    return objectMapper.readValue(response.getContentAsString(StandardCharsets.UTF_8), clazz);
   }
 }
