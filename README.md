@@ -62,7 +62,7 @@ Pour lancer tous les tests :
 
 # TP Sécuriser son API Java avec [Spring Security](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#web.security)
 
-## :busts_in_silhouette: Utilisateurs déjà créés
+## :frowning_person: Utilisateurs déjà créés
 
 | Authentification    | username        | Password | UserId  | Roles  |
 |---------------------|-----------------|----------|---------|--------|
