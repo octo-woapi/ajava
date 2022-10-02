@@ -18,14 +18,15 @@ public class WebSecurityConfiguration {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http.headers()
         .and()
-        .authorizeRequests()
-        .antMatchers("/basic/**")
-        .authenticated()
-        .and()
         .httpBasic()
         .and()
         .authorizeRequests()
-        .antMatchers("/*")
+        .antMatchers("/api/**")
+        /*
+         * .authenticated()
+         * .and()
+         * .httpBasic()
+         */
         .permitAll()
         .and()
         .csrf()

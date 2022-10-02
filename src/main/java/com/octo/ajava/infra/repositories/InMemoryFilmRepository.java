@@ -147,14 +147,4 @@ public class InMemoryFilmRepository implements FilmRepository {
             List.of("Film japonais"),
             LocalDate.of(2000, 1, 1)));
   }
-
-  @Override
-  public List<Film> recupererLesFilmsAvecPagination() throws Exception {
-    return null;
-  }
-
-  @Override
-  public List<Film> chercherDesFilms(String query) throws Exception {
-    return null;
-  }
 }
