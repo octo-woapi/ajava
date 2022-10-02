@@ -62,7 +62,7 @@ Pour lancer tous les tests :
 
 # TP Sécuriser son API Java avec [Spring Security](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#web.security)
 
-## Utilisateurs déjà créés
+## :busts_in_silhouette: Utilisateurs déjà créés
 
 | Authentification    | username        | Password | UserId  | Roles  |
 |---------------------|-----------------|----------|---------|--------|
@@ -71,13 +71,13 @@ Pour lancer tous les tests :
 | Basic Auth          | admin           | password | admin   | ADMIN, USER |
 | OAuth 2.0 | jeandurant | password | jdurant | USER |
 
-## Utilisation d'une Basic Authentification
+## :old_key: Utilisation d'une Basic Authentification
 
 ### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
 
 ### Gestion de l'authentification [in-memory](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#in-memory-authentication)
 
-## Utilisation d'OAuth 2.0
+## :key: Utilisation d'OAuth 2.0
 
 ### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
 
