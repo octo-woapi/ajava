@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.octo.ajava.infra.configuration.security.WebSecurityConfiguration;
+import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
 @Import(WebSecurityConfiguration.class)
@@ -28,5 +30,10 @@ public abstract class ApiIntegrationTest {
     objectMapper.registerModule(javaTimeModule);
 
     objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
+  }
+
+  protected <T> T convertirJsonEnObjet(MockHttpServletResponse response, Class<T> clazz)
+      throws Exception {
+    return objectMapper.readValue(response.getContentAsString(StandardCharsets.UTF_8), clazz);
   }
 }
