@@ -3,8 +3,8 @@ package com.octo.ajava.infra.repositories;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.octo.ajava.domain.FilmVu;
-import javax.inject.Inject;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -19,7 +19,7 @@ class DatabaseFilmVuRepositoryTest {
 
   private final String userId = "jdurant";
 
-  @Inject private DatabaseFilmVuRepository databaseFilmVuRepository;
+  @Autowired private DatabaseFilmVuRepository databaseFilmVuRepository;
 
   @Container
   static PostgreSQLContainer<?> postgreSQLContainer =

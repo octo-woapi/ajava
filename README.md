@@ -52,17 +52,24 @@ Pour lancer tous les tests :
     ./gradlew.bat test
     ```
 
+### Accès à l'API avec Swagger-UI
+
+Ouvrir la page `http://localhost:8080/swagger-ui/index.html`
+
+![Swagger UI](doc/img/swagger.png)
+
 ---
 
 # TP Sécuriser son API Java avec [Spring Security](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#web.security)
 
 ## Utilisateurs déjà créés
 
-| username | Password | Roles |
-|----------|----------|-------|
-| user| password | USER |
-| jdurant| password | USER |
-| admin | password | ADMIN, USER |
+| Authentification    | username        | Password | UserId  | Roles  |
+|---------------------|-----------------|----------|---------|--------|
+| Basic Auth          | user            | password | user    | USER |
+| Basic Auth          | jdurant         | password | jdurant | USER |
+| Basic Auth          | admin           | password | admin   | ADMIN, USER |
+| OAuth 2.0 | jeandurant | password | jdurant | USER |
 
 ## Utilisation d'une Basic Authentification
 
@@ -70,6 +77,14 @@ Pour lancer tous les tests :
 
 ### Gestion de l'authentification [in-memory](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#in-memory-authentication)
 
+## Utilisation d'OAuth 2.0
+
+### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
+
+### [Gestion d'OAuth 2.0 et du JWT Token](https://docs.spring.io/spring-security/reference/reactive/oauth2/resource-server/jwt.html)
+
+![Authentification OAuth2](doc/img/oauth2-swagger.png)
+![OAuth2 avec Keycloak](doc/img/keycloak.png)
 ---
 
 <details>
