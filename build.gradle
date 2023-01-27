@@ -2,7 +2,7 @@ plugins {
     id 'com.diffplug.spotless' version '6.14.0'
     id 'org.springframework.boot' version '2.7.6'
     id 'io.spring.dependency-management' version '1.0.12.RELEASE'
-    id 'org.asciidoctor.convert' version '1.5.8'
+    id 'org.asciidoctor.convert' version '2.4.0'
     id 'java'
 }
 
