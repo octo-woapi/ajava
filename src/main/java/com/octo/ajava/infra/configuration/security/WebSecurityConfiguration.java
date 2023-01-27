@@ -1,12 +1,14 @@
 package com.octo.ajava.infra.configuration.security;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,37 +17,21 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
 public class WebSecurityConfiguration {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http.headers()
-        .and()
-        .sessionManagement()
-        .sessionCreationPolicy(STATELESS)
-        .and()
-        .authorizeRequests()
-        .antMatchers("/basic/**", "/api/films_vus")
-        .authenticated()
-        .and()
+    return http.headers(Customizer.withDefaults())
+        .sessionManagement(WebSecurityConfiguration::statelessSessionManagement)
+        .authorizeHttpRequests(
+            authorize -> authorize.requestMatchers("/basic/**", "/api/films_vus").authenticated())
         .httpBasic()
         .and()
-        .authorizeRequests()
-        .antMatchers("/oauth2/**")
-        .authenticated()
-        .and()
-        .oauth2ResourceServer()
-        .jwt()
-        .and()
-        .and()
-        .authorizeRequests()
-        .antMatchers("/*")
-        .permitAll()
-        .and()
-        .csrf()
-        .disable()
+        .authorizeHttpRequests(authorize -> authorize.requestMatchers("/oauth2/**").authenticated())
+        .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+        .csrf(AbstractHttpConfigurer::disable)
         .build();
   }
 
@@ -73,5 +59,10 @@ public class WebSecurityConfiguration {
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder(8);
+  }
+
+  private static void statelessSessionManagement(
+      SessionManagementConfigurer<HttpSecurity> sessionManager) {
+    sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
 }
