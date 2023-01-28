@@ -1,8 +1,9 @@
 package com.octo.ajava.infra.configuration.security;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,12 +23,13 @@ public class WebSecurityConfiguration {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http.headers(Customizer.withDefaults())
+    return http.headers(withDefaults())
         .sessionManagement(WebSecurityConfiguration::statelessSessionManagement)
         .authorizeHttpRequests(
             authorize -> authorize.requestMatchers("/basic/**", "/api/films_vus").authenticated())
-        .httpBasic()
-        .and()
+        .httpBasic(withDefaults())
+        .formLogin(withDefaults())
+        // .and()
         .authorizeHttpRequests(authorize -> authorize.requestMatchers("/oauth2/**").authenticated())
         .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
         .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
