@@ -1,54 +1,48 @@
 plugins {
-    id 'com.diffplug.spotless' version '6.11.0'
-    id 'org.springframework.boot' version '2.7.4'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'org.asciidoctor.convert' version '1.5.8'
+    id 'com.diffplug.spotless' version '6.15.0'
+    id 'io.spring.dependency-management' version '1.1.0'
     id 'java'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'org.springframework.boot' version "${globalSpringBootVersion}"
+}
+
+ext {
+    mockitoVersion = '5.2.0'
+    set('snippetsDir', file("build/generated-snippets"))
+    springBootVersion = "${globalSpringBootVersion}"
+    springDocVersion = '1.6.15'
+    springSecurityVersion = '6.0.2'
 }
 
 group = 'com.octo.ajava'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
-ext {
-    set('snippetsDir', file("build/generated-snippets"))
-    set('testcontainersVersion', "1.17.3")
-    springBootVersion = '2.7.4'
-}
 
 dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+    implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 
-    implementation 'org.springdoc:springdoc-openapi-security:1.6.11'
-    implementation 'org.springdoc:springdoc-openapi-ui:1.6.11'
-    implementation 'org.testng:testng:7.1.0'
-
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'org.postgresql:postgresql'
+    implementation "org.springdoc:springdoc-openapi-ui:${springDocVersion}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-    testImplementation 'org.springframework.security:spring-security-test:5.7.3'
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    testImplementation 'org.testcontainers:junit-jupiter'
-    testImplementation 'org.testcontainers:postgresql'
-    testImplementation 'com.h2database:h2:2.1.214'
-    testImplementation "com.github.tomakehurst:wiremock-jre8:2.34.0"
-    testImplementation "org.testcontainers:testcontainers:1.17.4"
+    testImplementation "org.springframework.security:spring-security-test:${springSecurityVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
 
-}
-
-dependencyManagement {
-    imports {
-        mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
-    }
 }
 
 spotless {
@@ -83,5 +77,5 @@ asciidoctor {
 }
 
 wrapper {
-    gradleVersion = '7.5'
+    gradleVersion = '7.6.1'
 }
