@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @OpenAPIDefinition(
-    info = @Info(title = "API Films", version = "v1", description = "Documentation de l'API Films")
-    /*
+    info = @Info(title = "API Films", version = "v1", description = "Documentation de l'API Films"),
     servers =
         @Server(
             url = "${server.servlet.context-path:/}",
