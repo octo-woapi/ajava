@@ -23,7 +23,7 @@ public class FilmController {
 
   @Operation(summary = "Récupère tous les films")
   @GetMapping
-  public ResponseEntity<List<Film>> list() throws Exception {
+  public ResponseEntity<List<Film>> recuperTousLesFilms() throws Exception {
     return ResponseEntity.ok().body(this.recupererLesFilmsUseCase.executer());
   }
 }

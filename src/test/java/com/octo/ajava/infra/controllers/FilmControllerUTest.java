@@ -23,13 +23,13 @@ class FilmControllerUTest {
   @Mock private RecupererLesFilmsUseCase recupererLesFilmsUseCase;
 
   @Test
-  void lister_devrait_renvoyer_uneliste_de_film() throws Exception {
+  void recuperTousLesFilms_devrait_renvoyer_uneliste_de_film() throws Exception {
     // Given
     List<Film> listDeFilmsAttendue = FilmFixture.uneListeDeFilms();
     given(recupererLesFilmsUseCase.executer()).willReturn(listDeFilmsAttendue);
 
     // When
-    ResponseEntity<List<Film>> response = filmController.list();
+    ResponseEntity<List<Film>> response = filmController.recuperTousLesFilms();
 
     // Then
     assertThat(response.getStatusCode()).isEqualTo(OK);

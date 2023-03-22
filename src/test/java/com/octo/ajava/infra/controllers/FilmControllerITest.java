@@ -25,13 +25,12 @@ import org.springframework.test.web.servlet.MockMvc;
 class FilmControllerITest {
 
   @Autowired private MockMvc mockMvc;
+  @Autowired private ObjectMapper objectMapper;
 
   @MockBean private RecupererLesFilmsUseCase recupererLesFilmsUseCase;
 
-  @Autowired private ObjectMapper objectMapper;
-
   @Test
-  void lister_devrait_renvoyer_une_HTTP_200_et_une_liste_de_film() throws Exception {
+  void recuperTousLesFilms_devrait_renvoyer_une_HTTP_200_et_une_liste_de_film() throws Exception {
     // Given
     List<Film> listDeFilmsAttendue = FilmFixture.uneListeDeFilms();
     given(recupererLesFilmsUseCase.executer()).willReturn(listDeFilmsAttendue);
