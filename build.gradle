@@ -10,7 +10,8 @@ ext {
     mockitoVersion = '5.2.0'
     set('snippetsDir', file("build/generated-snippets"))
     springBootVersion = "${globalSpringBootVersion}"
-    springDocVersion = '1.6.15'
+//    springDocVersion = '1.6.15'
+    springDocVersion = '2.0.4'
     springSecurityVersion = '6.0.2'
 }
 
@@ -36,7 +37,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 
-    implementation "org.springdoc:springdoc-openapi-ui:${springDocVersion}"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "org.springframework.security:spring-security-test:${springSecurityVersion}"
