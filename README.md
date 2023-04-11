@@ -41,11 +41,12 @@ fichier `docker-compose.yml`
 
 ---
 
-# TP 1 - Lister des Films
+# TP 1 - Lister des Films TMDB
 
-* Objectif : Exposer la liste des films sur la route `http://localhost:8080/api/films`
-    * Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "in memory"
+* Objectif : Exposer la liste des films provenant de l'API TMDB, sur la route `http://localhost:8080/api/films`
+    * Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "TMDB"
     * Se servir de l'Injection de Dépendence pour utiliser un `FilmRepository`
+    *
 
 ---
 
