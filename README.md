@@ -4,15 +4,18 @@
 
 ## 💻 Installation
 
-Vous devez avoir sur votre poste : 
+Vous devez avoir sur votre poste :
+
 * JAVA en version 17
 * DOCKER (et docker-compose)
 
 ## 🚀 Démarrage
+
 ### Application Spring-Boot
+
 Pour démarrer l'application, jouer la commande suivante :
 
-* sur linux / macos : 
+* sur linux / macos :
     ```shell
     ./gradlew bootRun
     ```
@@ -22,29 +25,32 @@ Pour démarrer l'application, jouer la commande suivante :
     ```
 
 L'application démarre sur le port par défaut de Spring-Boot, **8080**.
+
 ### La base de données
+
 Pour démarrer la BDD, il faut démarrer un container avec la commande :
+
 ``` shell
 docker-compose up -d
 ```
+
 La BDD démarre sur le port **15432**.
 
-Les informations de la BDD comme le login, le password, le port, la bddname sont disponibles dans le fichier `docker-compose.yml`
+Les informations de la BDD comme le login, le password, le port, la bddname sont disponibles dans le
+fichier `docker-compose.yml`
 
 ---
 
-# TP Sécuriser son API Java avec [Spring Security](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#web.security)
+# TP 1 - Lister des Films
 
-## Utilisation d'une Basic Authentification
-
-### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
-
-### Gestion de l'authentification [in-memory](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#in-memory-authentication)
+* Objectif : Exposer la liste des films sur la route `http://localhost:8080/api/films`
+    * Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "in memory"
+    * Se servir de l'Injection de Dépendence pour utiliser un `FilmRepository`
 
 ---
 
 <details>
-  <summary>Documentations officielles</summary>
+  <summary>Documentations officielles Spring</summary>
 
 ### Documentations Spring
 
