@@ -1,5 +1,5 @@
 plugins {
-    id 'com.diffplug.spotless' version '6.15.0'
+    id 'com.diffplug.spotless' version '6.18.0'
     id 'io.spring.dependency-management' version '1.1.0'
     id 'java'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
@@ -10,7 +10,7 @@ ext {
     mockitoVersion = '5.2.0'
     set('snippetsDir', file("build/generated-snippets"))
     springBootVersion = "${globalSpringBootVersion}"
-    springDocVersion = '2.0.4'
+    springDocVersion = '2.1.0'
 }
 
 group = 'com.octo.ajava'
@@ -74,5 +74,5 @@ asciidoctor {
 }
 
 wrapper {
-    gradleVersion = '7.6.1'
+    gradleVersion = '8.0.2'
 }
