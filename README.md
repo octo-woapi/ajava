@@ -41,12 +41,14 @@ fichier `docker-compose.yml`
 
 ---
 
-# TP 1 - Lister des Films TMDB
+# TP 2 - Lister des Films TMDB
 
 * Objectif : Exposer la liste des films provenant de l'API TMDB, sur la route `http://localhost:8080/api/films`
     * Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "TMDB"
-    * Se servir de l'Injection de Dépendence pour utiliser un `FilmRepository`
-    *
+    * Se servir de l'Injection de Dépendance pour utiliser un `FilmRepository` "TMDB'
+    * Utilisation d'une instance `TMDBHttpClient` pour appeler
+      l'[API TMDB](https://developers.themoviedb.org/3/movies/get-popular-movies)
+    * Utilisation d'une instance `TMDBFilmMapper` pour effectuer la conversion de **TMDB Movies** en `Films`
 
 ---
 
