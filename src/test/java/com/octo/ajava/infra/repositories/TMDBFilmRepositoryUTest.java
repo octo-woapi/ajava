@@ -24,7 +24,7 @@ class TMDBFilmRepositoryUTest {
   @Mock private TMDBFilmMapper tmdbFilmMapper;
 
   @Test
-  void recupererLesFilms_devrait_renvoyer_une_liste_de_films_TMDB() throws Exception {
+  void recupererLesFilms_devrait_renvoyer_une_liste_de_films_TMDB() {
     // Given
     TMDBMovie tmdbMovie = unTMDBMovie().build();
     List<TMDBMovie> listDeFilmsTMDB = List.of(tmdbMovie);

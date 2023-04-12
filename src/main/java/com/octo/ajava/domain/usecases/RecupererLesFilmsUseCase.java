@@ -9,7 +9,7 @@ public class RecupererLesFilmsUseCase {
 
   RecupererLesFilmsUseCase() {}
 
-  public List<Film> executer() throws Exception {
+  public List<Film> executer() {
     return null;
   }
 }
