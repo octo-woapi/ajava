@@ -47,6 +47,11 @@ fichier `docker-compose.yml`
     * Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "in memory"
     * Se servir de l'Injection de Dépendence pour utiliser un `FilmRepository`
 
+## Accès à l'API avec Swagger-UI
+
+Ouvrir la page http://localhost:8080/swagger-ui/index.html
+![Swagger UI](doc/img/swagger.png)
+
 ---
 
 <details>

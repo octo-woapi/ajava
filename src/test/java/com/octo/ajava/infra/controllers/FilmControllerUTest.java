@@ -23,7 +23,7 @@ class FilmControllerUTest {
   @Mock private RecupererLesFilmsUseCase recupererLesFilmsUseCase;
 
   @Test
-  void recuperTousLesFilms_devrait_renvoyer_uneliste_de_film() throws Exception {
+  void recuperTousLesFilms_devrait_renvoyer_uneliste_de_film() {
     // Given
     List<Film> listDeFilmsAttendue = FilmFixture.uneListeDeFilms();
     given(recupererLesFilmsUseCase.executer()).willReturn(listDeFilmsAttendue);
