@@ -43,12 +43,25 @@ fichier `docker-compose.yml`
 
 # TP 2 - Lister des Films TMDB
 
-* Objectif : Exposer la liste des films provenant de l'API TMDB, sur la route `http://localhost:8080/api/films`
-    * Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "TMDB"
-    * Se servir de l'Injection de Dépendance pour utiliser un `FilmRepository` "TMDB'
-    * Utilisation d'une instance `TMDBHttpClient` pour appeler
-      l'[API TMDB](https://developers.themoviedb.org/3/movies/get-popular-movies)
-    * Utilisation d'une instance `TMDBFilmMapper` pour effectuer la conversion de **TMDB Movies** en `Films`
+## Prerequis pour l'API TMDB
+
+* Obtenir un compte pour utiliser l'API TMDB : [Page d'inscription](https://www.themoviedb.org/signup)
+* Après l'inscription, votre Jeton d'accès en lecture à l'API va être généré : https://www.themoviedb.org/settings/api
+  ![Token API TMDB](doc/img/token-api-TMDB.png)
+
+## Objectif
+
+Exposer la liste des films provenant de l'API TMDB, sur la route `http://localhost:8080/api/films`
+
+* Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "TMDB"
+* Se servir de l'Injection de Dépendance pour utiliser un `FilmRepository` "TMDB'
+* Utilisation d'une instance `TMDBHttpClient` pour appeler
+  l'[API TMDB](https://developers.themoviedb.org/3/movies/get-popular-movies)
+* Utilisation d'une instance `TMDBFilmMapper` pour effectuer la conversion de **TMDB Movies** en `Films`
+
+## Résultat avec Swagger-UI
+
+![TMDB movies](doc/img/swagger-tmdb-movies.png)
 
 ---
 
