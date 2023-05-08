@@ -30,7 +30,7 @@ public class FilmController {
   @ApiResponses({
     @ApiResponse(
         responseCode = "200",
-        description = "La liste de films a bien été renvoyéee",
+        description = "La liste de films provenant de l'API TMDB a bien été renvoyée",
         content =
             @Content(
                 array = @ArraySchema(schema = @Schema(implementation = Film.class)),
