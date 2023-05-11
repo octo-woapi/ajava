@@ -6,4 +6,6 @@ import java.util.List;
 public interface FilmRepository {
 
   List<Film> recupererLesFilms();
+
+  List<Film> chercherDesFilms(String query);
 }

@@ -43,4 +43,14 @@ public class TMDBHttpClient {
     }
     return tmdbMovies.getMovies();
   }
+
+  public List<TMDBMovie> chercherDesFilms(String query) {
+    ResponseEntity<PaginatedTMDBMovies> tmdbResponse =
+        restTemplate.getForEntity("/search/movie?query=" + query, PaginatedTMDBMovies.class);
+    PaginatedTMDBMovies tmdbMovies = tmdbResponse.getBody();
+    if (tmdbMovies == null) {
+      return emptyList();
+    }
+    return tmdbMovies.getMovies();
+  }
 }
