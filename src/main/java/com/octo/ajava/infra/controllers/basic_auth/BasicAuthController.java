@@ -1,6 +1,6 @@
 package com.octo.ajava.infra.controllers.basic_auth;
 
-import com.octo.ajava.infra.controllers.UtilisateurApi;
+import com.octo.ajava.infra.controllers.entities.UtilisateurApi;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import org.springframework.http.ResponseEntity;

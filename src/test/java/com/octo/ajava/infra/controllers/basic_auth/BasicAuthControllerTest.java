@@ -6,7 +6,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import com.octo.ajava.ApiIntegrationTest;
-import com.octo.ajava.infra.controllers.UtilisateurApi;
+import com.octo.ajava.infra.controllers.entities.UtilisateurApi;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
