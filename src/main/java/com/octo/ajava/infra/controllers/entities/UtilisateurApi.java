@@ -1,4 +1,4 @@
-package com.octo.ajava.infra.controllers;
+package com.octo.ajava.infra.controllers.entities;
 
 import java.util.List;
 
