@@ -1,28 +1,39 @@
 package com.octo.ajava.infra.api_client;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import com.octo.ajava.infra.api_client.entities.TMDBMovie;
-import java.util.List;
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import com.octo.ajava.fixture.TMDBJsonResponseFixture;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Value;
 
-@SpringBootTest
+@WireMockTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TMDBHttpClientITest {
 
-  @Autowired private TMDBHttpClient tmdbHttpClient;
+  private TMDBHttpClient tmdbHttpClient;
+
+  @Value("${tmdb.jeton.acces}") String jetonTmdb;
+
+  @BeforeAll()
+  public void prepare(WireMockRuntimeInfo wmRuntimeInfo) {
+    tmdbHttpClient = new TMDBHttpClient(wmRuntimeInfo.getHttpBaseUrl(), jetonTmdb);
+  }
 
   @Test
-  void recupererLesFilmsPopulaires_devrait_renvoyer_une_liste_de_films_TMDB() {
-    // When
-    List<TMDBMovie> filmsRecuperes = tmdbHttpClient.recupererLesFilmsPopulaires();
+  public void mon_test() {
+    // given
+    stubFor(get("/movie/popular").willReturn(okJson(TMDBJsonResponseFixture.deuxFilms())));
 
-    // Then
-    assertThat(filmsRecuperes).isNotEmpty();
-    TMDBMovie premierFilm = filmsRecuperes.get(0);
-    assertThat(premierFilm.getTitle()).isNotNull();
-    assertThat(premierFilm.getOverview()).isNotNull();
-    assertThat(premierFilm.getReleaseDate()).isNotNull();
+    // when
+    var result = tmdbHttpClient.recupererLesFilmsPopulaires();
+
+    // then
+    verify(getRequestedFor(
+            urlEqualTo("/movie/popular"))
+            .withHeader("Authorization", equalTo("Bearer " + jetonTmdb))
+    );
   }
 }

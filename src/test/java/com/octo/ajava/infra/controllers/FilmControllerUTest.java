@@ -1,5 +1,6 @@
 package com.octo.ajava.infra.controllers;
 
+import com.octo.ajava.domain.usecases.ChercherDesFilmsUseCase;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.HttpStatus.OK;
@@ -21,15 +22,31 @@ class FilmControllerUTest {
 
   @InjectMocks private FilmController filmController;
   @Mock private RecupererLesFilmsUseCase recupererLesFilmsUseCase;
+  @Mock private ChercherDesFilmsUseCase chercherDesFilmsUseCase;
 
   @Test
   void recuperTousLesFilms_devrait_renvoyer_uneliste_de_film() {
     // Given
-    List<Film> listDeFilmsAttendue = FilmFixture.uneListeDeFilms();
+    List<Film> listDeFilmsAttendue = FilmFixture.deuxFilmsPopulaires();
     given(recupererLesFilmsUseCase.executer()).willReturn(listDeFilmsAttendue);
 
     // When
     ResponseEntity<List<Film>> response = filmController.recuperTousLesFilms();
+
+    // Then
+    assertThat(response.getStatusCode()).isEqualTo(OK);
+    List<Film> listeDeFilms = Objects.requireNonNull(response.getBody());
+    assertThat(listeDeFilms.size()).isEqualTo(listDeFilmsAttendue.size());
+  }
+
+  @Test
+  void chercherDesFilms_devrait_renvoyer_uneliste_de_film() {
+    // Given
+    List<Film> listDeFilmsAttendue = FilmFixture.deuxFilmsRecherches();
+    given(chercherDesFilmsUseCase.executer("batman")).willReturn(listDeFilmsAttendue);
+
+    // When
+    ResponseEntity<List<Film>> response = filmController.search("batman");
 
     // Then
     assertThat(response.getStatusCode()).isEqualTo(OK);

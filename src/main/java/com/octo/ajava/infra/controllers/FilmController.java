@@ -49,7 +49,7 @@ public class FilmController {
   }
 
   @GetMapping("/search")
-  public ResponseEntity<List<Film>> search(@RequestParam String query) throws Exception {
+  public ResponseEntity<List<Film>> search(@RequestParam String query) {
     return ResponseEntity.ok().body(this.chercherDesFilmsUseCase.executer(query));
   }
 }
