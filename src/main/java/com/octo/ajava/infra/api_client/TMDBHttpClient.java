@@ -24,7 +24,7 @@ public class TMDBHttpClient {
   private final RestTemplate restTemplate;
 
   public TMDBHttpClient(
-      @Value("${tmdb.url.acces}") String urlTmdb, @Value("${tmdb.jeton.acces}") String jetonTmdb) {
+      @Value("${tmdb.baseUrl}") String urlTmdb, @Value("${tmdb.token}") String jetonTmdb) {
     restTemplate =
         new RestTemplateBuilder()
             .defaultHeader(HttpHeaders.AUTHORIZATION, BEARER + jetonTmdb)
@@ -34,23 +34,15 @@ public class TMDBHttpClient {
             .build();
   }
 
-  public List<TMDBMovie> recupererLesFilmsPopulaires() {
+  public PaginatedTMDBMovies recupererLesFilmsPopulaires() {
     ResponseEntity<PaginatedTMDBMovies> tmdbResponse =
         restTemplate.getForEntity("/movie/popular", PaginatedTMDBMovies.class);
-    PaginatedTMDBMovies tmdbMovies = tmdbResponse.getBody();
-    if (tmdbMovies == null) {
-      return emptyList();
-    }
-    return tmdbMovies.getMovies();
+    return tmdbResponse.getBody();
   }
 
-  public List<TMDBMovie> chercherDesFilms(String query) {
+  public PaginatedTMDBMovies chercherDesFilms(String query) {
     ResponseEntity<PaginatedTMDBMovies> tmdbResponse =
         restTemplate.getForEntity("/search/movie?query=" + query, PaginatedTMDBMovies.class);
-    PaginatedTMDBMovies tmdbMovies = tmdbResponse.getBody();
-    if (tmdbMovies == null) {
-      return emptyList();
-    }
-    return tmdbMovies.getMovies();
+    return tmdbResponse.getBody();
   }
 }
