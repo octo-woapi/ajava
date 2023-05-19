@@ -1,27 +1,21 @@
 package com.octo.ajava;
 
-import static com.octo.ajava.AjavaApplication.FORMATEUR_DATE;
-import static org.mockito.Mockito.when;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.octo.ajava.infra.configuration.security.WebSecurityConfiguration;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
+import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Import(WebSecurityConfiguration.class)
 public abstract class ApiIntegrationTest {
@@ -37,23 +31,10 @@ public abstract class ApiIntegrationTest {
   @Autowired protected MockMvc mockMvc;
   @MockBean private JwtDecoder jwtDecoder;
 
-  protected ObjectMapper objectMapper;
-  protected ObjectWriter objectWriter;
-
   private HttpHeaders getHeaders() {
     HttpHeaders headers = new HttpHeaders();
     headers.add(AUTHORIZATION, BEARER_TOKEN);
     return HttpHeaders.readOnlyHttpHeaders(headers);
-  }
-
-  @BeforeEach
-  void setUp() {
-    objectMapper = new ObjectMapper();
-    JavaTimeModule javaTimeModule = new JavaTimeModule();
-    javaTimeModule.addSerializer(new LocalDateSerializer(FORMATEUR_DATE));
-    objectMapper.registerModule(javaTimeModule);
-
-    objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
   }
 
   protected void laRouteEstProtegee(MockHttpServletRequestBuilder route) throws Exception {
@@ -77,6 +58,6 @@ public abstract class ApiIntegrationTest {
 
   protected <T> T convertirJsonEnObjet(MockHttpServletResponse response, Class<T> clazz)
       throws Exception {
-    return objectMapper.readValue(response.getContentAsString(StandardCharsets.UTF_8), clazz);
+    return ObjectMapperBuilder.handle().readValue(response.getContentAsString(StandardCharsets.UTF_8), clazz);
   }
 }

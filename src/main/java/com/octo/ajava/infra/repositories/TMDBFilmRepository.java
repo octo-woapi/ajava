@@ -4,8 +4,8 @@ import static java.util.Collections.emptyList;
 
 import com.octo.ajava.domain.Film;
 import com.octo.ajava.domain.repositories.FilmRepository;
-import com.octo.ajava.infra.client.TMDBHttpClient;
-import com.octo.ajava.infra.client.resource.PaginatedTMDBMovies;
+import com.octo.ajava.infra.api_client.TMDBHttpClient;
+import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
 import com.octo.ajava.infra.mapper.TMDBFilmMapper;
 import java.util.List;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -25,27 +25,21 @@ public class TMDBFilmRepository implements FilmRepository {
   }
 
   @Override
-  public List<Film> recupererLesFilms() throws Exception {
+  public List<Film> recupererLesFilms() {
     var tmdbResponse =
-        this.tmdbHttpClient.get().getForEntity("/movie/popular", PaginatedTMDBMovies.class);
-    var tmdbMovies = tmdbResponse.getBody();
-    if (tmdbMovies == null) return emptyList();
-    return this.tmdbFilmMapper.toFilm(tmdbMovies);
+        this.tmdbHttpClient.recupererLesFilmsPopulaires();
+    return this.tmdbFilmMapper.convertirEnFilms(tmdbResponse);
   }
 
   @Override
-  public List<Film> recupererLesFilmsAvecPagination() throws Exception {
+  public List<Film> recupererLesFilmsAvecPagination() {
     return null;
   }
 
   @Override
-  public List<Film> chercherDesFilms(String query) throws Exception {
+  public List<Film> chercherDesFilms(String query) {
     var tmdbResponse =
-        this.tmdbHttpClient
-            .get()
-            .getForEntity("/search/movie?query=" + query, PaginatedTMDBMovies.class);
-    var tmdbMovies = tmdbResponse.getBody();
-    if (tmdbMovies == null) return emptyList();
-    return this.tmdbFilmMapper.toFilm(tmdbMovies);
+        this.tmdbHttpClient.chercherDesFilms(query);
+    return this.tmdbFilmMapper.convertirEnFilms(tmdbResponse);
   }
 }

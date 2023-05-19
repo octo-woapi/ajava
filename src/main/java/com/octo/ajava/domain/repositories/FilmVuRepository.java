@@ -7,6 +7,4 @@ public interface FilmVuRepository {
   FilmVu ajouterUnFilmVu(FilmVu filmVu) throws Exception;
 
   List<FilmVu> recupererMesFilmsVus(String userId) throws Exception;
-
-  void supprimerUnFilmVu() throws Exception;
 }

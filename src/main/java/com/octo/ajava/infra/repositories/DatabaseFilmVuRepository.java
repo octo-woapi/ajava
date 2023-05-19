@@ -26,7 +26,4 @@ public class DatabaseFilmVuRepository implements FilmVuRepository {
   public List<FilmVu> recupererMesFilmsVus(String userId) {
     return this.databaseFilmDAO.findAllByUtilisateurId(userId);
   }
-
-  @Override
-  public void supprimerUnFilmVu() throws Exception {}
 }
