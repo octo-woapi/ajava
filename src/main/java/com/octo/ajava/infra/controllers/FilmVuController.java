@@ -3,6 +3,7 @@ package com.octo.ajava.infra.controllers;
 import com.octo.ajava.domain.FilmVu;
 import com.octo.ajava.domain.usecases.AjouterUnFilmVuUseCase;
 import com.octo.ajava.domain.usecases.RecupererMesFilmsVusUseCase;
+import com.octo.ajava.infra.controllers.entities.FilmVuAAjouterApi;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -36,17 +37,18 @@ public class FilmVuController {
 
   @PostMapping
   public ResponseEntity<FilmVu> ajouterFilmVu(
-      @RequestBody FilmVuAAjouterApi filmVuAAjouterApi, Authentication authentication)
+          @RequestBody FilmVuAAjouterApi filmVuAAjouterApi, Authentication authentication)
       throws Exception {
     String userId = authentication.getName();
 
-    return ResponseEntity.ok()
+    return ResponseEntity.status(201)
         .body(
             this.ajouterUnFilmVuUseCase.executer(
                 new FilmVu(
                     filmVuAAjouterApi.filmId(),
                     userId,
                     filmVuAAjouterApi.note(),
-                    filmVuAAjouterApi.commentaire())));
+                    filmVuAAjouterApi.commentaire()))
+        );
   }
 }

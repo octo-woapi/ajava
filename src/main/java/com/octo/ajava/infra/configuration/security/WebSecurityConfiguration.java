@@ -21,20 +21,35 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class WebSecurityConfiguration {
 
+
+  // avec keykloack
+//  @Bean
+//  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//    return http.headers(withDefaults())
+//        .sessionManagement(WebSecurityConfiguration::statelessSessionManagement)
+//        .authorizeHttpRequests(
+//            authorize -> authorize.requestMatchers("/basic/**", "/api/films_vus").authenticated())
+//        .httpBasic(withDefaults())
+//        .formLogin(withDefaults())
+//        // .and()
+//        .authorizeHttpRequests(authorize -> authorize.requestMatchers("/oauth2/**").authenticated())
+//        .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+//        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+//        .csrf(AbstractHttpConfigurer::disable)
+//        .build();
+//  }
+
+  // avec basic auth
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http.headers(withDefaults())
-        .sessionManagement(WebSecurityConfiguration::statelessSessionManagement)
-        .authorizeHttpRequests(
-            authorize -> authorize.requestMatchers("/basic/**", "/api/films_vus").authenticated())
-        .httpBasic(withDefaults())
-        .formLogin(withDefaults())
-        // .and()
-        .authorizeHttpRequests(authorize -> authorize.requestMatchers("/oauth2/**").authenticated())
-        .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-        .csrf(AbstractHttpConfigurer::disable)
-        .build();
+            .sessionManagement(WebSecurityConfiguration::statelessSessionManagement)
+            .authorizeHttpRequests(
+                    authorize -> authorize.requestMatchers("/api/films_vus").hasAnyRole("USER"))
+            .httpBasic(withDefaults())
+            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+            .csrf(AbstractHttpConfigurer::disable)
+            .build();
   }
 
   @Bean

@@ -1,4 +1,4 @@
-package com.octo.ajava.infra.client.resource;
+package com.octo.ajava.infra.api_client.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

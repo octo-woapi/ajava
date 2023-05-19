@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/films")
 public class FilmController {
 
-  @Autowired private final RecupererLesFilmsUseCase recupererLesFilmsUseCase;
-  @Autowired private final ChercherDesFilmsUseCase chercherDesFilmsUseCase;
+  private final RecupererLesFilmsUseCase recupererLesFilmsUseCase;
+  private final ChercherDesFilmsUseCase chercherDesFilmsUseCase;
 
   FilmController(
       RecupererLesFilmsUseCase recupererLesFilmsUseCase,

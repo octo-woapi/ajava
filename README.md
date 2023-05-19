@@ -59,6 +59,15 @@ Pour lancer tous les tests :
     ```
 
 ---
+## Prerequis pour l'API TMDB
+
+* Obtenir un compte pour utiliser l'API TMDB : [Page d'inscription](https://www.themoviedb.org/signup)
+* Après l'inscription, votre **Jeton d'accès** en lecture à l'API va être
+  généré : https://www.themoviedb.org/settings/api
+  ![Token API TMDB](doc/img/token-api-TMDB.png)
+* Créer un fichier `src/main/resources/.env`, avec le même contenu que le fichier `.env.exemple`
+* Remplacer `<METTRE ICI LE JETON TMDB>` par votre **Jeton d'accès** à l'API TMDB
+---
 
 # TP Sécuriser son API Java avec [Spring Security](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#web.security)
 

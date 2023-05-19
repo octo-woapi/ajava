@@ -13,18 +13,26 @@ import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+// avec keycloack
+//@SecurityScheme(
+//    name = "security_auth",
+//    type = SecuritySchemeType.OAUTH2,
+//    flows =
+//        @OAuthFlows(
+//            authorizationCode =
+//                @OAuthFlow(
+//                    authorizationUrl =
+//                        "${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/auth",
+//                    tokenUrl =
+//                        "${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/token",
+//                    scopes = {@OAuthScope(name = "roles")})))
+
+// avec basic auth
 @SecurityScheme(
-    name = "security_auth",
-    type = SecuritySchemeType.OAUTH2,
-    flows =
-        @OAuthFlows(
-            authorizationCode =
-                @OAuthFlow(
-                    authorizationUrl =
-                        "${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/auth",
-                    tokenUrl =
-                        "${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/token",
-                    scopes = {@OAuthScope(name = "roles")})))
+        type = SecuritySchemeType.HTTP,
+        name = "basicAuth",
+        scheme = "basic"
+)
 @OpenAPIDefinition(
     info = @Info(title = "API Films", version = "v1", description = "Documentation de l'API Films"),
     servers =
