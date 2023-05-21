@@ -40,6 +40,8 @@ dependencies {
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
 
+    testImplementation "io.rest-assured:rest-assured:5.2.0"
+
 }
 
 spotless {

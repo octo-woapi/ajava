@@ -10,15 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AjavaApplication {
 
-  public static final DateTimeFormatter FORMATEUR_DATE =
-      (new DateTimeFormatterBuilder())
-          .appendValue(ChronoField.DAY_OF_MONTH, 2)
-          .appendLiteral('/')
-          .appendValue(ChronoField.MONTH_OF_YEAR, 2)
-          .appendLiteral('/')
-          .appendValue(ChronoField.YEAR_OF_ERA, 4, 10, SignStyle.EXCEEDS_PAD)
-          .toFormatter();
-
   public static void main(String[] args) {
     SpringApplication.run(AjavaApplication.class, args);
   }
