@@ -16,6 +16,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 @Service
+@ConditionalOnProperty(name = "film.source", havingValue = "TMDB")
 public class TMDBHttpClient {
 
   private static final String BEARER = "Bearer ";

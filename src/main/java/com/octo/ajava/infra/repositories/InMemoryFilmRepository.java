@@ -149,11 +149,6 @@ public class InMemoryFilmRepository implements FilmRepository {
   }
 
   @Override
-  public List<Film> recupererLesFilmsAvecPagination() throws Exception {
-    return null;
-  }
-
-  @Override
   public List<Film> chercherDesFilms(String query) {
     return List.of(
             new Film(

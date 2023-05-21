@@ -32,11 +32,6 @@ public class TMDBFilmRepository implements FilmRepository {
   }
 
   @Override
-  public List<Film> recupererLesFilmsAvecPagination() {
-    return null;
-  }
-
-  @Override
   public List<Film> chercherDesFilms(String query) {
     var tmdbResponse =
         this.tmdbHttpClient.chercherDesFilms(query);
