@@ -24,7 +24,8 @@ Pour démarrer l'application, jouer la commande suivante :
     ./gradlew.bat bootRun
     ```
 
-L'application démarre sur le port par défaut de Spring-Boot, **8080**.
+L'application démarre sur le port par défaut de Spring-Boot, **8080**. <br>
+Et swagger se trouve ici : http://localhost:8080/swagger-ui/index.html
 
 ### La base de données
 
@@ -46,7 +47,8 @@ fichier `docker-compose.yml`
 ## Prerequis pour l'API TMDB
 
 * Obtenir un compte pour utiliser l'API TMDB : [Page d'inscription](https://www.themoviedb.org/signup)
-* Après l'inscription, votre Jeton d'accès en lecture à l'API va être généré : https://www.themoviedb.org/settings/api
+* Après l'inscription, votre **Jeton d'accès** en lecture à l'API va être
+  généré : https://www.themoviedb.org/settings/api
   ![Token API TMDB](doc/img/token-api-TMDB.png)
 * Créer un fichier `src/main/resources/.env`, avec le même contenu que le fichier `.env.exemple`
 * Remplacer `<METTRE ICI LE JETON TMDB>` par votre **Jeton d'accès** à l'API TMDB
@@ -55,15 +57,13 @@ fichier `docker-compose.yml`
 
 Exposer la liste des films provenant de l'API TMDB, sur la route `http://localhost:8080/api/films`
 
-* Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "TMDB"
-* Se servir de l'Injection de Dépendance pour utiliser un `FilmRepository` "TMDB'
-* Utilisation d'une instance `TMDBHttpClient` pour appeler
-  l'[API TMDB](https://developers.themoviedb.org/3/movies/get-popular-movies)
-* Utilisation d'une instance `TMDBFilmMapper` pour effectuer la conversion de **TMDB Movies** en `Films`
-
-## Résultat avec Swagger-UI
-
-![TMDB movies](doc/img/swagger-tmdb-movies.png)
+* Compléter la classe `TMDBFilmRepository` pour renvoyer une liste de Film à notre use case RecupererLesFilmsUseCase
+  * Utilisation d'une instance `TMDBHttpClient` pour appeler
+    l'[API TMDB](https://developers.themoviedb.org/3/movies/get-popular-movies)
+    * La méthode existe déjà dans le client recupererLesFilmsPopulaires` mais vous pouvez aller voir la doc
+  * Utilisation d'une instance `TMDBFilmMapper` pour effectuer la conversion de **TMDB Movies** en `Films`
+    * Le but ici est de transformer un object DTO **PaginatedTMDBMovies** en un object métier ici une **liste de Film**
+* Vous pourrez aussi avant de démarrer le swagger pour tester l'application corriger ou écrire les tests existants pour chaques classes
 
 ---
 

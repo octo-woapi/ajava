@@ -1,24 +1,29 @@
 package com.octo.ajava.infra.mapper;
 
 import com.octo.ajava.domain.Film;
-import com.octo.ajava.infra.api_client.entities.TMDBMovie;
+import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
 import java.util.Collections;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
-@Service
+import static java.util.Collections.emptyList;
+import org.springframework.stereotype.Component;
+
+@Component
 public class TMDBFilmMapper {
 
-  public List<Film> convertirEnFilms(List<TMDBMovie> tmdbMovies) {
-    return tmdbMovies.stream().map(this::convertirEnFilm).toList();
-  }
+  public List<Film> convertirEnFilms(PaginatedTMDBMovies paginatedTMDBMovies) {
+    var movies = paginatedTMDBMovies.getMovies();
 
-  public Film convertirEnFilm(TMDBMovie tmdbMovie) {
-    return new Film(
-        tmdbMovie.getId(),
-        tmdbMovie.getTitle(),
-        tmdbMovie.getOverview(),
-        Collections.emptyList(),
-        tmdbMovie.getReleaseDate());
+    if (movies == null) {
+      return emptyList();
+    }
+
+    return movies.stream().map(tmdbMovie -> new Film(
+            tmdbMovie.getId(),
+            tmdbMovie.getTitle(),
+            tmdbMovie.getOverview(),
+            emptyList(),
+            tmdbMovie.getReleaseDate()
+    )).toList();
   }
 }

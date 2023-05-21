@@ -23,7 +23,8 @@ public class TMDBFilmRepository implements FilmRepository {
 
   @Override
   public List<Film> recupererLesFilms() {
-    List<TMDBMovie> tmdbMovies = tmdbHttpClient.recupererLesFilmsPopulaires();
-    return tmdbFilmMapper.convertirEnFilms(tmdbMovies);
+    var tmdbResponse =
+            this.tmdbHttpClient.recupererLesFilmsPopulaires();
+    return this.tmdbFilmMapper.convertirEnFilms(tmdbResponse);
   }
 }
