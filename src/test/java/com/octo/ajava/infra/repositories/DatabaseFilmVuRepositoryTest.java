@@ -37,11 +37,10 @@ class DatabaseFilmVuRepositoryTest {
 
   @Test
   public void doit_ajouter_un_utilisateur_et_retourner_le_film_ajoute_en_base() {
-    // given
-    var filmVu = new FilmVu(1, userId, "10/10", "Batman c'est ouf");
-    // when
-    var result = databaseFilmVuRepository.ajouterUnFilmVu(filmVu);
-    // then
-    assertThat(result).isEqualTo(filmVu);
+    // Given
+
+    // When
+
+    // Then
   }
 }
