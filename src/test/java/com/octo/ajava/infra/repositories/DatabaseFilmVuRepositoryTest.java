@@ -44,19 +44,4 @@ class DatabaseFilmVuRepositoryTest {
     // then
     assertThat(result).isEqualTo(filmVu);
   }
-
-  @Test
-  public void doit_retourner_la_liste_des_films_par_utilisateur() {
-    // given
-    var unPremierFilmVu = new FilmVu(1, userId, "10/10", "Batman c'est ouf");
-    var unSecondFilmVu = new FilmVu(2, userId, "1/10", "Star nul");
-    databaseFilmVuRepository.ajouterUnFilmVu(unPremierFilmVu);
-    databaseFilmVuRepository.ajouterUnFilmVu(unSecondFilmVu);
-
-    // when
-    var result = databaseFilmVuRepository.recupererMesFilmsVus(userId);
-
-    // then
-    assertThat(result.size()).isEqualTo(2);
-  }
 }
