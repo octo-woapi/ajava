@@ -2,8 +2,8 @@ version: "3"
 
 services:
   postgres:
-    image: "postgres:14-alpine"
     container_name: ajava_db
+    image: postgres:14.5-alpine
     restart: always
     ports:
       - "15432:5432"
@@ -14,6 +14,46 @@ services:
     volumes:
       - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
 
+  keycloak-db:
+    container_name: keycloak-db
+    image: postgres:14.5-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+      PGPASSWORD: password
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      - keycloak
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    command: start-dev --import-realm
+    depends_on:
+      - keycloak-db
+    environment:
+      - KC_DB=postgres
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=password
+      - KC_DB_URL=jdbc:postgresql://keycloak_db:5432/keycloak
+      - KC_LOG=console
+      - KC_LOG_LEVEL=INFO
+      - KC_REALM_NAME=octo
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=password
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./keycloak/realms/:/opt/keycloak/data/import/
+    networks:
+      - keycloak
+
 volumes:
   ajava-db-data:
     driver: local
+
+networks:
+  keycloak:

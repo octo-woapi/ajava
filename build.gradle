@@ -7,10 +7,12 @@ plugins {
 }
 
 ext {
+    log4jVersion = '2.20.0'
     mockitoVersion = '5.2.0'
     set('snippetsDir', file("build/generated-snippets"))
     springBootVersion = "${globalSpringBootVersion}"
     springDocVersion = '2.1.0'
+    springSecurityVersion = '6.0.2'
 }
 
 group = 'com.octo.ajava'
@@ -28,10 +30,17 @@ repositories {
 
 dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation "org.apache.logging.log4j:log4j-api:${log4jVersion}"
+    implementation "org.apache.logging.log4j:log4j-to-slf4j:${log4jVersion}"
 
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+
+    implementation "org.springframework.security:spring-security-config:${springSecurityVersion}"
+    implementation "org.springframework.security:spring-security-oauth2-client:${springSecurityVersion}"
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
     implementation 'me.paulschwarz:spring-dotenv:3.0.0'
@@ -39,6 +48,8 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${globalSpringBootVersion}"
 }
 
 spotless {

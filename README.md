@@ -41,25 +41,58 @@ fichier `docker-compose.yml`
 
 ---
 
-# TP 2 - Lister des Films TMDB
+# TP 4 - Utiliser OAUTH 2
 
-## Prerequis pour l'API TMDB
+## Prérequis pour OAuth 2
+
+### Installation et utilisation de Keyclock
+
+* Utilisation de l'image docker Keycloak 19.0.2 : https://quay.io/repository/keycloak/keycloak?tab=tags
+* Modification du fichier `docker-compose.yml` et configuration des **utilisateurs** avec le
+  fichier `keycloak/realms/realm.json`
+  ![docker-compose](doc/img/docker-compose-keycloak.png)
+
+#### :frowning_person: :policewoman: Utilisateur Keycloak déjà configuré
+
+| Authentification | username   | Password | UserId  | Roles |
+|------------------|------------|----------|---------|-------|
+| OAuth 2.0        | jeandurant | password | jdurant | USER  |
+
+#### :key: Utilisation d'OAuth 2.0
+
+* [Documentation sur la gestion d'OAuth 2.0 et du JWT Token](https://docs.spring.io/spring-security/reference/reactive/oauth2/resource-server/jwt.html)
+* Authentification sur Swagger-UI et sur la page de login Keycloak
+
+<p float="left">
+<img src="doc/img/oauth2-swagger.png" width="400" />
+<img src="doc/img/keycloak-sign-in.png" width="400" />
+</p>
+
+## Prérequis pour l'API TMDB
 
 * Obtenir un compte pour utiliser l'API TMDB : [Page d'inscription](https://www.themoviedb.org/signup)
 * Après l'inscription, votre Jeton d'accès en lecture à l'API va être généré : https://www.themoviedb.org/settings/api
-  ![Token API TMDB](doc/img/token-api-TMDB.png)
+* <img src="doc/img/token-api-TMDB.png" width="700" />
 * Créer un fichier `src/main/resources/.env`, avec le même contenu que le fichier `.env.exemple`
 * Remplacer `<METTRE ICI LE JETON TMDB>` par votre **Jeton d'accès** à l'API TMDB
 
 ## Objectif
 
-Exposer la liste des films provenant de l'API TMDB, sur la route `http://localhost:8080/api/films`
+Pouvoir utiliser l'api (ex. via Swagger-UI) en s'étant authentifier au préalable, via Keycloak.
 
 * Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "TMDB"
 * Se servir de l'Injection de Dépendance pour utiliser un `FilmRepository` "TMDB'
 * Utilisation d'une instance `TMDBHttpClient` pour appeler
   l'[API TMDB](https://developers.themoviedb.org/3/movies/get-popular-movies)
 * Utilisation d'une instance `TMDBFilmMapper` pour effectuer la conversion de **TMDB Movies** en `Films`
+
+## Démarrer les différents containers Docker
+
+```ssh
+docker-compose up -d
+```
+
+![docker-compose up -d](doc/img/docker-compose_up.png)
 
 ## Résultat avec Swagger-UI
 
