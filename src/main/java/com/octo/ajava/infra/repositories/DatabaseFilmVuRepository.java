@@ -21,9 +21,4 @@ public class DatabaseFilmVuRepository implements FilmVuRepository {
   public FilmVu ajouterUnFilmVu(FilmVu filmVu) {
     return this.databaseFilmDAO.save(filmVu);
   }
-
-  @Override
-  public List<FilmVu> recupererMesFilmsVus(String userId) {
-    return this.databaseFilmDAO.findAllByUtilisateurId(userId);
-  }
 }

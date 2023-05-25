@@ -21,50 +21,41 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class WebSecurityConfiguration {
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http.headers(withDefaults())
-        .sessionManagement(WebSecurityConfiguration::statelessSessionManagement)
-        .authorizeHttpRequests(
-            authorize -> authorize.requestMatchers("/basic/**", "/api/films_vus").authenticated())
-        .httpBasic(withDefaults())
-        .formLogin(withDefaults())
-        // .and()
-        .authorizeHttpRequests(authorize -> authorize.requestMatchers("/oauth2/**").authenticated())
-        .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-        .csrf(AbstractHttpConfigurer::disable)
-        .build();
-  }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http.headers(withDefaults())
+                .sessionManagement(WebSecurityConfiguration::statelessSessionManagement)
+                .authorizeHttpRequests(
+                        authorize -> authorize.requestMatchers("/api/films_vus").hasAnyRole("USER"))
+                .httpBasic(withDefaults())
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .csrf(AbstractHttpConfigurer::disable)
+                .build();
+    }
 
-  @Bean
-  public InMemoryUserDetailsManager userDetailsService() {
-    final UserDetails utilisateurLambda =
-        User.withUsername("user")
-            .password(passwordEncoder().encode("password"))
-            .roles("USER")
-            .build();
-    final UserDetails jeanDurant =
-        User.withUsername("jdurant")
-            .password(passwordEncoder().encode("password"))
-            .roles("USER")
-            .build();
-    final UserDetails admin =
-        User.withUsername("admin")
-            .password(passwordEncoder().encode("password"))
-            .roles("ADMIN", "USER")
-            .build();
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService() {
+        final UserDetails utilisateurLambda =
+                User.withUsername("user")
+                        .password(passwordEncoder().encode("password"))
+                        .roles("USER")
+                        .build();
+        final UserDetails admin =
+                User.withUsername("admin")
+                        .password(passwordEncoder().encode("password"))
+                        .roles("ADMIN", "USER")
+                        .build();
 
-    return new InMemoryUserDetailsManager(utilisateurLambda, admin, jeanDurant);
-  }
+        return new InMemoryUserDetailsManager(utilisateurLambda, admin);
+    }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder(8);
-  }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(8);
+    }
 
-  private static void statelessSessionManagement(
-      SessionManagementConfigurer<HttpSecurity> sessionManager) {
-    sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-  }
+    private static void statelessSessionManagement(
+            SessionManagementConfigurer<HttpSecurity> sessionManager) {
+        sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
 }
