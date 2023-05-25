@@ -24,7 +24,8 @@ Pour démarrer l'application, jouer la commande suivante :
     ./gradlew.bat bootRun
     ```
 
-L'application démarre sur le port par défaut de Spring-Boot, **8080**.
+L'application démarre sur le port par défaut de Spring-Boot, **8080**. <br>
+Et swagger se trouve ici : http://localhost:8080/swagger-ui/index.html
 
 ### La base de données
 
@@ -41,11 +42,19 @@ fichier `docker-compose.yml`
 
 ---
 
+## Prerequis pour l'API TMDB
+
+- Doc pour le tp 2 : https://developer.themoviedb.org/reference/movie-popular-list
+- Doc pour le tp 3 : https://developer.themoviedb.org/reference/search-movie
+- Doc pour le tp 7 : https://developer.themoviedb.org/reference/movie-details
+
 # TP 1 - Lister des Films
 
 * Objectif : Exposer la liste des films sur la route `http://localhost:8080/api/films`
     * Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "in memory"
+      * Il existe une classe avec des `InMemoryFilmRepository` avec des fausses donneés dedans vous pouvez vous en servir
     * Se servir de l'Injection de Dépendence pour utiliser un `FilmRepository`
+* Vous pourrez aussi avant de démarrer le swagger pour tester l'application corriger ou écrire les tests existants pour chaques classes
 
 ---
 

@@ -36,9 +36,13 @@ dependencies {
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
 
+    implementation 'me.paulschwarz:spring-dotenv:3.0.0'
+
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+
+    testImplementation "io.rest-assured:rest-assured:5.2.0"
 
 }
 

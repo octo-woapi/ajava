@@ -7,11 +7,8 @@ import java.util.List;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
-@Service
-@ConditionalOnProperty(name = "film.source", havingValue = "IN_MEMORY")
-public class InMemoryFilmRepository implements FilmRepository {
+public class InMemoryFilmRepository {
 
-  @Override
   public List<Film> recupererLesFilms() {
     return List.of(
         new Film(

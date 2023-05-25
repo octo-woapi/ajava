@@ -20,11 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Film", description = "Services API pour la gestion des films")
 public class FilmController {
 
-  private final RecupererLesFilmsUseCase recupererLesFilmsUseCase;
-
-  FilmController(RecupererLesFilmsUseCase recupererLesFilmsUseCase) {
-    this.recupererLesFilmsUseCase = recupererLesFilmsUseCase;
-  }
+  FilmController() {}
 
   @Operation(summary = "Récupère tous les films")
   @ApiResponses({
@@ -38,6 +34,6 @@ public class FilmController {
   })
   @GetMapping
   public ResponseEntity<List<Film>> recuperTousLesFilms() {
-    return ResponseEntity.ok().body(this.recupererLesFilmsUseCase.executer());
+    return null;
   }
 }
