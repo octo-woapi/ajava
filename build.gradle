@@ -32,6 +32,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
     implementation 'me.paulschwarz:spring-dotenv:3.0.0'
@@ -39,6 +40,10 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+
+    testImplementation "com.github.tomakehurst:wiremock-jre8-standalone:2.35.0"
+
+    testImplementation "io.rest-assured:rest-assured:5.2.0"
 }
 
 spotless {
