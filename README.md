@@ -24,7 +24,8 @@ Pour démarrer l'application, jouer la commande suivante :
     ./gradlew.bat bootRun
     ```
 
-L'application démarre sur le port par défaut de Spring-Boot, **8080**.
+L'application démarre sur le port par défaut de Spring-Boot, **8080**. <br>
+Et swagger se trouve ici : http://localhost:8080/swagger-ui/index.html
 
 ### La base de données
 
@@ -77,16 +78,10 @@ Pour lancer tous les tests :
 
 ### Gestion de l'authentification [in-memory](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#in-memory-authentication)
 
-## :key: Utilisation d'OAuth 2.0
+## Objectif du TP
 
-### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
-
-### [Gestion d'OAuth 2.0 et du JWT Token](https://docs.spring.io/spring-security/reference/reactive/oauth2/resource-server/jwt.html)
-
-<p float="left">
-<img src="doc/img/oauth2-swagger.png" width="400" />
-<img src="doc/img/keycloak.png" width="400" />
-</p>
+* Modifier la classe WebSecurityConfiguration pour sécuriser la route `/api/films_vus`
+* Faire passer au vert le test `WebSecurityConfigurationTest` qui vous permet de vérifier que vos endpoints sont bien sécurisés
 
 ---
 
