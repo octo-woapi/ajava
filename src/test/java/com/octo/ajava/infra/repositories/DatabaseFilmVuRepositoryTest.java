@@ -1,8 +1,5 @@
 package com.octo.ajava.infra.repositories;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import com.octo.ajava.domain.FilmVu;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
