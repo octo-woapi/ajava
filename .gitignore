@@ -39,3 +39,6 @@ out/
 .DS_Store
 
 postgres_data
+
+### Local Configuration ###
+src/main/resources/.env

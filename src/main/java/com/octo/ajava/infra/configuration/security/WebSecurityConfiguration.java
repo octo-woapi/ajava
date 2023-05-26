@@ -26,7 +26,7 @@ public class WebSecurityConfiguration {
         return http.headers(withDefaults())
                 .sessionManagement(WebSecurityConfiguration::statelessSessionManagement)
                 .authorizeHttpRequests(
-                        authorize -> authorize.requestMatchers("/api/films_vus").hasAnyRole("USER"))
+                        authorize -> authorize.requestMatchers("route que je veux sécuriser").hasAnyRole("mon role"))
                 .httpBasic(withDefaults())
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .csrf(AbstractHttpConfigurer::disable)

@@ -21,7 +21,7 @@ public class WebSecurityConfigurationTest {
   void devrait_renvoyer_http_401_lorsqu_une_route_est_utilisee_sans_authentification()
       throws Exception {
     // When
-    MockHttpServletResponse response = mockMvc.perform(get("/api/films_vus")).andReturn().getResponse();
+    MockHttpServletResponse response = mockMvc.perform(get("endpoint que je veux tester")).andReturn().getResponse();
 
     // Then
     assertThat(response.getStatus()).isEqualTo(UNAUTHORIZED.value());
