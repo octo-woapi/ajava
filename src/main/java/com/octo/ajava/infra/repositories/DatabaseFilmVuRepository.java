@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DatabaseFilmVuRepository implements FilmVuRepository {
 
-  @Autowired private final DatabaseFilmDAO databaseFilmDAO;
+  private final DatabaseFilmDAO databaseFilmDAO;
 
   public DatabaseFilmVuRepository(DatabaseFilmDAO databaseFilmDAO) {
     this.databaseFilmDAO = databaseFilmDAO;
@@ -20,5 +20,10 @@ public class DatabaseFilmVuRepository implements FilmVuRepository {
   @Transactional
   public FilmVu ajouterUnFilmVu(FilmVu filmVu) {
     return this.databaseFilmDAO.save(filmVu);
+  }
+
+  @Override
+  public List<FilmVu> recupererMesFilmsVus(String userId) {
+    return this.databaseFilmDAO.findAllByUtilisateurId(userId);
   }
 }

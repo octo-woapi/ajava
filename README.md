@@ -60,35 +60,19 @@ Pour lancer tous les tests :
 
 ---
 
-# TP Sécuriser son API Java avec [Spring Security](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#web.security)
-
-## :frowning_person: :policewoman: Utilisateurs déjà créés
-
-| Authentification    | username        | Password | UserId  | Roles  |
-|---------------------|-----------------|----------|---------|--------|
-| Basic Auth          | user            | password | user    | USER |
-| Basic Auth          | jdurant         | password | jdurant | USER |
-| Basic Auth          | admin           | password | admin   | ADMIN, USER |
-| OAuth 2.0 | jeandurant | password | jdurant | USER |
-
-## :old_key: Utilisation d'une Basic Authentification
-
-### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
-
-### Gestion de l'authentification [in-memory](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#in-memory-authentication)
-
-## :key: Utilisation d'OAuth 2.0
-
-### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
-
-### [Gestion d'OAuth 2.0 et du JWT Token](https://docs.spring.io/spring-security/reference/reactive/oauth2/resource-server/jwt.html)
-
-<p float="left">
-<img src="doc/img/oauth2-swagger.png" width="400" />
-<img src="doc/img/keycloak.png" width="400" />
-</p>
-
+# TP 6 ajouter et noter un film vu
 ---
+
+## Objectif
+
+Ajouter un film vu en bdd provenant de l'API TMDB
+
+* Lancer la commande `docker compose up -d` pour lancer le postgres
+* Compléter le controller FilmVuController
+  * Utilisation des [**query property expressions**](https://docs.spring.io/spring-data/jpa/docs/1.7.1.RELEASE/reference/html/#repositories.query-methods.query-property-expressions)
+  * Bien écrire le test `DatabaseFilmVuRepositoryTest` qui permet de vérifier ma requete SQL
+* Vous pourrez aussi avant de démarrer le swagger pour tester l'application corriger ou écrire les tests existants pour chaques classes
+
 
 <details>
   <summary>Documentations officielles</summary>

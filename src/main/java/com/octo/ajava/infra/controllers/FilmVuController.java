@@ -2,14 +2,18 @@ package com.octo.ajava.infra.controllers;
 
 import com.octo.ajava.domain.FilmVu;
 import com.octo.ajava.domain.usecases.AjouterUnFilmVuUseCase;
+import com.octo.ajava.domain.usecases.RecupererMesFilmsVusUseCase;
 import com.octo.ajava.infra.controllers.entities.FilmVuAAjouterApi;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @Tag(name = "Films Vus", description = "Route public pour la gestion des films vus")
@@ -17,10 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class FilmVuController {
 
   private final AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase;
+  private final RecupererMesFilmsVusUseCase recupererMesFilmsVusUseCase;
 
   FilmVuController(
-      AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase) {
+      AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase,
+      RecupererMesFilmsVusUseCase recupererMesFilmsVusUseCase) {
     this.ajouterUnFilmVuUseCase = ajouterUnFilmVuUseCase;
+    this.recupererMesFilmsVusUseCase = recupererMesFilmsVusUseCase;
   }
 
   @PostMapping
@@ -38,5 +45,11 @@ public class FilmVuController {
                     filmVuAAjouterApi.note(),
                     filmVuAAjouterApi.commentaire()))
         );
+  }
+
+  @GetMapping
+  public ResponseEntity<List<FilmVu>> list(Authentication authentication) throws Exception {
+    String userId = authentication.getName();
+    return ResponseEntity.ok().body(this.recupererMesFilmsVusUseCase.executer(userId));
   }
 }

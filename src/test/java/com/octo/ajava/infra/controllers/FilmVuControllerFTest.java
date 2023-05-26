@@ -42,4 +42,23 @@ class FilmVuControllerFTest {
     assertThat(filmAjoute.getFilmId()).isEqualTo(1);
   }
 
+  @Test
+  void doit_renvoyer_le_code_http_200_quand_lister_des_films_a_renvoye_des_resultats() throws Exception {
+    // Given
+
+    // When
+    var response = RestAssured.given()
+            .contentType("application/json")
+            .auth().basic("user", "password")
+            .get("/api/films_vus")
+            .then()
+            .statusCode(HttpStatus.OK.value())
+            .extract().response().asString();
+
+    // Then
+    FilmVu[] listeDeFilms = ObjectMapperBuilder.handle().readValue(response, FilmVu[].class);
+
+    assertThat(listeDeFilms.length).isNotNegative();
+  }
+
 }
