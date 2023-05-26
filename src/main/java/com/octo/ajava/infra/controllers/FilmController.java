@@ -10,12 +10,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/films")
@@ -23,14 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class FilmController {
 
   private final RecupererLesFilmsUseCase recupererLesFilmsUseCase;
-  private final ChercherDesFilmsUseCase chercherDesFilmsUseCase;
 
   FilmController(
           RecupererLesFilmsUseCase recupererLesFilmsUseCase,
           ChercherDesFilmsUseCase chercherDesFilmsUseCase
   ) {
     this.recupererLesFilmsUseCase = recupererLesFilmsUseCase;
-    this.chercherDesFilmsUseCase = chercherDesFilmsUseCase;
   }
 
   @Operation(summary = "Récupère tous les films")
@@ -46,10 +44,5 @@ public class FilmController {
   @GetMapping
   public ResponseEntity<List<Film>> recuperTousLesFilms() {
     return ResponseEntity.ok().body(this.recupererLesFilmsUseCase.executer());
-  }
-
-  @GetMapping("/search")
-  public ResponseEntity<List<Film>> search(@RequestParam String query) {
-    return ResponseEntity.ok().body(this.chercherDesFilmsUseCase.executer(query));
   }
 }

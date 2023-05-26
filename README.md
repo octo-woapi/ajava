@@ -24,7 +24,8 @@ Pour démarrer l'application, jouer la commande suivante :
     ./gradlew.bat bootRun
     ```
 
-L'application démarre sur le port par défaut de Spring-Boot, **8080**.
+L'application démarre sur le port par défaut de Spring-Boot, **8080**. <br>
+Et swagger se trouve ici : http://localhost:8080/swagger-ui/index.html
 
 ### La base de données
 
@@ -41,7 +42,7 @@ fichier `docker-compose.yml`
 
 ---
 
-# TP 2 - Lister des Films TMDB
+# TP 3 - Rechercher des Films TMDB
 
 ## Prerequis pour l'API TMDB
 
@@ -53,13 +54,16 @@ fichier `docker-compose.yml`
 
 ## Objectif
 
-Exposer la liste des films provenant de l'API TMDB, sur la route `http://localhost:8080/api/films`
+Exposer la liste des films provenant de l'API TMDB avec le paramètre recherché, sur la route `http://localhost:8080/api/films?query={query}`
 
-* Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "TMDB"
-* Se servir de l'Injection de Dépendance pour utiliser un `FilmRepository` "TMDB'
+* Ecrire le endpoint
+  * Vous pouvez utiliser le `@RequestParam` pour récupérer le query param
+* Ecrire un usecase `ChercherDesFilmsUseCase`, qui permet de rechercher par **nom de film** afin qu'il renvoie la liste des films recherchés depuis "TMDB"
 * Utilisation d'une instance `TMDBHttpClient` pour appeler
-  l'[API TMDB](https://developers.themoviedb.org/3/movies/get-popular-movies)
-* Utilisation d'une instance `TMDBFilmMapper` pour effectuer la conversion de **TMDB Movies** en `Films`
+  l'[API TMDB](https://developer.themoviedb.org/reference/search-movie)
+  * Il existe déjà la fonction `chercherDesFilms` dans le client mais vous pouvez aller voir la doc
+  * Il faut passer dans la query param `query` le nom de film que je veux rechercher par exemple
+* Vous pourrez aussi avant de démarrer le swagger pour tester l'application corriger ou écrire les tests existants pour chaques classes
 
 ## Résultat avec Swagger-UI
 

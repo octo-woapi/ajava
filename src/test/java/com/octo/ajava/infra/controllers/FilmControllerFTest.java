@@ -40,7 +40,7 @@ class FilmControllerFTest {
 
     // When
     var response = RestAssured.given()
-            .get("/api/films/search?query=totoro")
+            .get("la route que je veux tester")
             .then()
             .statusCode(HttpStatus.OK.value())
             .extract().response().asString();

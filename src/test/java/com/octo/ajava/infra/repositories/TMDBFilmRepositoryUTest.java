@@ -49,22 +49,5 @@ class TMDBFilmRepositoryUTest {
         Assertions.assertEquals(FilmFixture.deuxFilmsPopulaires(), result);
     }
 
-    @Test
-    void rechercherDesFilms_retourne_une_liste_de_films() {
-        // Given
-        given(tmdbHttpClient.chercherDesFilms("batman")).willReturn(new PaginatedTMDBMovies(
-                1,
-                TMDBMovieFixture.deuxFilmsRecherchesVenantDeTMTB(),
-                2,
-                1
-        ));
-
-        // When
-        var result = tmdbFilmRepository.chercherDesFilms("batman");
-
-        // Then
-        Assertions.assertEquals(FilmFixture.deuxFilmsRecherches(), result);
-    }
-
 
 }

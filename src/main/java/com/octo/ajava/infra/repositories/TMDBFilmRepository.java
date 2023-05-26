@@ -26,10 +26,4 @@ public class TMDBFilmRepository implements FilmRepository {
     var tmdbMovies = tmdbHttpClient.recupererLesFilmsPopulaires();
     return tmdbFilmMapper.convertirEnFilms(tmdbMovies);
   }
-
-  @Override
-  public List<Film> chercherDesFilms(String query) {
-    var tmdbMovies = tmdbHttpClient.chercherDesFilms(query);
-    return tmdbFilmMapper.convertirEnFilms(tmdbMovies);
-  }
 }

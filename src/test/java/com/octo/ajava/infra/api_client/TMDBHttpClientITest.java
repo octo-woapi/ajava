@@ -23,7 +23,7 @@ class TMDBHttpClientITest {
   }
 
   @Test
-  public void mon_test() {
+  public void recupererLesFilmsPopulaires() {
     // given
     stubFor(get("/movie/popular").willReturn(okJson(TMDBJsonResponseFixture.deuxFilms())));
 
