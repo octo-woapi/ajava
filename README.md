@@ -40,6 +40,16 @@ La BDD démarre sur le port **15432**.
 Les informations de la BDD comme le login, le password, le port, la bddname sont disponibles dans le
 fichier `docker-compose.yml`
 
+## Prerequis pour les tps
+
+Deux choix possibles :
+- partir des branches **tp-X_solution** à chaque fin de tp
+- partir de la branche **tp-1_lister_des_films** et continuer tout au long des tps à partir de cette branche
+
+Si vous partez de la branche **tp-1_lister_des_films** pour les tps, pour le tp 4 vous aurez besoin de :
+- cette [classe de configuration](https://github.com/octo-woapi/AJAVA/blob/tp-4_solution_avec_basic_auth/src/main/java/com/octo/ajava/infra/configuration/security/WebSecurityConfiguration.java) (à mettre au même endroit dans l'arborescence)
+- et de décommenter dans le `build.gradle` les lignes 40 à 42 puis de lancer un `./gradlew build` à la racine du projet dans ou via intellij
+
 ---
 
 ## Prerequis pour l'API TMDB
