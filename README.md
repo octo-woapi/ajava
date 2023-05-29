@@ -59,45 +59,22 @@ Pour lancer tous les tests :
     ```
 
 ---
-## Prerequis pour l'API TMDB
 
-* Obtenir un compte pour utiliser l'API TMDB : [Page d'inscription](https://www.themoviedb.org/signup)
-* Après l'inscription, votre **Jeton d'accès** en lecture à l'API va être
-  généré : https://www.themoviedb.org/settings/api
-  ![Token API TMDB](doc/img/token-api-TMDB.png)
-* Créer un fichier `src/main/resources/.env`, avec le même contenu que le fichier `.env.exemple`
-* Remplacer `<METTRE ICI LE JETON TMDB>` par votre **Jeton d'accès** à l'API TMDB
+# TP 7 gestion des erreurs
 ---
 
-# TP Sécuriser son API Java avec [Spring Security](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#web.security)
+## Objectif
 
-## :frowning_person: :policewoman: Utilisateurs déjà créés
+Renvoyer une erreur 404 quand la route /api/films/:id ne trouve pas de film
 
-| Authentification    | username        | Password | UserId  | Roles  |
-|---------------------|-----------------|----------|---------|--------|
-| Basic Auth          | user            | password | user    | USER |
-| Basic Auth          | jdurant         | password | jdurant | USER |
-| Basic Auth          | admin           | password | admin   | ADMIN, USER |
-| OAuth 2.0 | jeandurant | password | jdurant | USER |
+* Lancer la commande `docker compose up -d` pour lancer le postgres
+* Ecrire un endpoint `/api/film/:id`
+  * Dans le use case renvoyer un `FilmNotFoundException` quand le film n'a pas été trouvé
+  * Dans le repository utiliser la classe `TMDBHttpClient` ou il y a une méthode `chercherUnFilmParId` qui permet de chercher un film par id sur l'api TMDB
+    * Dans le client vous pouvez regarder le test pour voir comment on stub une erreur 404
+  * Dans le package `../infra/errorHandling` il y a le controller advice
+* Vous pourrez aussi avant de démarrer le swagger pour tester l'application corriger ou écrire les tests existants pour chaques classes
 
-## :old_key: Utilisation d'une Basic Authentification
-
-### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
-
-### Gestion de l'authentification [in-memory](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#in-memory-authentication)
-
-## :key: Utilisation d'OAuth 2.0
-
-### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
-
-### [Gestion d'OAuth 2.0 et du JWT Token](https://docs.spring.io/spring-security/reference/reactive/oauth2/resource-server/jwt.html)
-
-<p float="left">
-<img src="doc/img/oauth2-swagger.png" width="400" />
-<img src="doc/img/keycloak.png" width="400" />
-</p>
-
----
 
 <details>
   <summary>Documentations officielles</summary>

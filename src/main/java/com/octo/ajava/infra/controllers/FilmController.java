@@ -42,7 +42,7 @@ public class FilmController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Film> getById(@PathVariable String id) throws Exception {
+  public ResponseEntity<Film> getById(@PathVariable String id) {
     return ResponseEntity.ok().body(this.chercherUnFilmParIdUseCase.executer(id));
   }
 }

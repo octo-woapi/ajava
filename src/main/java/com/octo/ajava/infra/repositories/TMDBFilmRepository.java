@@ -43,22 +43,6 @@ public class TMDBFilmRepository implements FilmRepository {
 
     @Override
     public Optional<Film> chercherUnFilmParId(String id) {
-        var tmdbResponse =
-                this.tmdbHttpClient.chercherUnFilmParId(id);
-
-        if (tmdbResponse.isPresent()) {
-            var tmdbMovie = tmdbResponse.get();
-            return Optional.of(
-                    new Film(
-                            tmdbMovie.getId(),
-                            tmdbMovie.getTitle(),
-                            tmdbMovie.getOverview(),
-                            emptyList(),
-                            tmdbMovie.getReleaseDate()
-                    )
-            );
-        } else {
-            return Optional.empty();
-        }
+        return null;
     }
 }

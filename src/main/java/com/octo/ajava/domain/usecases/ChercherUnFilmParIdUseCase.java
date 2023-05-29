@@ -15,12 +15,6 @@ public class ChercherUnFilmParIdUseCase {
     }
 
     public Film executer(String id) throws FilmNotFoundException {
-        var response = this.filmRepository.chercherUnFilmParId(id);
-
-        if (response.isPresent()) {
-            return response.get();
-        } else {
-            throw new FilmNotFoundException(id);
-        }
+        return null;
     }
 }

@@ -76,31 +76,13 @@ class TMDBFilmRepositoryUTest {
     void chercherUnFilmParId_retourne_un_film_quand_il_est_present_dans_la_reponse() {
         // Given
         given(tmdbHttpClient.chercherUnFilmParId("414906")).willReturn(Optional.of(
-                new TMDBMovie(
-                        414906,
-                        "The Batman",
-                        "en",
-                        "The Batman",
-                        "In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler.",
-                        LocalDate.of(2022, 3, 1),
-                        153,
-                        8
-                )
+                // film renvoyé par tmdb
         ));
 
         // When
         var result = tmdbFilmRepository.chercherUnFilmParId("414906");
 
         // Then
-        var expected = Optional.of(
-                new Film(
-                        414906,
-                        "The Batman",
-                        "In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler.",
-                        List.of(),
-                        LocalDate.of(2022, 3, 1)
-                )
-        );
         Assertions.assertEquals(expected, result);
     }
 
@@ -115,7 +97,6 @@ class TMDBFilmRepositoryUTest {
         var result = tmdbFilmRepository.chercherUnFilmParId("1");
 
         // Then
-        var expected = Optional.empty();
         Assertions.assertEquals(expected, result);
     }
 }
