@@ -5,6 +5,7 @@ import com.octo.ajava.ObjectMapperBuilder;
 import com.octo.ajava.domain.Film;
 import io.restassured.RestAssured;
 import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -47,5 +48,22 @@ class FilmControllerFTest {
     Film[] listeDeFilms = ObjectMapperBuilder.handle().readValue(response, Film[].class);
 
     assertThat(listeDeFilms.length).isEqualTo(1);
+  }
+
+  @Test
+  void chercherUnFilmParId_devrait_renvoyer_une_HTTP_200_avec_le_film_trouve() throws Exception {
+    // Given
+
+    // When
+    var response = RestAssured.given()
+            .get("/api/films/1")
+            .then()
+            .statusCode(HttpStatus.OK.value())
+            .extract().response().asString();
+
+    // Then
+    Film film = ObjectMapperBuilder.handle().readValue(response, Film.class);
+
+    Assertions.assertNotNull(film);
   }
 }
