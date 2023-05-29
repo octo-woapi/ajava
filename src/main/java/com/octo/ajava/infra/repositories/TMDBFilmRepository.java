@@ -8,6 +8,8 @@ import com.octo.ajava.infra.api_client.TMDBHttpClient;
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
 import com.octo.ajava.infra.mapper.TMDBFilmMapper;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
@@ -32,14 +34,30 @@ public class TMDBFilmRepository implements FilmRepository {
   }
 
   @Override
-  public List<Film> recupererLesFilmsAvecPagination() {
-    return null;
-  }
-
-  @Override
   public List<Film> chercherDesFilms(String query) {
     var tmdbResponse =
         this.tmdbHttpClient.chercherDesFilms(query);
     return this.tmdbFilmMapper.convertirEnFilms(tmdbResponse);
+  }
+
+  @Override
+  public Optional<Film> chercherUnFilmParId(String id) {
+    var tmdbResponse =
+            this.tmdbHttpClient.chercherUnFilmParId(id);
+
+    if (tmdbResponse.isPresent()) {
+      var tmdbMovie = tmdbResponse.get();
+      return Optional.of(
+              new Film(
+                      tmdbMovie.getId(),
+                      tmdbMovie.getTitle(),
+                      tmdbMovie.getOverview(),
+                      emptyList(),
+                      tmdbMovie.getReleaseDate()
+              )
+      );
+    } else {
+      return Optional.empty();
+    }
   }
 }

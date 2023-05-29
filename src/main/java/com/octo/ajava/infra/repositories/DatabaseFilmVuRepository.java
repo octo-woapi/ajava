@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DatabaseFilmVuRepository implements FilmVuRepository {
 
-  @Autowired private final DatabaseFilmDAO databaseFilmDAO;
+  private final DatabaseFilmDAO databaseFilmDAO;
 
   public DatabaseFilmVuRepository(DatabaseFilmDAO databaseFilmDAO) {
     this.databaseFilmDAO = databaseFilmDAO;

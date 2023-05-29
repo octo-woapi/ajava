@@ -2,11 +2,12 @@ package com.octo.ajava.domain.repositories;
 
 import com.octo.ajava.domain.Film;
 import java.util.List;
+import java.util.Optional;
 
 public interface FilmRepository {
-  List<Film> recupererLesFilms() throws Exception;
+  List<Film> recupererLesFilms();
 
-  List<Film> recupererLesFilmsAvecPagination() throws Exception;
+  List<Film> chercherDesFilms(String query);
 
-  List<Film> chercherDesFilms(String query) throws Exception;
+  Optional<Film> chercherUnFilmParId(String id);
 }

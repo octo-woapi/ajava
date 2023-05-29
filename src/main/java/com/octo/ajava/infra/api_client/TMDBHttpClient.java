@@ -1,11 +1,14 @@
 package com.octo.ajava.infra.api_client;
 
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
+import com.octo.ajava.infra.api_client.entities.TMDBMovie;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.Optional;
 
 @Service
 @ConditionalOnProperty(name = "film.source", havingValue = "TMDB")
@@ -39,5 +42,17 @@ public class TMDBHttpClient {
             .retrieve()
             .bodyToMono(PaginatedTMDBMovies.class)
             .block();
+  }
+
+  public Optional<TMDBMovie> chercherUnFilmParId(String id) {
+    try {
+      return webClient.get()
+              .uri("/movie/" + id)
+              .retrieve()
+              .bodyToMono(TMDBMovie.class)
+              .blockOptional();
+    } catch (Exception e) {
+      return Optional.empty();
+    }
   }
 }
