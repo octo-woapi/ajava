@@ -60,19 +60,17 @@ Pour lancer tous les tests :
 
 ---
 
-# TP 5 ajouter et noter un film vu
+# TP 6 ajouter et noter un film vu
 ---
 
 ## Objectif
 
-Ajouter un film vu en bdd provenant de l'API TMDB
+Lister les films vus de l'utilisateur connecté
 
 * Lancer la commande `docker compose up -d` pour lancer le postgres
-* Compléter le controller FilmVuController
-  * Utilisation de la classe `Authentication` dans le `FilmVuController` pour récupérer l'information de l'utilisateur connecté
-  * Utilisation de la classe `DatabaseFilmDAO` dans le `DatabaseFilmVuRepository` pour sauvegarder l'entité
-  * Compléter le test `DatabaseFilmVuRepositoryTest`
-  * Compléter le test `FilmVuControllerFTest`
+* Ecrire le endpoint dans le controller `FilmVuController`
+  * Utilisation des [**query property expressions**](https://docs.spring.io/spring-data/jpa/docs/1.7.1.RELEASE/reference/html/#repositories.query-methods.query-property-expressions)
+  * Bien écrire le test `DatabaseFilmVuRepositoryTest` qui permet de vérifier ma requete SQL
 * Vous pourrez aussi avant de démarrer le swagger pour tester l'application corriger ou écrire les tests existants pour chaques classes
 
 
