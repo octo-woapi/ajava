@@ -40,6 +40,8 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
 
+    implementation 'me.paulschwarz:spring-dotenv:3.0.0'
+
     implementation "org.springframework.security:spring-security-config:${springSecurityVersion}"
     implementation "org.springframework.security:spring-security-oauth2-client:${springSecurityVersion}"
 

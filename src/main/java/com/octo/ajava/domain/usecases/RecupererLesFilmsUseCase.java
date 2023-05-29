@@ -14,7 +14,7 @@ public class RecupererLesFilmsUseCase {
     this.filmRepository = filmRepository;
   }
 
-  public List<Film> executer() throws Exception {
+  public List<Film> executer() {
     return this.filmRepository.recupererLesFilms();
   }
 }
