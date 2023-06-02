@@ -63,6 +63,7 @@ Pour lancer tous les tests :
 
 - Doc pour le tp 2 : https://developer.themoviedb.org/reference/movie-popular-list
 - Doc pour le tp 3 : https://developer.themoviedb.org/reference/search-movie
+- Doc pour le tp 5 : https://developer.themoviedb.org/reference/movie-recommendations
 - Doc pour le tp 7 : https://developer.themoviedb.org/reference/movie-details
 
 * Obtenir un compte pour utiliser l'API TMDB : [Page d'inscription](https://www.themoviedb.org/signup)
