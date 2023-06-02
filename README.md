@@ -77,6 +77,12 @@ Ajouter un film vu en bdd provenant de l'API TMDB
 * Compléter le test `FilmVuControllerFTest`
 * Vous pourrez aussi avant de démarrer le swagger pour tester l'application corriger ou écrire les tests existants pour chaques classes
 
+## Objectif en plus
+
+Je veux renvoyer dans mon endpoint la liste des suggestions en fonction de l’id du film
+
+* Vérifier que l’id du film passé en paramètre existe bien sur l’api TMDB avant de l’insérer en base : https://developer.themoviedb.org/reference/movie-details
+* Renvoyer la liste des suggestions, dans la réponse de `POST /api/films_vus` : https://developer.themoviedb.org/reference/movie-recommendations
 
 <details>
   <summary>Documentations officielles</summary>
