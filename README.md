@@ -50,6 +50,9 @@ fichier `docker-compose.yml`
 * Utilisation de l'image docker Keycloak 19.0.2 : https://quay.io/repository/keycloak/keycloak?tab=tags
 * Modification du fichier `docker-compose.yml` et configuration des **utilisateurs** avec le
   fichier `keycloak/realms/realm.json`
+
+Modifiez le fichier `keycloak/realms/realm.json`. Cherchez le client `octo-api` et modifier la ligne : `"secret": "**********"`. Mettez ici la valeur que vous souhaitez, c'est le secret qui vous sera demandé par Swagger pour authentifier le client 
+
   ![docker-compose](doc/img/docker-compose-keycloak.png)
 
 #### :frowning_person: :policewoman: Utilisateur Keycloak déjà configuré
@@ -64,6 +67,7 @@ fichier `docker-compose.yml`
 * Authentification sur Swagger-UI et sur la page de login Keycloak
 
 <p float="left">
+<b>saisissez ici le secret que vous avez renseigné dans le fichier realm.json</b>
 <img src="doc/img/oauth2-swagger.png" width="400" />
 <img src="doc/img/keycloak-sign-in.png" width="400" />
 </p>
