@@ -1,7 +1,6 @@
 package com.octo.ajava.infra.controllers;
 
 import com.octo.ajava.domain.Film;
-import com.octo.ajava.domain.usecases.RecupererLesFilmsUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
