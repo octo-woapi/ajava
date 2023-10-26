@@ -4,7 +4,6 @@ import com.octo.ajava.domain.Film;
 import com.octo.ajava.infra.api_client.TMDBHttpClient;
 import com.octo.ajava.infra.mapper.TMDBFilmMapper;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 @Service
