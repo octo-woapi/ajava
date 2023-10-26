@@ -7,6 +7,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.octo.ajava.fixture.TMDBJsonResponseFixture;
@@ -21,7 +22,8 @@ class TMDBHttpClientITest {
 
   private TMDBHttpClient tmdbHttpClient;
 
-  @Value("${tmdb.token}") String jetonTmdb;
+  @Value("${tmdb.token}")
+  String jetonTmdb;
 
   @BeforeAll()
   public void prepare(WireMockRuntimeInfo wmRuntimeInfo) {
@@ -37,9 +39,8 @@ class TMDBHttpClientITest {
     var result = tmdbHttpClient.recupererLesFilmsPopulaires();
 
     // then
-    verify(getRequestedFor(
-            urlEqualTo("/movie/popular"))
-            .withHeader("Authorization", equalTo("Bearer " + jetonTmdb))
-    );
+    verify(
+        getRequestedFor(urlEqualTo("/movie/popular"))
+            .withHeader("Authorization", equalTo("Bearer " + jetonTmdb)));
   }
 }
