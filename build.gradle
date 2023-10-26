@@ -39,6 +39,7 @@ dependencies {
     // à décommenter lors du tp4
     // implementation "org.springframework.security:spring-security-config:${springSecurityVersion}"
     // implementation "org.springframework.security:spring-security-oauth2-client:${springSecurityVersion}"
+    // testImplementation "org.springframework.security:spring-security-test:${springSecurityVersion}"
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
 
@@ -47,7 +48,6 @@ dependencies {
     implementation 'me.paulschwarz:spring-dotenv:3.0.0'
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-    // testImplementation "org.springframework.security:spring-security-test:${springSecurityVersion}"
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'
