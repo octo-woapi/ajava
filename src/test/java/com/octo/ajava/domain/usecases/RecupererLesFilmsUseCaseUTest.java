@@ -1,17 +1,17 @@
 package com.octo.ajava.domain.usecases;
 
-import com.octo.ajava.domain.Film;
 import static com.octo.ajava.fixture.FilmFixture.deuxFilmsPopulaires;
-import com.octo.ajava.infra.repositories.InMemoryFilmRepository;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+
+import com.octo.ajava.domain.Film;
+import com.octo.ajava.infra.repositories.InMemoryFilmRepository;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import static org.mockito.BDDMockito.given;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class RecupererLesFilmsUseCaseUTest {

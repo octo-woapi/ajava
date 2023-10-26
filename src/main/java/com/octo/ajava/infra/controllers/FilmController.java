@@ -38,6 +38,6 @@ public class FilmController {
   })
   @GetMapping
   public ResponseEntity<List<Film>> recuperTousLesFilms() {
-    return ResponseEntity.ok().body(this.recupererLesFilmsUseCase.executer());
+    return ResponseEntity.ok().body(recupererLesFilmsUseCase.executer());
   }
 }
