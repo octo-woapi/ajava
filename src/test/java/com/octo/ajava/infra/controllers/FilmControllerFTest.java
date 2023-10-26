@@ -1,34 +1,46 @@
 package com.octo.ajava.infra.controllers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.octo.ajava.AjavaApplication;
 import com.octo.ajava.ObjectMapperBuilder;
-import org.junit.jupiter.api.Assertions;
+import com.octo.ajava.domain.Film;
+import io.restassured.RestAssured;
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import io.restassured.RestAssured;
-import com.octo.ajava.domain.Film;
 
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
-        classes = AjavaApplication.class
-)
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    classes = AjavaApplication.class)
 class FilmControllerFTest {
 
-    @Test
-    void recuperTousLesFilms_devrait_renvoyer_une_HTTP_200_et_une_liste_de_film() throws Exception {
-        // Given
+  @LocalServerPort private int port;
 
-        // When
-        var response = RestAssured.given()
-                .get("la route que je souhaite tester")
-                .then()
-                .statusCode(HttpStatus.OK.value())
-                .extract().response().asString();
+  @PostConstruct
+  public void init() {
+    RestAssured.baseURI = "http://localhost:" + port;
+  }
 
-        // Then
-        var listeDeFilms = ObjectMapperBuilder.handle().readValue(response, Film[].class);
+  @Test
+  void recuperTousLesFilms_devrait_renvoyer_une_HTTP_200_et_une_liste_de_film() throws Exception {
+    // Given
 
-        Assertions.assertEquals(0, listeDeFilms.length);
-    }
+    // When
+    String response =
+        RestAssured.given()
+            .get("la route que je souhaite tester")
+            .then()
+            .statusCode(HttpStatus.OK.value())
+            .extract()
+            .response()
+            .asString();
+
+    // Then
+    Film[] listeDeFilms = ObjectMapperBuilder.handle().readValue(response, Film[].class);
+
+    assertEquals(0, listeDeFilms.length);
+  }
 }

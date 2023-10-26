@@ -1,11 +1,8 @@
 package com.octo.ajava.infra.repositories;
 
 import com.octo.ajava.domain.Film;
-import com.octo.ajava.domain.repositories.FilmRepository;
 import java.time.LocalDate;
 import java.util.List;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Service;
 
 public class InMemoryFilmRepository {
 
