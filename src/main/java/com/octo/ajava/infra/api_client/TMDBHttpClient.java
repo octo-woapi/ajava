@@ -16,28 +16,29 @@ public class TMDBHttpClient {
   private WebClient webClient;
 
   public TMDBHttpClient(
-          @Value("${tmdb.baseUrl}") String urlTmdb,
-          @Value("${tmdb.token}") String jetonTmdb
-  ) {
-    webClient = WebClient.builder()
+      @Value("${tmdb.baseUrl}") String urlTmdb, @Value("${tmdb.token}") String jetonTmdb) {
+    webClient =
+        WebClient.builder()
             .baseUrl(urlTmdb)
             .defaultHeader(HttpHeaders.AUTHORIZATION, BEARER + jetonTmdb)
             .build();
   }
 
   public PaginatedTMDBMovies recupererLesFilmsPopulaires() {
-    return webClient.get()
-            .uri("/movie/popular")
-            .retrieve()
-            .bodyToMono(PaginatedTMDBMovies.class)
-            .block();
+    return webClient
+        .get()
+        .uri("/movie/popular")
+        .retrieve()
+        .bodyToMono(PaginatedTMDBMovies.class)
+        .block();
   }
 
   public PaginatedTMDBMovies chercherDesFilms(String query) {
-    return webClient.get()
-            .uri("/search/movie?query=" + query)
-            .retrieve()
-            .bodyToMono(PaginatedTMDBMovies.class)
-            .block();
+    return webClient
+        .get()
+        .uri("/search/movie?query=" + query)
+        .retrieve()
+        .bodyToMono(PaginatedTMDBMovies.class)
+        .block();
   }
 }

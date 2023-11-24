@@ -1,21 +1,21 @@
 package com.octo.ajava;
 
-import com.octo.ajava.infra.configuration.security.WebSecurityConfiguration;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.octo.ajava.infra.configuration.security.WebSecurityConfiguration;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 @Import(WebSecurityConfiguration.class)
 public abstract class ApiIntegrationTest {
@@ -58,6 +58,7 @@ public abstract class ApiIntegrationTest {
 
   protected <T> T convertirJsonEnObjet(MockHttpServletResponse response, Class<T> clazz)
       throws Exception {
-    return ObjectMapperBuilder.handle().readValue(response.getContentAsString(StandardCharsets.UTF_8), clazz);
+    return ObjectMapperBuilder.handle()
+        .readValue(response.getContentAsString(StandardCharsets.UTF_8), clazz);
   }
 }
