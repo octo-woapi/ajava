@@ -1,16 +1,16 @@
 package com.octo.ajava.infra.repositories;
 
+import static org.mockito.BDDMockito.given;
+
 import com.octo.ajava.fixture.FilmFixture;
 import com.octo.ajava.fixture.TMDBMovieFixture;
 import com.octo.ajava.infra.api_client.TMDBHttpClient;
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
 import com.octo.ajava.infra.mapper.TMDBFilmMapper;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import static org.mockito.BDDMockito.given;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -19,28 +19,21 @@ class TMDBFilmRepositoryUTest {
 
   private TMDBFilmRepository tmdbFilmRepository;
 
-  @Mock
-  private TMDBHttpClient tmdbHttpClient;
+  @Mock private TMDBHttpClient tmdbHttpClient;
 
   private TMDBFilmMapper tmdbFilmMapper = new TMDBFilmMapper();
 
   @BeforeEach
   public void setUp() {
-    tmdbFilmRepository = new TMDBFilmRepository(
-            tmdbHttpClient,
-            tmdbFilmMapper
-    );
+    tmdbFilmRepository = new TMDBFilmRepository(tmdbHttpClient, tmdbFilmMapper);
   }
 
   @Test
   void recupererLesFilms_retourne_une_liste_de_films_TMDB() {
     // Given
-    given(tmdbHttpClient.recupererLesFilmsPopulaires()).willReturn(new PaginatedTMDBMovies(
-            1,
-            TMDBMovieFixture.deuxFilmsPopulairesVenantDeTMTB(),
-            2,
-            1
-    ));
+    given(tmdbHttpClient.recupererLesFilmsPopulaires())
+        .willReturn(
+            new PaginatedTMDBMovies(1, TMDBMovieFixture.deuxFilmsPopulairesVenantDeTMTB(), 2, 1));
 
     // When
     var result = tmdbFilmRepository.recupererLesFilms();
@@ -52,12 +45,9 @@ class TMDBFilmRepositoryUTest {
   @Test
   void rechercherDesFilms_retourne_une_liste_de_films() {
     // Given
-    given(tmdbHttpClient.chercherDesFilms("batman")).willReturn(new PaginatedTMDBMovies(
-            1,
-            TMDBMovieFixture.deuxFilmsRecherchesVenantDeTMTB(),
-            2,
-            1
-    ));
+    given(tmdbHttpClient.chercherDesFilms("batman"))
+        .willReturn(
+            new PaginatedTMDBMovies(1, TMDBMovieFixture.deuxFilmsRecherchesVenantDeTMTB(), 2, 1));
 
     // When
     var result = tmdbFilmRepository.chercherDesFilms("batman");
@@ -65,6 +55,4 @@ class TMDBFilmRepositoryUTest {
     // Then
     Assertions.assertEquals(FilmFixture.deuxFilmsRecherches(), result);
   }
-
-
 }

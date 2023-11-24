@@ -45,10 +45,10 @@ dependencies {
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
 
+    implementation 'me.paulschwarz:spring-dotenv:3.0.0'
+
     //runtimeOnly 'org.postgresql:postgresql'
     implementation "org.postgresql:postgresql:${postgresqlVersion}"
-
-    implementation 'me.paulschwarz:spring-dotenv:3.0.0'
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "org.springframework.security:spring-security-test:${springSecurityVersion}"
