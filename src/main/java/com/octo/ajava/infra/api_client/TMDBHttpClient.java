@@ -1,12 +1,8 @@
 package com.octo.ajava.infra.api_client;
 
-import static java.util.Collections.emptyList;
-
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
-import com.octo.ajava.infra.api_client.entities.TMDBMovie;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.client.RestTemplateBuilder;

@@ -3,7 +3,6 @@ package com.octo.ajava.infra.repositories;
 import com.octo.ajava.domain.Film;
 import com.octo.ajava.domain.repositories.FilmRepository;
 import com.octo.ajava.infra.api_client.TMDBHttpClient;
-import com.octo.ajava.infra.api_client.entities.TMDBMovie;
 import com.octo.ajava.infra.mapper.TMDBFilmMapper;
 import java.util.List;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

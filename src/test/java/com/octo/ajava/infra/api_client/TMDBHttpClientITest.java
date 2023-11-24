@@ -1,7 +1,8 @@
 package com.octo.ajava.infra.api_client;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.octo.ajava.fixture.TMDBJsonResponseFixture;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,7 +16,8 @@ class TMDBHttpClientITest {
 
   private TMDBHttpClient tmdbHttpClient;
 
-  @Value("${tmdb.jeton.acces}") String jetonTmdb;
+  @Value("${tmdb.jeton.acces}")
+  String jetonTmdb;
 
   @BeforeAll()
   public void prepare(WireMockRuntimeInfo wmRuntimeInfo) {
@@ -31,9 +33,8 @@ class TMDBHttpClientITest {
     var result = tmdbHttpClient.recupererLesFilmsPopulaires();
 
     // then
-    verify(getRequestedFor(
-            urlEqualTo("/movie/popular"))
-            .withHeader("Authorization", equalTo("Bearer " + jetonTmdb))
-    );
+    verify(
+        getRequestedFor(urlEqualTo("/movie/popular"))
+            .withHeader("Authorization", equalTo("Bearer " + jetonTmdb)));
   }
 }
