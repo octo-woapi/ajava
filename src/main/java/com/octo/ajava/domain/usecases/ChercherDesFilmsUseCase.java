@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class ChercherDesFilmsUseCase {
 
-    private final FilmRepository filmRepository;
+  private final FilmRepository filmRepository;
 
-    ChercherDesFilmsUseCase(FilmRepository filmRepository) {
-        this.filmRepository = filmRepository;
-    }
+  ChercherDesFilmsUseCase(FilmRepository filmRepository) {
+    this.filmRepository = filmRepository;
+  }
 
-    public List<Film> executer(String query) {
-        return this.filmRepository.chercherDesFilms(query);
-    }
+  public List<Film> executer(String query) {
+    return this.filmRepository.chercherDesFilms(query);
+  }
 }

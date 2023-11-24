@@ -4,25 +4,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import org.junit.jupiter.api.BeforeEach;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.SignStyle;
 import java.time.temporal.ChronoField;
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 
 public abstract class ApiIntegrationTest {
 
   public static final DateTimeFormatter FORMATEUR_DATE =
-          (new DateTimeFormatterBuilder())
-                  .appendValue(ChronoField.DAY_OF_MONTH, 2)
-                  .appendLiteral('/')
-                  .appendValue(ChronoField.MONTH_OF_YEAR, 2)
-                  .appendLiteral('/')
-                  .appendValue(ChronoField.YEAR_OF_ERA, 4, 10, SignStyle.EXCEEDS_PAD)
-                  .toFormatter();
+      (new DateTimeFormatterBuilder())
+          .appendValue(ChronoField.DAY_OF_MONTH, 2)
+          .appendLiteral('/')
+          .appendValue(ChronoField.MONTH_OF_YEAR, 2)
+          .appendLiteral('/')
+          .appendValue(ChronoField.YEAR_OF_ERA, 4, 10, SignStyle.EXCEEDS_PAD)
+          .toFormatter();
 
   @Autowired protected MockMvc mockMvc;
 

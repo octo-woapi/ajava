@@ -26,9 +26,8 @@ public class FilmController {
   private final ChercherDesFilmsUseCase chercherDesFilmsUseCase;
 
   FilmController(
-          RecupererLesFilmsUseCase recupererLesFilmsUseCase,
-          ChercherDesFilmsUseCase chercherDesFilmsUseCase
-  ) {
+      RecupererLesFilmsUseCase recupererLesFilmsUseCase,
+      ChercherDesFilmsUseCase chercherDesFilmsUseCase) {
     this.recupererLesFilmsUseCase = recupererLesFilmsUseCase;
     this.chercherDesFilmsUseCase = chercherDesFilmsUseCase;
   }
@@ -44,12 +43,13 @@ public class FilmController {
                 mediaType = "application/json"))
   })
   @GetMapping
-  public ResponseEntity<List<Film>> recuperTousLesFilms() {
+  public ResponseEntity<List<Film>> recupererTousLesFilms() {
     return ResponseEntity.ok().body(this.recupererLesFilmsUseCase.executer());
   }
 
   @GetMapping("/search")
-  public ResponseEntity<List<Film>> search(@RequestParam String query) {
+  public ResponseEntity<List<Film>> search(@RequestParam String query)
+      throws IllegalArgumentException {
     return ResponseEntity.ok().body(this.chercherDesFilmsUseCase.executer(query));
   }
 }

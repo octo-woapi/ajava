@@ -1,12 +1,11 @@
 package com.octo.ajava.infra.mapper;
 
+import static java.util.Collections.emptyList;
+
 import com.octo.ajava.domain.Film;
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
 import com.octo.ajava.infra.api_client.entities.TMDBMovie;
-import java.util.Collections;
 import java.util.List;
-
-import static java.util.Collections.emptyList;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,13 +18,15 @@ public class TMDBFilmMapper {
       return emptyList();
     }
 
-    return movies.stream().map(tmdbMovie -> new Film(
+    return movies.stream().map(TMDBFilmMapper::convertirEnFilm).toList();
+  }
+
+  private static Film convertirEnFilm(TMDBMovie tmdbMovie) {
+    return new Film(
             tmdbMovie.getId(),
             tmdbMovie.getTitle(),
             tmdbMovie.getOverview(),
             emptyList(),
-            tmdbMovie.getReleaseDate()
-    )).toList();
+            tmdbMovie.getReleaseDate());
   }
-
 }
