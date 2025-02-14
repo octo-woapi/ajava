@@ -10,11 +10,32 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.MountableFile;
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
     classes = AjavaApplication.class)
+@Testcontainers
 class FilmVuControllerFTest {
+
+  @Container
+  static PostgreSQLContainer<?> postgreSQLContainer =
+      new PostgreSQLContainer<>("postgres:14-alpine")
+          .withCopyFileToContainer(
+              MountableFile.forClasspathResource("/docker_postgres_init.sql"),
+              "/docker-entrypoint-initdb.d/");
+
+  @DynamicPropertySource
+  static void registerMySQLProperties(DynamicPropertyRegistry registry) {
+    registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
+    registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
+    registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+  }
 
   @Test
   void doit_renvoyer_le_code_http_200_quand_lister_des_films_a_renvoye_des_resultats()
