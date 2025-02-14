@@ -2,8 +2,8 @@ package com.octo.ajava.fixture;
 
 public class TMDBJsonResponseFixture {
 
-    public static String unFilm() {
-        return """
+  public static String unFilm() {
+    return """
                 {
                     "adult": false,
                     "backdrop_path": "/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg",
@@ -86,10 +86,10 @@ public class TMDBJsonResponseFixture {
                     "vote_count": 7991
                 }
                 """;
-    }
+  }
 
-    public static String deuxFilms() {
-        return """
+  public static String deuxFilms() {
+    return """
                         {
                           "page": 1,
                           "results": [
@@ -138,5 +138,5 @@ public class TMDBJsonResponseFixture {
                           "total_results": 146
                         }
                 """;
-    }
+  }
 }
