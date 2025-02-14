@@ -11,7 +11,7 @@ ext {
     postgresqlVersion = '42.6.0'
     springBootVersion = "${globalSpringBootVersion}"
     springDocVersion = '2.1.0'
-    springSecurityVersion = '6.0.2'
+    springSecurityVersion = '6.1.1'
     testcontainersVersion = '1.18.3'
 }
 
@@ -42,6 +42,7 @@ dependencies {
 
     implementation "org.springframework.security:spring-security-config:${springSecurityVersion}"
     implementation "org.springframework.security:spring-security-oauth2-client:${springSecurityVersion}"
+    implementation "org.springframework.security:spring-security-web:${springSecurityVersion}"
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
 
