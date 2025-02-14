@@ -12,9 +12,9 @@ import com.octo.ajava.infra.configuration.security.WebSecurityConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -24,11 +24,11 @@ class FilmControllerITest {
 
   @Autowired private MockMvc mockMvc;
 
-  @MockBean private ChercherUnFilmParIdUseCase chercherUnFilmParIdUseCase;
+  @MockitoBean private ChercherUnFilmParIdUseCase chercherUnFilmParIdUseCase;
 
-  @MockBean private ChercherDesFilmsUseCase chercherDesFilmsUseCase;
+  @MockitoBean private ChercherDesFilmsUseCase chercherDesFilmsUseCase;
 
-  @MockBean private RecupererLesFilmsUseCase recupererLesFilmsUseCase;
+  @MockitoBean private RecupererLesFilmsUseCase recupererLesFilmsUseCase;
 
   @Test
   public void doit_renvoyer_une_erreur_404_quand_le_film_demande_nest_pas_trouve()
