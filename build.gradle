@@ -11,7 +11,7 @@ ext {
     postgresqlVersion = '42.7.5'
     springBootVersion = "${globalSpringBootVersion}"
     springDocVersion = '2.1.0'
-    springSecurityVersion = '6.1.1'
+    springSecurityVersion = '6.4.2'
     testcontainersVersion = '1.20.4'
 }
 
@@ -20,7 +20,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -84,7 +84,7 @@ test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
-        exceptionFormat "full"
+        exceptionFormat = "full"
     }
     afterSuite { desc, result ->
         if (!desc.parent) {
@@ -103,5 +103,5 @@ asciidoctor {
 }
 
 wrapper {
-    gradleVersion = '7.6'
+    gradleVersion = '8.12.1'
 }
