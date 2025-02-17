@@ -24,12 +24,12 @@ public class TMDBHttpClient {
   private final RestTemplate restTemplate;
 
   public TMDBHttpClient(
-      @Value("${tmdb.url.acces}") String urlTmdb, @Value("${tmdb.jeton.acces}") String jetonTmdb) {
+      @Value("${tmdb.baseUrl}") String urlTmdb, @Value("${tmdb.token}") String jetonTmdb) {
     restTemplate =
         new RestTemplateBuilder()
             .defaultHeader(HttpHeaders.AUTHORIZATION, BEARER + jetonTmdb)
-            .setReadTimeout(Duration.of(2000, ChronoUnit.MILLIS))
-            .setConnectTimeout(Duration.of(1000, ChronoUnit.MILLIS))
+            .readTimeout(Duration.of(2000, ChronoUnit.MILLIS))
+            .connectTimeout(Duration.of(1000, ChronoUnit.MILLIS))
             .uriTemplateHandler(new DefaultUriBuilderFactory(urlTmdb))
             .build();
   }

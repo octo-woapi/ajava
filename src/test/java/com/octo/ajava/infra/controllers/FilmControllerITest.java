@@ -16,15 +16,15 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @WebMvcTest(FilmController.class)
 class FilmControllerITest extends ApiIntegrationTest {
 
   private static final String ROUTE_API_FILMS_URL = "/api/films";
 
-  @MockBean private RecupererLesFilmsUseCase recupererLesFilmsUseCase;
+  @MockitoBean private RecupererLesFilmsUseCase recupererLesFilmsUseCase;
 
   @Test
   void devrait_renvoyer_http_401_quand_la_route_api_films_est_appelee_sans_authentification()
