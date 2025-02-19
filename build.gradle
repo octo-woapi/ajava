@@ -1,18 +1,19 @@
 plugins {
-    id 'com.diffplug.spotless' version '6.18.0'
+    id 'com.diffplug.spotless' version '7.0.2'
     id 'org.springframework.boot' version "${globalSpringBootVersion}"
-    id 'io.spring.dependency-management' version '1.1.0'
-    id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.asciidoctor.jvm.convert' version '4.0.4'
     id 'java'
 }
 
 ext {
     set('snippetsDir', file("build/generated-snippets"))
-    postgresqlVersion = '42.6.0'
+    junitVersion = '5.11.4'
+    restAssuredVersion = '5.5.1'
+    restdocsVersion = '3.0.3'
     springBootVersion = "${globalSpringBootVersion}"
-    springDocVersion = '2.1.0'
-    springSecurityVersion = '6.0.2'
-    testcontainersVersion = '1.18.0'
+    springDocVersion = '2.8.5'
+    springDotenvVersion = '4.0.0'
 }
 
 group = 'com.octo.ajava'
@@ -20,7 +21,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -29,41 +30,21 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-
     implementation "org.springframework.boot:spring-boot-starter:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
 
-    // à décommenter lors du tp4
-    // implementation "org.springframework.security:spring-security-config:${springSecurityVersion}"
-    // implementation "org.springframework.security:spring-security-oauth2-client:${springSecurityVersion}"
-    // testImplementation "org.springframework.security:spring-security-test:${springSecurityVersion}"
-
+    implementation "me.paulschwarz:spring-dotenv:${springDotenvVersion}"
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
 
-    implementation "org.postgresql:postgresql:${postgresqlVersion}"
-
-    implementation 'me.paulschwarz:spring-dotenv:3.0.0'
-
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    testImplementation 'org.testcontainers:junit-jupiter'
-    testImplementation 'org.testcontainers:postgresql'
-    //testImplementation 'com.h2database:h2:2.1.214'
-    testImplementation "com.github.tomakehurst:wiremock-jre8-standalone:2.35.0"
-    testImplementation "org.testcontainers:testcontainers:${testcontainersVersion}"
+    testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc:${restdocsVersion}"
+    testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${globalSpringBootVersion}"
-
-    testImplementation "io.rest-assured:rest-assured:5.2.0"
-}
-
-dependencyManagement {
-    imports {
-        mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
-    }
 }
 
 spotless {
@@ -79,7 +60,7 @@ test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
-        exceptionFormat "full"
+        exceptionFormat = "full"
     }
     afterSuite { desc, result ->
         if (!desc.parent) {
@@ -98,5 +79,5 @@ asciidoctor {
 }
 
 wrapper {
-    gradleVersion = '7.6'
+    gradleVersion = '8.12.1'
 }
