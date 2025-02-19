@@ -5,6 +5,7 @@ import com.octo.ajava.domain.usecases.AjouterUnFilmVuUseCase;
 import com.octo.ajava.domain.usecases.RecupererMesFilmsVusUseCase;
 import com.octo.ajava.infra.controllers.entities.FilmVuAAjouterApi;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @Tag(name = "Films Vus", description = "Route public pour la gestion des films vus")
@@ -32,7 +31,7 @@ public class FilmVuController {
 
   @PostMapping
   public ResponseEntity<FilmVu> ajouterFilmVu(
-          @RequestBody FilmVuAAjouterApi filmVuAAjouterApi, Authentication authentication)
+      @RequestBody FilmVuAAjouterApi filmVuAAjouterApi, Authentication authentication)
       throws Exception {
     String userId = authentication.getName();
 
@@ -43,8 +42,7 @@ public class FilmVuController {
                     filmVuAAjouterApi.filmId(),
                     userId,
                     filmVuAAjouterApi.note(),
-                    filmVuAAjouterApi.commentaire()))
-        );
+                    filmVuAAjouterApi.commentaire())));
   }
 
   @GetMapping

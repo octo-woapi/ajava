@@ -2,8 +2,8 @@ package com.octo.ajava.fixture;
 
 public class TMDBJsonResponseFixture {
 
-    public static String deuxFilms() {
-        return """
+  public static String deuxFilms() {
+    return """
                         {
                           "page": 1,
                           "results": [
@@ -52,5 +52,5 @@ public class TMDBJsonResponseFixture {
                           "total_results": 146
                         }
                 """;
-    }
+  }
 }

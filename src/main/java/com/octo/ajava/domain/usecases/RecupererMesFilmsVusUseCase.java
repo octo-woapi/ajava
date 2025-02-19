@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecupererMesFilmsVusUseCase {
 
-    private final FilmVuRepository filmVuRepository;
+  private final FilmVuRepository filmVuRepository;
 
-    RecupererMesFilmsVusUseCase(FilmVuRepository filmVuRepository) {
-        this.filmVuRepository = filmVuRepository;
-    }
+  RecupererMesFilmsVusUseCase(FilmVuRepository filmVuRepository) {
+    this.filmVuRepository = filmVuRepository;
+  }
 
-    public List<FilmVu> executer(String userId) throws Exception {
-        return this.filmVuRepository.recupererMesFilmsVus(userId);
-    }
+  public List<FilmVu> executer(String userId) throws Exception {
+    return this.filmVuRepository.recupererMesFilmsVus(userId);
+  }
 }
