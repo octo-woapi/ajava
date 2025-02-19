@@ -14,7 +14,7 @@ import java.util.List;
  * <p>Interet du constructeur ? Avoir des classes immuables. Interet des annotations des propriétés
  * JSON ? Découpler le naming JSON et le naming JAVA
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = false)
 public class PaginatedTMDBMovies {
 
   private final int page;

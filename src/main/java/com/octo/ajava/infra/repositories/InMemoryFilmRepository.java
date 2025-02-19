@@ -151,13 +151,11 @@ public class InMemoryFilmRepository implements FilmRepository {
   @Override
   public List<Film> chercherDesFilms(String query) {
     return List.of(
-            new Film(
-                    3,
-                    "My Neighbor Totoro",
-                    "Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by Totoros, magical spirits of the forest. When the youngest runs away from home, the older sister seeks help from the spirits to find her.",
-                    List.of("Film japonais"),
-                    LocalDate.of(2000, 1, 1)
-            )
-    );
+        new Film(
+            3,
+            "My Neighbor Totoro",
+            "Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by Totoros, magical spirits of the forest. When the youngest runs away from home, the older sister seeks help from the spirits to find her.",
+            List.of("Film japonais"),
+            LocalDate.of(2000, 1, 1)));
   }
 }
