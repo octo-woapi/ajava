@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class ChercherUnFilmParIdUseCase {
 
-    private final FilmRepository filmRepository;
+  private final FilmRepository filmRepository;
 
-    ChercherUnFilmParIdUseCase(FilmRepository filmRepository) {
-        this.filmRepository = filmRepository;
-    }
+  ChercherUnFilmParIdUseCase(FilmRepository filmRepository) {
+    this.filmRepository = filmRepository;
+  }
 
-    public Film executer(String id) throws FilmNotFoundException {
-        return null;
-    }
+  public Film executer(String id) throws FilmNotFoundException {
+    return null;
+  }
 }
