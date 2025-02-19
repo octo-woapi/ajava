@@ -18,14 +18,13 @@ public class FilmVuController {
 
   private final AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase;
 
-  FilmVuController(
-      AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase) {
+  FilmVuController(AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase) {
     this.ajouterUnFilmVuUseCase = ajouterUnFilmVuUseCase;
   }
 
   @PostMapping
   public ResponseEntity<FilmVu> ajouterFilmVu(
-          @RequestBody FilmVuAAjouterApi filmVuAAjouterApi, Authentication authentication)
+      @RequestBody FilmVuAAjouterApi filmVuAAjouterApi, Authentication authentication)
       throws Exception {
     String userId = authentication.getName();
 
@@ -36,7 +35,6 @@ public class FilmVuController {
                     filmVuAAjouterApi.filmId(),
                     userId,
                     filmVuAAjouterApi.note(),
-                    filmVuAAjouterApi.commentaire()))
-        );
+                    filmVuAAjouterApi.commentaire())));
   }
 }
