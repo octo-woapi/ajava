@@ -47,7 +47,6 @@ dependencies {
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
 
-    //runtimeOnly 'org.postgresql:postgresql'
     implementation "org.postgresql:postgresql:${postgresqlVersion}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
@@ -55,7 +54,6 @@ dependencies {
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'
-    //testImplementation 'com.h2database:h2:2.1.214'
     testImplementation "com.github.tomakehurst:wiremock-jre8-standalone:2.35.0"
     testImplementation "org.testcontainers:testcontainers:${testcontainersVersion}"
 
