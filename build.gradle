@@ -12,7 +12,7 @@ ext {
     springBootVersion = "${globalSpringBootVersion}"
     springDocVersion = '2.8.5'
     springSecurityVersion = '6.4.3'
-    testcontainersVersion = '1.20.4'
+    testcontainersVersion = '1.20.5'
 }
 
 group = 'com.octo.ajava'
