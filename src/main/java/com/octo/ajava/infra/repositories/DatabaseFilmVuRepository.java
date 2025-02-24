@@ -6,7 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DatabaseFilmVuRepository implements FilmVuRepository {
+public class DatabaseFilmVuRepository implements FilmVuRepository { // TODO
 
   private final DatabaseFilmVuDAO databaseFilmVuDAO;
 
@@ -15,8 +15,19 @@ public class DatabaseFilmVuRepository implements FilmVuRepository {
   }
 
   @Override
+  public FilmVu chercherUnFilmVu(int filmId, String utilisateurId) throws Exception {
+    return databaseFilmVuDAO.findByFilmIdAndUtilisateurId(filmId, utilisateurId);
+  }
+
+  @Override
   @Transactional
   public FilmVu ajouterUnFilmVu(FilmVu filmVu) {
-    return this.databaseFilmVuDAO.save(filmVu);
+    return databaseFilmVuDAO.save(filmVu);
+  }
+
+  @Override
+  @Transactional
+  public FilmVu modifierUnFilmVu(FilmVu filmVu) throws Exception {
+    return null; // TODO modifier le FilmVu en BDD et le renvoyer
   }
 }

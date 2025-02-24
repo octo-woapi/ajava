@@ -10,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "film_vu")
 public class FilmVu {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -46,6 +47,14 @@ public class FilmVu {
 
   public String getCommentaire() {
     return commentaire;
+  }
+
+  public void setNote(String note) {
+    this.note = note;
+  }
+
+  public void setCommentaire(String commentaire) {
+    this.commentaire = commentaire;
   }
 
   @Override

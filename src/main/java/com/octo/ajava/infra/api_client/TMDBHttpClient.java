@@ -1,9 +1,11 @@
 package com.octo.ajava.infra.api_client;
 
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.web.reactive.function.client.WebClient.builder;
+
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -17,11 +19,7 @@ public class TMDBHttpClient {
 
   public TMDBHttpClient(
       @Value("${tmdb.baseUrl}") String urlTmdb, @Value("${tmdb.token}") String jetonTmdb) {
-    webClient =
-        WebClient.builder()
-            .baseUrl(urlTmdb)
-            .defaultHeader(HttpHeaders.AUTHORIZATION, BEARER + jetonTmdb)
-            .build();
+    webClient = builder().baseUrl(urlTmdb).defaultHeader(AUTHORIZATION, BEARER + jetonTmdb).build();
   }
 
   public PaginatedTMDBMovies recupererLesFilmsPopulaires() {

@@ -1,10 +1,10 @@
-package com.octo.ajava.fixture;
+package com.octo.ajava.fixtures;
 
 import com.octo.ajava.infra.api_client.entities.TMDBMovie;
 import java.time.LocalDate;
 import java.util.List;
 
-public class TMDBMovieFixture {
+public class TMDBMovieTestFixture {
 
   public static List<TMDBMovie> deuxFilmsPopulairesVenantDeTMTB() {
     return List.of(
