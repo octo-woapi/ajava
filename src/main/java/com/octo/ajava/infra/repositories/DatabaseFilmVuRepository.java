@@ -3,17 +3,25 @@ package com.octo.ajava.infra.repositories;
 import com.octo.ajava.domain.FilmVu;
 import com.octo.ajava.domain.repositories.FilmVuRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DatabaseFilmVuRepository implements FilmVuRepository {
 
-  public DatabaseFilmVuRepository() {}
+  private final DatabaseFilmVuDAO databaseFilmVuDAO;
+
+  public DatabaseFilmVuRepository(DatabaseFilmVuDAO databaseFilmVuDAO) {
+    this.databaseFilmVuDAO = databaseFilmVuDAO;
+  }
+
+  @Override
+  public FilmVu chercherUnFilmVu(int filmId, String utilisateurId) throws Exception {
+    return databaseFilmVuDAO.findByFilmIdAndUtilisateurId(filmId, utilisateurId);
+  }
 
   @Override
   @Transactional
   public FilmVu ajouterUnFilmVu(FilmVu filmVu) {
-    return null;
+    return null; // TODO
   }
 }

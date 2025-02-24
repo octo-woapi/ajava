@@ -1,11 +1,12 @@
 package com.octo.ajava.infra.controllers;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 import com.octo.ajava.domain.Film;
 import com.octo.ajava.domain.usecases.ChercherDesFilmsUseCase;
 import com.octo.ajava.domain.usecases.RecupererLesFilmsUseCase;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class FilmController {
   private final RecupererLesFilmsUseCase recupererLesFilmsUseCase;
   private final ChercherDesFilmsUseCase chercherDesFilmsUseCase;
 
-  FilmController(
+  public FilmController(
       RecupererLesFilmsUseCase recupererLesFilmsUseCase,
       ChercherDesFilmsUseCase chercherDesFilmsUseCase) {
     this.recupererLesFilmsUseCase = recupererLesFilmsUseCase;
@@ -29,11 +30,11 @@ public class FilmController {
 
   @GetMapping
   public ResponseEntity<List<Film>> list() throws Exception {
-    return ResponseEntity.ok().body(this.recupererLesFilmsUseCase.executer());
+    return ok().body(recupererLesFilmsUseCase.executer());
   }
 
   @GetMapping("/search")
   public ResponseEntity<List<Film>> search(@RequestParam String query) throws Exception {
-    return ResponseEntity.ok().body(this.chercherDesFilmsUseCase.executer(query));
+    return ok().body(chercherDesFilmsUseCase.executer(query));
   }
 }

@@ -1,51 +1,56 @@
 package com.octo.ajava.infra.controllers;
 
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.http.HttpStatus.OK;
+
 import com.octo.ajava.AjavaApplication;
 import com.octo.ajava.ObjectMapperBuilder;
 import com.octo.ajava.domain.Film;
 import io.restassured.RestAssured;
-import static org.assertj.core.api.Assertions.assertThat;
+import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
-        classes = AjavaApplication.class
-)
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    classes = AjavaApplication.class)
 class FilmControllerFTest {
 
-  @Test
-  void recuperTousLesFilms_devrait_renvoyer_une_HTTP_200_et_une_liste_de_film() throws Exception {
-    // Given
+  @LocalServerPort private Integer port;
 
-    // When
-    var response = RestAssured.given()
-            .get("/api/films")
-            .then()
-            .statusCode(HttpStatus.OK.value())
-            .extract().response().asString();
-
-    // Then
-    Film[] listeDeFilms = ObjectMapperBuilder.handle().readValue(response, Film[].class);
-
-    assertThat(listeDeFilms.length).isEqualTo(22);
+  @BeforeEach
+  void setUp() {
+    RestAssured.port = port;
   }
 
   @Test
-  void chercherDesFilms_devrait_renvoyer_une_HTTP_200_et_une_liste_de_film_recherchee() throws Exception {
-    // Given
-
+  void recuperTousLesFilms_devrait_renvoyer_une_HTTP_200_et_une_liste_de_film() throws Exception {
     // When
-    var response = RestAssured.given()
-            .get("/api/films/search?query=totoro")
-            .then()
-            .statusCode(HttpStatus.OK.value())
-            .extract().response().asString();
+    Response response =
+        given().get("/api/films").then().statusCode(OK.value()).extract().response();
 
     // Then
-    Film[] listeDeFilms = ObjectMapperBuilder.handle().readValue(response, Film[].class);
+    Film[] listeDeFilms = ObjectMapperBuilder.handle().readValue(response.asString(), Film[].class);
+    assertThat(listeDeFilms).hasSize(22);
+  }
 
-    assertThat(listeDeFilms.length).isEqualTo(1);
+  @Test
+  void chercherDesFilms_devrait_renvoyer_une_HTTP_200_et_une_liste_de_film_recherchee()
+      throws Exception {
+    // When
+    Response response =
+        given()
+            .get("/api/films/search?query=totoro")
+            .then()
+            .statusCode(OK.value())
+            .extract()
+            .response();
+
+    // Then
+    Film[] listeDeFilms = ObjectMapperBuilder.handle().readValue(response.asString(), Film[].class);
+    assertThat(listeDeFilms).hasSize(1);
   }
 }
