@@ -6,7 +6,7 @@
 
 Vous devez avoir sur votre poste :
 
-* JAVA en version 17
+* JAVA en version 21
 * DOCKER (et docker-compose)
 
 ## 🚀 Démarrage
@@ -60,23 +60,25 @@ Pour lancer tous les tests :
 
 ---
 
-# TP 5 ajouter et noter un film vu
----
+# TP 5 bis - Modifier un film vu
 
 ## Objectif
 
-Ajouter un film vu en bdd provenant de l'API TMDB
+Modifier un un film vu déjà existant en BDD, en modifiant la note et le commentaire (par le même utilisateur).
 
-* Lancer la commande `docker compose up -d` pour lancer le postgres
 * Compléter le controller `FilmVuController`
-  * Utilisation de la classe `Authentication` en paramètre de la fonction du endpoint pour récupérer l'information de l'utilisateur connecté
-  * Utilisation de la classe `FilmVuAAjouterApi` en paramètre de la fonction du endpoint pour récupérer le body de la request avec l'annotation `@RequestBody
-* Compléter le use case `AjouterUnFilmVuUseCase`
-  * En utilisant le `DatabaseFilmVuRepository` qui doit injecter la classe `DatabaseFilmDAO` pour sauvegarder l'entité avec la méthode `.save`
-* Compléter le test `DatabaseFilmVuRepositoryTest`
+    * Utilisation de la classe `Authentication` en paramètre de la fonction du endpoint pour récupérer l'information de l'utilisateur connecté
+    * Utilisation de la classe `FilmVuAAjouterApi` en paramètre de la fonction du endpoint pour récupérer le body de la request avec l'annotation `@RequestBody`
+* Compléter le use case `ModifierUnFilmVuUseCase`
+    * En utilisant le `FilmVuRepository`
+        * Vérifier que le film vu existe bien, sinon lever une erreur
+        * Modifier le film vu avec la nouvelle note et le nouveau commentaire
+* Compléter le test `DatabaseFilmVuRepositoryFTest`
+* Compléter le test `ModifierUnFilmVuUseCaseTest`
 * Compléter le test `FilmVuControllerFTest`
-* Vous pourrez aussi avant de démarrer le swagger pour tester l'application corriger ou écrire les tests existants pour chaques classes
+* Vous pourrez aussi, avant de démarrer le swagger pour tester l'application, corriger ou écrire les tests existants pour chaque classes.
 
+---
 
 <details>
   <summary>Documentations officielles</summary>

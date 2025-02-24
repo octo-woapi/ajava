@@ -11,9 +11,9 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(WebSecurityConfiguration.class)
-public class WebSecurityConfigurationTest {
+class WebSecurityConfigurationTest {
 
-  @Autowired protected MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
   @Test
   void devrait_renvoyer_http_401_lorsqu_une_route_est_utilisee_sans_authentification()

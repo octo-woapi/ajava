@@ -8,12 +8,12 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class JsonMapperForTesting {
 
-  public static String toJson(Object o) throws JsonProcessingException {
+  public static String toJson(Object object) throws JsonProcessingException {
     var objectMapper =
         new ObjectMapper()
             .setSerializationInclusion(JsonInclude.Include.NON_NULL)
             .registerModule(new JavaTimeModule());
     objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-    return objectMapper.writeValueAsString(o);
+    return objectMapper.writeValueAsString(object);
   }
 }

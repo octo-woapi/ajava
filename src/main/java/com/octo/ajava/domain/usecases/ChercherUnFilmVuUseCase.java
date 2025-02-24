@@ -5,15 +5,15 @@ import com.octo.ajava.domain.repositories.FilmVuRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AjouterUnFilmVuUseCase {
+public class ChercherUnFilmVuUseCase {
 
   private final FilmVuRepository filmVuRepository;
 
-  public AjouterUnFilmVuUseCase(FilmVuRepository filmVuRepository) {
+  public ChercherUnFilmVuUseCase(FilmVuRepository filmVuRepository) {
     this.filmVuRepository = filmVuRepository;
   }
 
-  public FilmVu executer(FilmVu filmVu) throws Exception {
-    return filmVuRepository.ajouterUnFilmVu(filmVu);
+  public FilmVu executer(int filmVu, String utilisateurId) throws Exception {
+    return filmVuRepository.chercherUnFilmVu(filmVu, utilisateurId);
   }
 }
