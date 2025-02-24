@@ -36,4 +36,9 @@ public class FilmVuController {
             filmVuAAjouterApi.commentaire());
     return ResponseEntity.status(201).body(this.ajouterUnFilmVuUseCase.executer(filmVu));
   }
+
+  public ResponseEntity<Void> modifierFilmVu(
+      FilmVuAAjouterApi filmVuAAjouterApi, Authentication authentication) throws Exception {
+    return null;
+  }
 }

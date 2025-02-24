@@ -5,9 +5,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.octo.ajava.AjavaApplication;
 import com.octo.ajava.ObjectMapperBuilder;
 import com.octo.ajava.domain.FilmVu;
+import com.octo.ajava.infra.repositories.DatabaseFilmVuDAO;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
@@ -25,6 +28,7 @@ import org.testcontainers.utility.MountableFile;
 class FilmVuControllerFTest {
 
   @LocalServerPort private Integer port;
+  @Autowired DatabaseFilmVuDAO databaseFilmVuDAO;
 
   @Container
   static PostgreSQLContainer<?> postgreSQLContainer =
@@ -47,8 +51,6 @@ class FilmVuControllerFTest {
 
   @Test
   void ajouterFilmVu_devrait_renvoyer_201_avec_le_film_vu() throws Exception {
-    // Given
-
     // When
     var response =
         RestAssured.given()
@@ -75,5 +77,35 @@ class FilmVuControllerFTest {
 
     assertThat(filmAjoute.getFilmId()).isEqualTo(1);
     assertThat(filmAjoute.getUtilisateurId()).isEqualTo("user");
+  }
+
+  @DisplayName("devrait modifier la note et le commentaire déjà existant")
+  @Test
+  void modifierNoteEtCommentaire() {
+    // Given
+    var filmVu = databaseFilmVuDAO.save(new FilmVu(1, "user", "10/10", "Batman c'est ouf"));
+
+    // When
+    var response =
+        RestAssured.given()
+            .contentType("application/json")
+            .auth()
+            .basic("user", "password")
+            .body(
+                """
+                    {
+                      "filmId": 1,
+                      "note": "05/10",
+                      "commentaire": "Batman c'est pas ouf"
+                    }
+                    """)
+            .put(TODO)
+            .then()
+            .statusCode(HttpStatus.OK.value());
+
+    // Then
+    FilmVu filmVuModifie = databaseFilmVuDAO.findById(TODO);
+    assertThat(TODO).isEqualTo("05/10");
+    assertThat(TODO).isEqualTo("Batman c'est pas ouf");
   }
 }
