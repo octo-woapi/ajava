@@ -22,7 +22,7 @@ public class TMDBFilmMapper {
             tmdbMovie ->
                 new Film(
                     tmdbMovie.getId(),
-                    tmdbMovie.getTitlee(),
+                    tmdbMovie.getTitle(),
                     tmdbMovie.getOverview(),
                     emptyList(),
                     tmdbMovie.getReleaseDate()))

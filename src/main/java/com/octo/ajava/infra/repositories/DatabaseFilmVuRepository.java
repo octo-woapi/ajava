@@ -15,6 +15,11 @@ public class DatabaseFilmVuRepository implements FilmVuRepository {
   }
 
   @Override
+  public FilmVu chercherUnFilmVu(int filmId, String utilisateurId) throws Exception {
+    return databaseFilmVuDAO.findByFilmIdAndUtilisateurId(filmId, utilisateurId);
+  }
+
+  @Override
   @Transactional
   public FilmVu ajouterUnFilmVu(FilmVu filmVu) {
     return this.databaseFilmVuDAO.save(filmVu);
