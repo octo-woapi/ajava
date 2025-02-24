@@ -28,14 +28,12 @@ public class FilmVuController {
       throws Exception {
     String userId = authentication.getName();
 
-    FilmVu filmVu = new FilmVu(
+    FilmVu filmVu =
+        new FilmVu(
             filmVuAAjouterApi.filmId(),
             userId,
             filmVuAAjouterApi.note(),
             filmVuAAjouterApi.commentaire());
-    return ResponseEntity.status(201)
-        .body(
-            this.ajouterUnFilmVuUseCase.executer(
-                    filmVu));
+    return ResponseEntity.status(201).body(this.ajouterUnFilmVuUseCase.executer(filmVu));
   }
 }
