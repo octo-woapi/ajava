@@ -4,6 +4,7 @@ import static java.util.Collections.emptyList;
 
 import com.octo.ajava.domain.Film;
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
+import com.octo.ajava.infra.api_client.entities.TMDBMovie;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class TMDBFilmMapper {
 
   public List<Film> convertirEnFilms(PaginatedTMDBMovies paginatedTMDBMovies) {
-    var movies = paginatedTMDBMovies.getMovies();
+    List<TMDBMovie> movies = paginatedTMDBMovies.getMovies();
 
     if (movies == null) {
       return emptyList();
@@ -22,7 +23,7 @@ public class TMDBFilmMapper {
             tmdbMovie ->
                 new Film(
                     tmdbMovie.getId(),
-                    tmdbMovie.getTitlee(),
+                    tmdbMovie.getTitle(),
                     tmdbMovie.getOverview(),
                     emptyList(),
                     tmdbMovie.getReleaseDate()))

@@ -1,7 +1,7 @@
 package com.octo.ajava.domain.usecases;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.given;
 
 import com.octo.ajava.domain.Film;
 import com.octo.ajava.domain.repositories.FilmRepository;
@@ -14,14 +14,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class RecupererLesFilmsUseCaseTest {
+class RecupererLesFilmsUseCaseTest {
 
   @Mock private FilmRepository filmRepository;
-
   @InjectMocks private RecupererLesFilmsUseCase recupererLesFilmsUseCase;
 
   @Test
-  public void devrait_retourner_la_liste_des_films() throws Exception {
+  void devrait_retourner_la_liste_des_films() throws Exception {
     // Given
     Film unFilm =
         new Film(
@@ -31,12 +30,12 @@ public class RecupererLesFilmsUseCaseTest {
             List.of("Policier", "Drame"),
             LocalDate.of(1994, 9, 23));
 
-    when(filmRepository.recupererLesFilms()).thenReturn(List.of(unFilm));
+    given(filmRepository.recupererLesFilms()).willReturn(List.of(unFilm));
 
     // When
-    var result = recupererLesFilmsUseCase.executer();
+    List<Film> result = recupererLesFilmsUseCase.executer();
 
     // Then
-    assertThat(result.size()).isEqualTo(1);
+    assertThat(result).hasSize(1);
   }
 }
