@@ -1,21 +1,24 @@
 package com.octo.ajava.infra.mapper;
 
+import static java.util.Collections.emptyList;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.octo.ajava.ObjectMapperBuilder;
 import com.octo.ajava.fixture.FilmFixture;
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
-import static java.util.Collections.emptyList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class TMDBFilmMapperUTest {
 
-    private TMDBFilmMapper tmdbFilmMapper = new TMDBFilmMapper();
+  private TMDBFilmMapper tmdbFilmMapper = new TMDBFilmMapper();
 
-    @Test
-    void quand_il_n_y_a_pas_de_film_dans_la_response_retourne_une_liste_vide() throws JsonProcessingException {
-        // GIVEN
-        var jsonResponse = """
+  @Test
+  void quand_il_n_y_a_pas_de_film_dans_la_response_retourne_une_liste_vide()
+      throws JsonProcessingException {
+    // GIVEN
+    var jsonResponse =
+        """
                         {
                              "page": 1,
                              "results": [],
@@ -23,20 +26,21 @@ class TMDBFilmMapperUTest {
                              "total_results": 0
                          }
                 """;
-        var responseBody = ObjectMapperBuilder.handle().readValue(jsonResponse, PaginatedTMDBMovies.class);
+    var responseBody =
+        ObjectMapperBuilder.handle().readValue(jsonResponse, PaginatedTMDBMovies.class);
 
+    // WHEN
+    var result = tmdbFilmMapper.convertirEnFilms(responseBody);
 
-        // WHEN
-        var result = tmdbFilmMapper.convertirEnFilms(responseBody);
+    // THEN
+    Assertions.assertEquals(emptyList(), result);
+  }
 
-        // THEN
-        Assertions.assertEquals(emptyList(), result);
-    }
-
-    @Test
-    void devrait_renvoyer_un_Film() throws JsonProcessingException {
-        // GIVEN
-        var jsonResponse = """
+  @Test
+  void devrait_renvoyer_un_Film() throws JsonProcessingException {
+    // GIVEN
+    var jsonResponse =
+        """
                         {
                           "page": 1,
                           "results": [
@@ -85,12 +89,13 @@ class TMDBFilmMapperUTest {
                           "total_results": 146
                         }
                 """;
-        var responseBody = ObjectMapperBuilder.handle().readValue(jsonResponse, PaginatedTMDBMovies.class);
+    var responseBody =
+        ObjectMapperBuilder.handle().readValue(jsonResponse, PaginatedTMDBMovies.class);
 
-        // WHEN
-        var result = tmdbFilmMapper.convertirEnFilms(responseBody);
+    // WHEN
+    var result = tmdbFilmMapper.convertirEnFilms(responseBody);
 
-        // THEN
-        Assertions.assertEquals(FilmFixture.deuxFilmsRecherches(), result);
-    }
+    // THEN
+    Assertions.assertEquals(FilmFixture.deuxFilmsRecherches(), result);
+  }
 }
