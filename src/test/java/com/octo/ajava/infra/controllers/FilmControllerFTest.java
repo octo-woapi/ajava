@@ -6,11 +6,10 @@ import com.octo.ajava.AjavaApplication;
 import com.octo.ajava.ObjectMapperBuilder;
 import com.octo.ajava.domain.Film;
 import io.restassured.RestAssured;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-
-import java.util.Arrays;
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
@@ -34,7 +33,7 @@ class FilmControllerFTest {
     // Then
     Film[] listeDeFilms = ObjectMapperBuilder.handle().readValue(response, Film[].class);
     Arrays.stream(listeDeFilms).forEach(film -> System.out.println(film));
-    //assertThat(listeDeFilms.length).isEqualTo(22);
+    // assertThat(listeDeFilms.length).isEqualTo(22);
   }
 
   @Test
