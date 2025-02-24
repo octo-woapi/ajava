@@ -1,6 +1,8 @@
 package com.octo.ajava.infra.configuration.security;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+import static org.springframework.security.core.userdetails.User.withUsername;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,9 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,29 +23,27 @@ public class WebSecurityConfiguration {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http.headers(withDefaults())
-            .sessionManagement(WebSecurityConfiguration::statelessSessionManagement)
-            .authorizeHttpRequests(
-                    authorize -> authorize.requestMatchers("/api/films_vus").hasAnyRole("USER"))
-            .httpBasic(withDefaults())
-            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-            .csrf(AbstractHttpConfigurer::disable)
-            .build();
+        .sessionManagement(WebSecurityConfiguration::statelessSessionManagement)
+        .authorizeHttpRequests(
+            authorize ->
+                authorize.requestMatchers("/api/films_vus", "/api/films_vus/*").hasAnyRole("USER"))
+        .httpBasic(withDefaults())
+        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+        .csrf(AbstractHttpConfigurer::disable)
+        .build();
   }
 
   @Bean
   public InMemoryUserDetailsManager userDetailsService() {
     final UserDetails utilisateurLambda =
-        User.withUsername("user")
-            .password(passwordEncoder().encode("password"))
-            .roles("USER")
-            .build();
+        withUsername("user").password(passwordEncoder().encode("password")).roles("USER").build();
     final UserDetails jeanDurant =
-        User.withUsername("jdurant")
+        withUsername("jdurant")
             .password(passwordEncoder().encode("password"))
             .roles("USER")
             .build();
     final UserDetails admin =
-        User.withUsername("admin")
+        withUsername("admin")
             .password(passwordEncoder().encode("password"))
             .roles("ADMIN", "USER")
             .build();
@@ -61,6 +58,6 @@ public class WebSecurityConfiguration {
 
   private static void statelessSessionManagement(
       SessionManagementConfigurer<HttpSecurity> sessionManager) {
-    sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    sessionManager.sessionCreationPolicy(STATELESS);
   }
 }

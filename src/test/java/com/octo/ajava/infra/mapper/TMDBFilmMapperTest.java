@@ -1,9 +1,44 @@
-package com.octo.ajava.fixture;
+package com.octo.ajava.infra.mapper;
 
-public class TMDBJsonResponseFixture {
+import static com.octo.ajava.fixtures.FilmTestFixture.deuxFilmsRecherches;
+import static com.octo.ajava.utils.ObjectMapperTestUtil.convertirEnPaginatedTMDBMovies;
+import static org.assertj.core.api.Assertions.assertThat;
 
-    public static String deuxFilms() {
-        return """
+import com.octo.ajava.domain.Film;
+import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+
+class TMDBFilmMapperTest {
+
+  private TMDBFilmMapper tmdbFilmMapper = new TMDBFilmMapper();
+
+  @Test
+  void quand_il_n_y_a_pas_de_film_dans_la_response_retourne_une_liste_vide() throws Exception {
+    // Given
+    String jsonResponse =
+        """
+                        {
+                             "page": 1,
+                             "results": [],
+                             "total_pages": 1,
+                             "total_results": 0
+                         }
+                """;
+    PaginatedTMDBMovies paginatedTMDBMovies = convertirEnPaginatedTMDBMovies(jsonResponse);
+
+    // When
+    List<Film> result = tmdbFilmMapper.convertirEnFilms(paginatedTMDBMovies);
+
+    // Then
+    assertThat(result).isEmpty();
+  }
+
+  @Test
+  void devrait_renvoyer_un_Film() throws Exception {
+    // Given
+    String jsonResponse =
+        """
                         {
                           "page": 1,
                           "results": [
@@ -52,5 +87,12 @@ public class TMDBJsonResponseFixture {
                           "total_results": 146
                         }
                 """;
-    }
+    PaginatedTMDBMovies paginatedTMDBMovies = convertirEnPaginatedTMDBMovies(jsonResponse);
+
+    // When
+    List<Film> result = tmdbFilmMapper.convertirEnFilms(paginatedTMDBMovies);
+
+    // Then
+    assertThat(result).isEqualTo(deuxFilmsRecherches());
+  }
 }

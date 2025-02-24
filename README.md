@@ -45,7 +45,7 @@ Ouvrir la page `http://localhost:8080/swagger-ui/index.html`
 
 ![Swagger UI](doc/img/swagger.png)
 
-## :white_check_mark: Tests
+## ✅ Tests
 
 Pour lancer tous les tests :
 
@@ -60,20 +60,20 @@ Pour lancer tous les tests :
 
 ---
 
-# TP 5 ajouter et noter un film vu
----
+# TP 5 - Ajouter un film vu
 
 ## Objectif
 
-Ajouter un film vu en bdd provenant de l'API TMDB
+Ajouter un film vu en BDD, provenant de l'API TMDB, avec une note et un commentaire.
 
 * Lancer la commande `docker compose up -d` pour lancer le postgres
 * Compléter le controller `FilmVuController`
-  * Utilisation de la classe `Authentication` en paramètre de la fonction du endpoint pour récupérer l'information de l'utilisateur connecté
-  * Utilisation de la classe `FilmVuAAjouterApi` en paramètre de la fonction du endpoint pour récupérer le body de la request avec l'annotation `@RequestBody
+    * Utilisation de la classe `Authentication` en paramètre de la fonction du endpoint pour récupérer l'information de l'utilisateur connecté
+    * Utilisation de la classe `FilmVuAAjouterApi` en paramètre de la fonction du endpoint pour récupérer le body de la request avec l'annotation `@RequestBody
 * Compléter le use case `AjouterUnFilmVuUseCase`
-  * En utilisant le `DatabaseFilmVuRepository` qui doit injecter la classe `DatabaseFilmDAO` pour sauvegarder l'entité avec la méthode `.save`
-* Compléter le test `DatabaseFilmVuRepositoryTest`
+    * En utilisant le `FilmVuRepository`
+* Compléter le test `DatabaseFilmVuRepositoryFTest`
+* Compléter le test `AjouterUnFilmVuUseCaseTest`
 * Compléter le test `FilmVuControllerFTest`
 * Vous pourrez aussi avant de démarrer le swagger pour tester l'application corriger ou écrire les tests existants pour chaques classes
 
@@ -83,6 +83,8 @@ Je veux renvoyer dans mon endpoint la liste des suggestions en fonction de l’i
 
 * Vérifier que l’id du film passé en paramètre existe bien sur l’api TMDB avant de l’insérer en base : https://developer.themoviedb.org/reference/movie-details
 * Renvoyer la liste des suggestions, dans la réponse de `POST /api/films_vus` : https://developer.themoviedb.org/reference/movie-recommendations
+
+---
 
 <details>
   <summary>Documentations officielles</summary>
