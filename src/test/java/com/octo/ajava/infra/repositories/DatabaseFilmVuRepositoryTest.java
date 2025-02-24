@@ -3,6 +3,7 @@ package com.octo.ajava.infra.repositories;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.octo.ajava.domain.FilmVu;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,11 +38,28 @@ class DatabaseFilmVuRepositoryTest {
 
   @Test
   public void doit_ajouter_un_utilisateur_et_retourner_le_film_ajoute_en_base() {
-    // given
+    // Given
     var filmVu = new FilmVu(1, userId, "10/10", "Batman c'est ouf");
-    // when
+
+    // When
     var result = databaseFilmVuRepository.ajouterUnFilmVu(filmVu);
-    // then
+
+    // Then
     assertThat(result).isEqualTo(filmVu);
+  }
+
+  @DisplayName("devrait modifier un FilmVu déjà existant")
+  @Test
+  void modifierFilmVu() {
+    // Given
+    FilmVu filmVu =
+        databaseFilmVuRepository.ajouterUnFilmVu(
+            new FilmVu(1, userId, "10/10", "Batman c'est ouf"));
+
+    // When
+    databaseFilmVuRepository.modifierFilmVu(TODO);
+
+    // Then
+
   }
 }
