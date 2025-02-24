@@ -1,5 +1,10 @@
 package com.octo.ajava.infra.repositories;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.octo.ajava.domain.FilmVu;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,12 +15,13 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.MountableFile;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @Testcontainers
 class DatabaseFilmVuRepositoryTest {
 
-  private final String userId = "jdurant";
+  private final String utilisateurId = "jdurant";
 
+  @Autowired private DatabaseFilmVuDAO databaseFilmVuDAO;
   @Autowired private DatabaseFilmVuRepository databaseFilmVuRepository;
 
   @Container
@@ -32,12 +38,45 @@ class DatabaseFilmVuRepositoryTest {
     registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
   }
 
+  @BeforeEach
+  void setUp() {
+    databaseFilmVuDAO.deleteAll();
+  }
+
+  @DisplayName("devrait chercher et trouver un FilmVu déjà existant")
   @Test
-  public void doit_ajouter_un_utilisateur_et_retourner_le_film_ajoute_en_base() {
+  void trouverFilmVuExistant() throws Exception {
     // Given
+    FilmVu filmVu =
+        databaseFilmVuDAO.save(new FilmVu(5, utilisateurId, "10/10", "Batman c'est ouf"));
 
     // When
+    FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(5, utilisateurId);
 
     // Then
+    assertThat(filmVuTrouve).isEqualTo(filmVu);
+  }
+
+  @DisplayName("ne devrait pas trouver un FilmVu qui n'existe pas en BDD")
+  @Test
+  void chercherUnFilmVuNonExistant() throws Exception {
+    // Given
+    databaseFilmVuDAO.save(new FilmVu(1, utilisateurId, "10/10", "Batman c'est ouf"));
+
+    // When
+    FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(5, utilisateurId);
+
+    // Then
+    assertThat(filmVuTrouve).isNull();
+  }
+
+  @DisplayName("devrait ajouter un FilmVu en BDD et le retourner")
+  @Test
+  void ajouterFilmVu() {
+    // When
+    FilmVu filmVuAjouter = null; // TODO
+
+    // Then
+    assertThat(filmVuAjouter).isNotNull();
   }
 }
