@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * <p>Interet du constructeur ? Avoir des classes immutables. Interet des annotations des propriétés
  * JSON ? Découpler le naming JSON et le naming JAVA
  */
-@JsonIgnoreProperties(ignoreUnknown = false)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TMDBMovie {
 
   private final int id;
@@ -23,7 +23,7 @@ public class TMDBMovie {
 
   private final String originalLanguage;
 
-  private final String titlee;
+  private final String title;
 
   private String nom;
 
@@ -40,7 +40,7 @@ public class TMDBMovie {
       @JsonProperty("id") int id,
       @JsonProperty("original_title") String originalTitle,
       @JsonProperty("original_language") String originalLanguage,
-      @JsonProperty("titlee") String titlee,
+      @JsonProperty("title") String title,
       @JsonProperty("overview") String overview,
       @JsonProperty("release_date") LocalDate releaseDate,
       @JsonProperty("popularity") int popularity,
@@ -48,7 +48,7 @@ public class TMDBMovie {
     this.id = id;
     this.originalTitle = originalTitle;
     this.originalLanguage = originalLanguage;
-    this.titlee = titlee;
+    this.title = title;
     this.overview = overview;
     this.releaseDate = releaseDate;
     this.popularity = popularity;
@@ -67,8 +67,8 @@ public class TMDBMovie {
     return originalLanguage;
   }
 
-  public String getTitlee() {
-    return titlee;
+  public String getTitle() {
+    return title;
   }
 
   public String getOverview() {

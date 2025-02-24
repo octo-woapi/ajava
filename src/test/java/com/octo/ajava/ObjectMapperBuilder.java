@@ -1,30 +1,30 @@
 package com.octo.ajava;
 
+import static java.time.format.SignStyle.EXCEEDS_PAD;
+import static java.time.temporal.ChronoField.DAY_OF_MONTH;
+import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
+import static java.time.temporal.ChronoField.YEAR_OF_ERA;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.SignStyle;
-import java.time.temporal.ChronoField;
 
 public class ObjectMapperBuilder {
 
   public static final DateTimeFormatter FORMATEUR_DATE =
-      (new DateTimeFormatterBuilder())
-          .appendValue(ChronoField.DAY_OF_MONTH, 2)
+      new DateTimeFormatterBuilder()
+          .appendValue(DAY_OF_MONTH, 2)
           .appendLiteral('/')
-          .appendValue(ChronoField.MONTH_OF_YEAR, 2)
+          .appendValue(MONTH_OF_YEAR, 2)
           .appendLiteral('/')
-          .appendValue(ChronoField.YEAR_OF_ERA, 4, 10, SignStyle.EXCEEDS_PAD)
+          .appendValue(YEAR_OF_ERA, 4, 10, EXCEEDS_PAD)
           .toFormatter();
 
   public static ObjectMapper handle() {
-    var objectMapper = new ObjectMapper();
     JavaTimeModule javaTimeModule = new JavaTimeModule();
     javaTimeModule.addSerializer(new LocalDateSerializer(FORMATEUR_DATE));
-    objectMapper.registerModule(javaTimeModule);
-
-    return objectMapper;
+    return new ObjectMapper().registerModule(javaTimeModule);
   }
 }

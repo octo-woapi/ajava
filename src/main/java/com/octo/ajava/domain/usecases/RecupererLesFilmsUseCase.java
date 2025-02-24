@@ -10,11 +10,11 @@ public class RecupererLesFilmsUseCase {
 
   private final FilmRepository filmRepository;
 
-  RecupererLesFilmsUseCase(FilmRepository filmRepository) {
+  public RecupererLesFilmsUseCase(FilmRepository filmRepository) {
     this.filmRepository = filmRepository;
   }
 
   public List<Film> executer() throws Exception {
-    return this.filmRepository.recupererLesFilms();
+    return filmRepository.recupererLesFilms();
   }
 }
