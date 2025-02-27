@@ -106,7 +106,8 @@ class FilmVuControllerFTest {
     assertThat(filmAjoute.getUtilisateurId()).isEqualTo("user");
   }
 
-  @DisplayName("devrait modifier la note et le commentaire d'un FilmVu déjà existant")
+  @DisplayName(
+      "devrait modifier la note et le commentaire d'un FilmVu déjà existant, et renvoyer HTTP 204")
   @Test
   void modifierNoteEtCommentaire() {
     // Given
@@ -127,7 +128,7 @@ class FilmVuControllerFTest {
                     """)
         .put("TODO") // TODO
         .then()
-        .statusCode(HttpStatus.OK.value());
+        .statusCode(HttpStatus.OK.value()); // TODO
 
     // Then
     FilmVu filmVuTrouve = databaseFilmVuDAO.findByFilmIdAndUtilisateurId(12, "user");

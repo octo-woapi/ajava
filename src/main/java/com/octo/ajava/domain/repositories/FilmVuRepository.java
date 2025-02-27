@@ -8,5 +8,5 @@ public interface FilmVuRepository {
 
   FilmVu ajouterUnFilmVu(FilmVu filmVu) throws Exception;
 
-  void modifierUnFilmVu(FilmVu filmVu) throws Exception;
+  Void modifierUnFilmVu(FilmVu filmVu) throws Exception;
 }
