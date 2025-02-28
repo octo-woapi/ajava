@@ -6,7 +6,7 @@
 
 Vous devez avoir sur votre poste :
 
-* JAVA en version 17
+* JAVA en version 21
 * DOCKER (et docker-compose)
 
 ## 🚀 Démarrage
