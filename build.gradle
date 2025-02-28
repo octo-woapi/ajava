@@ -1,16 +1,19 @@
 plugins {
-    id 'com.diffplug.spotless' version '6.18.0'
-    id 'io.spring.dependency-management' version '1.1.0'
-    id 'java'
-    id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'com.diffplug.spotless' version '7.0.2'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.asciidoctor.jvm.convert' version '4.0.4'
     id 'org.springframework.boot' version "${globalSpringBootVersion}"
+    id 'java'
 }
 
 ext {
-    mockitoVersion = '5.2.0'
     set('snippetsDir', file("build/generated-snippets"))
     springBootVersion = "${globalSpringBootVersion}"
-    springDocVersion = '2.1.0'
+    springDocVersion = '2.8.5'
+    springDotenvVersion = '4.0.0'
+    mockitoVersion = '5.15.2'
+    restAssuredVersion = '5.5.1'
+    wiremockStandaloneVersion = '3.12.0'
 }
 
 group = 'com.octo.ajava'
@@ -18,7 +21,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -35,15 +38,13 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
-    implementation 'me.paulschwarz:spring-dotenv:3.0.0'
+    implementation "me.paulschwarz:spring-dotenv:${springDotenvVersion}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
-
-    testImplementation "com.github.tomakehurst:wiremock-jre8-standalone:2.35.0"
-
-    testImplementation "io.rest-assured:rest-assured:5.2.0"
+    testImplementation "org.wiremock:wiremock-standalone:${wiremockStandaloneVersion}"
+    testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
 }
 
 spotless {
@@ -78,5 +79,5 @@ asciidoctor {
 }
 
 wrapper {
-    gradleVersion = '8.0.2'
+    gradleVersion = '8.12.1'
 }
