@@ -1,7 +1,6 @@
 package com.octo.ajava.infra.mapper;
 
-import com.octo.ajava.ObjectMapperBuilder;
-import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,6 +13,7 @@ class TMDBFilmMapperUTest {
 
   @Test
   void test() {
+    /*
     // GIVEN
     var jsonResponse =
         """
@@ -28,5 +28,7 @@ class TMDBFilmMapperUTest {
 
     // THEN
     Assertions.assertEquals(expected, result);
+    */
+    Assertions.fail();
   }
 }
