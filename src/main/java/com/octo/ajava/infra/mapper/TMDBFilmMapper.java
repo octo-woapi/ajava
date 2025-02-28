@@ -1,5 +1,3 @@
 package com.octo.ajava.infra.mapper;
 
-public class TMDBFilmMapper {
-
-}
+public class TMDBFilmMapper {}
