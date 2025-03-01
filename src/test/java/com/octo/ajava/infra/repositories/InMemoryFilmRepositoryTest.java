@@ -14,9 +14,9 @@ class InMemoryFilmRepositoryTest {
     InMemoryFilmRepository inMemoryFilmRepository = new InMemoryFilmRepository();
 
     // When
-    List<Film> result = inMemoryFilmRepository.recupererLesFilms();
+    List<Film> films = inMemoryFilmRepository.recupererLesFilms();
 
     // Then
-    assertThat(result.size()).isEqualTo(22);
+    assertThat(films).hasSize(22);
   }
 }

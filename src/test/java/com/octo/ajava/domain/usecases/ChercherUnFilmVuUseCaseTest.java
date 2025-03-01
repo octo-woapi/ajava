@@ -1,5 +1,6 @@
 package com.octo.ajava.domain.usecases;
 
+import static com.octo.ajava.fixtures.FilmVuTestFixture.unFilmVu;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -25,14 +26,20 @@ class ChercherUnFilmVuUseCaseTest {
   @Test
   void chercherUnFilmVu() throws Exception {
     // Given
-    FilmVu filmVu = new FilmVu(12, "user", "10/10", "Le film Batman est spétaculaire");
-    given(filmVuRepository.chercherUnFilmVu(anyInt(), any())).willReturn(filmVu);
+    FilmVu filmVuExistant =
+        unFilmVu()
+            .avecFilmId(25)
+            .avecUtilisateurId("user")
+            .avecNote("10/10")
+            .avecCommentaire("Le film Batman est spectaculaire")
+            .build();
+    given(filmVuRepository.chercherUnFilmVu(anyInt(), any())).willReturn(filmVuExistant);
 
     // When
     FilmVu filmVuTrouve = chercherUnFilmVuUseCase.executer(25, "user");
 
     // Then
     verify(filmVuRepository).chercherUnFilmVu(25, "user");
-    assertThat(filmVuTrouve).isEqualTo(filmVu);
+    assertThat(filmVuTrouve).isEqualTo(filmVuExistant);
   }
 }

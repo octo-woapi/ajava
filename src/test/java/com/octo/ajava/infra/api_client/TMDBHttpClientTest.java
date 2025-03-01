@@ -7,11 +7,10 @@ import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
-import static com.octo.ajava.fixture.TMDBJsonResponseFixture.deuxFilms;
+import static com.octo.ajava.fixtures.TMDBJsonResponseTestFixture.deuxFilms;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import com.github.tomakehurst.wiremock.matching.EqualToPattern;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -56,7 +55,7 @@ class TMDBHttpClientTest {
     // Then
     verify(
         getRequestedFor(urlEqualTo("/search/movie?query=batman"))
-            .withQueryParam("query", new EqualToPattern("batman"))
+            .withQueryParam("query", equalTo("batman"))
             .withHeader("Authorization", equalTo("Bearer " + jetonTmdb)));
   }
 }

@@ -1,9 +1,9 @@
 package com.octo.ajava.infra.repositories;
 
-import static com.octo.ajava.fixture.FilmFixture.deuxFilmsPopulaires;
-import static com.octo.ajava.fixture.FilmFixture.deuxFilmsRecherches;
-import static com.octo.ajava.fixture.TMDBMovieFixture.deuxFilmsPopulairesVenantDeTMTB;
-import static com.octo.ajava.fixture.TMDBMovieFixture.deuxFilmsRecherchesVenantDeTMTB;
+import static com.octo.ajava.fixtures.FilmTestFixture.deuxFilmsPopulaires;
+import static com.octo.ajava.fixtures.FilmTestFixture.deuxFilmsRecherches;
+import static com.octo.ajava.fixtures.TMDBMovieTestFixture.deuxFilmsPopulairesVenantDeTMTB;
+import static com.octo.ajava.fixtures.TMDBMovieTestFixture.deuxFilmsRecherchesVenantDeTMTB;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
@@ -22,7 +22,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class TMDBFilmRepositoryTest {
 
   @Mock private TMDBHttpClient tmdbHttpClient;
-
   private TMDBFilmRepository tmdbFilmRepository;
 
   @BeforeEach

@@ -1,12 +1,13 @@
 package com.octo.ajava.domain.usecases;
 
+import static com.octo.ajava.fixtures.FilmTestFixture.unFilm;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 import com.octo.ajava.domain.Film;
 import com.octo.ajava.domain.repositories.FilmRepository;
-import java.time.LocalDate;
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,23 +20,17 @@ class RecupererLesFilmsUseCaseTest {
   @Mock private FilmRepository filmRepository;
   @InjectMocks private RecupererLesFilmsUseCase recupererLesFilmsUseCase;
 
+  @DisplayName("devrait appeler le repository pour récupérer une liste de films")
   @Test
-  void devrait_retourner_la_liste_des_films() throws Exception {
+  void recupererLesFilms() throws Exception {
     // Given
-    Film unFilm =
-        new Film(
-            1,
-            "Pulp Fiction",
-            "Les vies de deux hommes de main...",
-            List.of("Policier", "Drame"),
-            LocalDate.of(1994, 9, 23));
-
+    Film unFilm = unFilm().avecTitre("Pulp Fiction").build();
     given(filmRepository.recupererLesFilms()).willReturn(List.of(unFilm));
 
     // When
-    List<Film> result = recupererLesFilmsUseCase.executer();
+    List<Film> filmsRenvoyes = recupererLesFilmsUseCase.executer();
 
     // Then
-    assertThat(result).hasSize(1);
+    assertThat(filmsRenvoyes).singleElement().extracting("titre").isEqualTo("Pulp Fiction");
   }
 }

@@ -1,13 +1,19 @@
 package com.octo.ajava.infra.controllers;
 
+import static com.octo.ajava.fixtures.CritiqueApiTestFixture.uneCritiqueApi;
+import static com.octo.ajava.fixtures.FilmVuAAjouterApiTestFixture.unFilmVuAAjouterApi;
+import static com.octo.ajava.fixtures.FilmVuTestFixture.unFilmVu;
 import static io.restassured.RestAssured.given;
+import static org.apache.http.HttpStatus.SC_CREATED;
+import static org.apache.http.HttpStatus.SC_NOT_FOUND;
+import static org.apache.http.HttpStatus.SC_OK;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.testcontainers.utility.MountableFile.forClasspathResource;
 
 import com.octo.ajava.AjavaApplication;
-import com.octo.ajava.ObjectMapperBuilder;
 import com.octo.ajava.domain.FilmVu;
+import com.octo.ajava.infra.controllers.entities.CritiqueApi;
+import com.octo.ajava.infra.controllers.entities.FilmVuAAjouterApi;
 import com.octo.ajava.infra.repositories.DatabaseFilmVuDAO;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -22,13 +28,15 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.MountableFile;
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = AjavaApplication.class)
 @Testcontainers
 class FilmVuControllerFTest {
+
+  private static final String UTILISATEUR_ID = "user";
+  private static final String MOT_DE_PASSE = "password";
 
   @LocalServerPort private Integer port;
   @Autowired private DatabaseFilmVuDAO databaseFilmVuDAO;
@@ -37,8 +45,7 @@ class FilmVuControllerFTest {
   static PostgreSQLContainer<?> postgreSQLContainer =
       new PostgreSQLContainer<>("postgres:14-alpine")
           .withCopyFileToContainer(
-              MountableFile.forClasspathResource("/docker_postgres_init.sql"),
-              "/docker-entrypoint-initdb.d/");
+              forClasspathResource("/docker_postgres_init.sql"), "/docker-entrypoint-initdb.d/");
 
   @DynamicPropertySource
   static void registerMySQLProperties(DynamicPropertyRegistry registry) {
@@ -57,81 +64,146 @@ class FilmVuControllerFTest {
   @Test
   void chercherUnFilmVu() throws Exception {
     // Given
-    FilmVu filmVu =
-        databaseFilmVuDAO.save(new FilmVu(25, "jdurant", "10/10", "Shakespeare for ever!"));
+    int filmId = 25;
+    FilmVu filmVuExistant =
+        databaseFilmVuDAO.save(
+            unFilmVu()
+                .avecFilmId(filmId)
+                .avecUtilisateurId(UTILISATEUR_ID)
+                .avecNote("10/10")
+                .avecCommentaire("Shakespeare for ever!")
+                .build());
 
     // When
-    Response response =
+    FilmVu filmVuTrouve =
         given()
-            .contentType("application/json")
             .auth()
-            .basic("jdurant", "password")
-            .get("/api/films_vus/25")
+            .basic(UTILISATEUR_ID, MOT_DE_PASSE)
+            .when()
+            .get("/api/films_vus/{filmId}", filmId)
             .then()
-            .statusCode(OK.value())
+            .statusCode(SC_OK)
             .extract()
-            .response();
+            .body()
+            .as(FilmVu.class);
 
     // Then
-    FilmVu filmVuTrouve = ObjectMapperBuilder.handle().readValue(response.asString(), FilmVu.class);
-    assertThat(filmVuTrouve).isEqualTo(filmVu);
+    assertThat(filmVuTrouve).isEqualTo(filmVuExistant);
   }
 
+  @DisplayName("devrait renvoyer le FilmVu ajouté, et un HTTP 201")
   @Test
-  void ajouterFilmVu_devrait_renvoyer_201_avec_le_film_vu() throws Exception {
+  void ajouterUnFilmVu() throws Exception {
+    // Given
+    FilmVuAAjouterApi filmVuAAjouterApi =
+        unFilmVuAAjouterApi()
+            .avecFilmId(1)
+            .avecNote("10/10")
+            .avecCommentaire("Batman c'est ouf")
+            .build();
+
     // When
-    Response response =
+    FilmVu filmAjoute =
         given()
             .contentType("application/json")
             .auth()
-            .basic("user", "password")
-            .body(
-                """
-                    {
-                      "filmId": 1,
-                      "note": "10/10",
-                      "commentaire": "Batman c'est ouf"
-                    }
-                    """)
+            .basic(UTILISATEUR_ID, MOT_DE_PASSE)
+            .body(filmVuAAjouterApi)
+            .when()
             .post("/api/films_vus")
             .then()
-            .statusCode(CREATED.value())
+            .statusCode(SC_CREATED)
             .extract()
-            .response();
+            .body()
+            .as(FilmVu.class);
 
     // Then
-    FilmVu filmAjoute = ObjectMapperBuilder.handle().readValue(response.asString(), FilmVu.class);
     assertThat(filmAjoute.getFilmId()).isEqualTo(1);
-    assertThat(filmAjoute.getUtilisateurId()).isEqualTo("user");
+    assertThat(filmAjoute.getUtilisateurId()).isEqualTo(UTILISATEUR_ID);
+    assertThat(filmAjoute.getNote()).isEqualTo("10/10");
+    assertThat(filmAjoute.getCommentaire()).isEqualTo("Batman c'est ouf");
+  }
+
+  @DisplayName("devrait renvoyer le FilmVu modifié et un HTTP 200")
+  @Test
+  void modifierUnFilmVu() throws Exception {
+    // Given
+    int filmId = 12;
+    FilmVu filmVuExistant =
+        databaseFilmVuDAO.save(
+            unFilmVu()
+                .avecFilmId(filmId)
+                .avecUtilisateurId(UTILISATEUR_ID)
+                .avecNote("05/10")
+                .avecCommentaire("Batman c'est moyen !")
+                .build());
+
+    CritiqueApi critiqueApi =
+        uneCritiqueApi()
+            .avecNote("10/10")
+            .avecCommentaire("Batman finalement c'est génial !")
+            .build();
+
+    // When
+    FilmVu filmVuModifie =
+        given()
+            .contentType("application/json")
+            .auth()
+            .basic(UTILISATEUR_ID, MOT_DE_PASSE)
+            .body(critiqueApi)
+            .when()
+            .put("/api/films_vus/{filmId}", filmId)
+            .then()
+            .statusCode(SC_OK)
+            .extract()
+            .response()
+            .body()
+            .as(FilmVu.class);
+
+    // Then
+    assertThat(filmVuModifie.getId()).isEqualTo(filmVuExistant.getId());
+    assertThat(filmVuModifie.getFilmId()).isEqualTo(filmId);
+    assertThat(filmVuModifie.getUtilisateurId()).isEqualTo(UTILISATEUR_ID);
+    assertThat(filmVuModifie.getNote()).isEqualTo("10/10");
+    assertThat(filmVuModifie.getCommentaire()).isEqualTo("Batman finalement c'est génial !");
   }
 
   @DisplayName(
-      "devrait modifier la note et le commentaire d'un FilmVu déjà existant, et renvoyer HTTP 204")
+      "devrait retourner une chaine vide et un HTTP 404, si le FilmVu n'existe pas (couple filmId et utilisateurId inexistant")
   @Test
-  void modifierNoteEtCommentaire() {
+  void retournerHttp404() {
     // Given
-    databaseFilmVuDAO.save(new FilmVu(12, "user", "10/10", "Batman c'est ouf"));
+    int filmIdErrone = 100;
+
+    databaseFilmVuDAO.save(
+        unFilmVu()
+            .avecFilmId(12)
+            .avecUtilisateurId(UTILISATEUR_ID)
+            .avecNote("05/10")
+            .avecCommentaire("Batman c'est moyen !")
+            .build());
+
+    CritiqueApi critiqueApi =
+        uneCritiqueApi()
+            .avecNote("10/10")
+            .avecCommentaire("Batman finalement c'est génial !")
+            .build();
 
     // When
-    given()
-        .contentType("application/json")
-        .auth()
-        .basic("user", "password")
-        .body(
-            """
-                    {
-                      "filmId": 12,
-                      "note": "05/10",
-                      "commentaire": "Batman c'est pas ouf"
-                    }
-                    """)
-        .put("TODO") // TODO
-        .then()
-        .statusCode(OK.value()); // TODO
+    Response response =
+        given()
+            .contentType("application/json")
+            .auth()
+            .basic(UTILISATEUR_ID, MOT_DE_PASSE)
+            .body(critiqueApi)
+            .when()
+            .put("/api/films_vus/{filmId}", filmIdErrone)
+            .then()
+            .statusCode(SC_NOT_FOUND)
+            .extract()
+            .response();
 
     // Then
-    FilmVu filmVuTrouve = databaseFilmVuDAO.findByFilmIdAndUtilisateurId(12, "user");
-    assertThat("TODO").isEqualTo("05/10"); // TODO
-    assertThat("TODO").isEqualTo("Batman c'est pas ouf"); // TODO
+    assertThat(response.asString()).isEmpty();
   }
 }

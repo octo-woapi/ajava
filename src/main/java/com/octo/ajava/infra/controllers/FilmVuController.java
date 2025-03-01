@@ -1,5 +1,6 @@
 package com.octo.ajava.infra.controllers;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
@@ -7,6 +8,8 @@ import static org.springframework.http.ResponseEntity.status;
 import com.octo.ajava.domain.FilmVu;
 import com.octo.ajava.domain.usecases.AjouterUnFilmVuUseCase;
 import com.octo.ajava.domain.usecases.ChercherUnFilmVuUseCase;
+import com.octo.ajava.domain.usecases.ModifierUnFilmVuUseCase;
+import com.octo.ajava.infra.controllers.entities.CritiqueApi;
 import com.octo.ajava.infra.controllers.entities.FilmVuAAjouterApi;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,12 +29,15 @@ public class FilmVuController {
 
   private final ChercherUnFilmVuUseCase chercherUnFilmVuUseCase;
   private final AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase;
+  private final ModifierUnFilmVuUseCase modifierUnFilmVuUseCase;
 
   public FilmVuController(
       ChercherUnFilmVuUseCase chercherUnFilmVuUseCase,
-      AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase) {
+      AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase,
+      ModifierUnFilmVuUseCase modifierUnFilmVuUseCase) {
     this.chercherUnFilmVuUseCase = chercherUnFilmVuUseCase;
     this.ajouterUnFilmVuUseCase = ajouterUnFilmVuUseCase;
+    this.modifierUnFilmVuUseCase = modifierUnFilmVuUseCase;
   }
 
   @GetMapping("/{filmId}")
@@ -57,11 +64,24 @@ public class FilmVuController {
             userId,
             filmVuAAjouterApi.note(),
             filmVuAAjouterApi.commentaire());
-    return status(201).body(ajouterUnFilmVuUseCase.executer(filmVu));
+    return status(CREATED).body(ajouterUnFilmVuUseCase.executer(filmVu));
   }
 
-  public ResponseEntity<Void> modifierFilmVu(
-      FilmVuAAjouterApi filmVuAAjouterApi, Authentication authentication) throws Exception {
-    return null; // TODO
+  @PutMapping("/{filmId}")
+  public ResponseEntity<FilmVu> modifierFilmVu(
+      @PathVariable("filmId") int filmId,
+      @RequestBody CritiqueApi critiqueApi,
+      Authentication authentication)
+      throws Exception {
+    FilmVu filmVuModifie =
+        modifierUnFilmVuUseCase.executer(
+            new FilmVu(
+                filmId, authentication.getName(), critiqueApi.note(), critiqueApi.commentaire()));
+
+    if (filmVuModifie == null) {
+      return notFound().build();
+    }
+
+    return ok().body(filmVuModifie);
   }
 }

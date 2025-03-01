@@ -1,5 +1,6 @@
 package com.octo.ajava.domain.usecases;
 
+import static com.octo.ajava.fixtures.FilmVuTestFixture.unFilmVu;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -24,7 +25,13 @@ class AjouterUnFilmVuUseCaseTest {
   @Test
   void ajouterUnFilmVu() throws Exception {
     // Given
-    FilmVu filmVu = new FilmVu(12, "user", "10/10", "Le film Batman est spétaculaire");
+    FilmVu filmVu =
+        unFilmVu()
+            .avecFilmId(12)
+            .avecUtilisateurId("user")
+            .avecNote("10/10")
+            .avecCommentaire("Le film Batman est spectaculaire")
+            .build();
     given(filmVuRepository.ajouterUnFilmVu(any())).willReturn(filmVu);
 
     // When
