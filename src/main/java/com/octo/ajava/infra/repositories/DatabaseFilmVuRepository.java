@@ -27,7 +27,7 @@ public class DatabaseFilmVuRepository implements FilmVuRepository {
 
   @Override
   @Transactional
-  public Void modifierUnFilmVu(FilmVu filmVu) throws Exception {
-    return null;
+  public FilmVu modifierUnFilmVu(FilmVu filmVu) throws Exception {
+    return databaseFilmVuDAO.save(filmVu);
   }
 }

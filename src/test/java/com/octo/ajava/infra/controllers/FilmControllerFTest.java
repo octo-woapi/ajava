@@ -1,15 +1,14 @@
 package com.octo.ajava.infra.controllers;
 
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.HttpStatus.OK;
 
 import com.octo.ajava.AjavaApplication;
-import com.octo.ajava.ObjectMapperBuilder;
 import com.octo.ajava.domain.Film;
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -29,28 +28,33 @@ class FilmControllerFTest {
   @Test
   void recuperTousLesFilms_devrait_renvoyer_une_HTTP_200_et_une_liste_de_film() throws Exception {
     // When
-    Response response =
-        given().get("/api/films").then().statusCode(OK.value()).extract().response();
+    Film[] filmsTrouves =
+        when()
+            .get("/api/films")
+            .then()
+            .statusCode(HttpStatus.SC_OK)
+            .extract()
+            .body()
+            .as(Film[].class);
 
     // Then
-    Film[] listeDeFilms = ObjectMapperBuilder.handle().readValue(response.asString(), Film[].class);
-    assertThat(listeDeFilms.length).isEqualTo(22);
+    assertThat(filmsTrouves).hasSize(22);
   }
 
+  @DisplayName("devrait renvoyer la liste des fils trouvés et un HTTP 200")
   @Test
-  void chercherDesFilms_devrait_renvoyer_une_HTTP_200_et_une_liste_de_film_recherchee()
-      throws Exception {
+  void chercherDesFilms() throws Exception {
     // When
-    Response response =
-        given()
+    Film[] filmsTrouves =
+        when()
             .get("/api/films/search?query=totoro")
             .then()
-            .statusCode(OK.value())
+            .statusCode(HttpStatus.SC_OK)
             .extract()
-            .response();
+            .body()
+            .as(Film[].class);
 
     // Then
-    Film[] listeDeFilms = ObjectMapperBuilder.handle().readValue(response.asString(), Film[].class);
-    assertThat(listeDeFilms.length).isEqualTo(1);
+    assertThat(filmsTrouves).hasSize(1);
   }
 }

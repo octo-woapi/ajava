@@ -48,6 +48,14 @@ public class FilmVu {
     return commentaire;
   }
 
+  public void setNote(String note) {
+    this.note = note;
+  }
+
+  public void setCommentaire(String commentaire) {
+    this.commentaire = commentaire;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

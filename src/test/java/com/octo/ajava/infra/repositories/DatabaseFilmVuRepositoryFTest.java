@@ -19,7 +19,7 @@ import org.testcontainers.utility.MountableFile;
 @Testcontainers
 class DatabaseFilmVuRepositoryFTest {
 
-  private final String utilisateurId = "jdurant";
+  private static final String UTILISATEUR_ID = "jdurant";
 
   @Autowired private DatabaseFilmVuDAO databaseFilmVuDAO;
   @Autowired private DatabaseFilmVuRepository databaseFilmVuRepository;
@@ -48,10 +48,10 @@ class DatabaseFilmVuRepositoryFTest {
   void trouverFilmVuExistant() throws Exception {
     // Given
     FilmVu filmVu =
-        databaseFilmVuDAO.save(new FilmVu(5, utilisateurId, "10/10", "Batman c'est ouf"));
+        databaseFilmVuDAO.save(new FilmVu(5, UTILISATEUR_ID, "10/10", "Batman c'est ouf"));
 
     // When
-    FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(5, utilisateurId);
+    FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(5, UTILISATEUR_ID);
 
     // Then
     assertThat(filmVuTrouve).isEqualTo(filmVu);
@@ -61,10 +61,10 @@ class DatabaseFilmVuRepositoryFTest {
   @Test
   void chercherUnFilmVuNonExistant() throws Exception {
     // Given
-    databaseFilmVuDAO.save(new FilmVu(1, utilisateurId, "10/10", "Batman c'est ouf"));
+    databaseFilmVuDAO.save(new FilmVu(1, UTILISATEUR_ID, "10/10", "Batman c'est ouf"));
 
     // When
-    FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(5, utilisateurId);
+    FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(5, UTILISATEUR_ID);
 
     // Then
     assertThat(filmVuTrouve).isNull();
@@ -74,7 +74,7 @@ class DatabaseFilmVuRepositoryFTest {
   @Test
   void ajouterFilmVu() {
     // Given
-    FilmVu filmVu = new FilmVu(1, utilisateurId, "10/10", "Batman c'est ouf");
+    FilmVu filmVu = new FilmVu(1, UTILISATEUR_ID, "10/10", "Batman c'est ouf");
 
     // When
     FilmVu filmVuAjoute = databaseFilmVuRepository.ajouterUnFilmVu(filmVu);
@@ -87,15 +87,21 @@ class DatabaseFilmVuRepositoryFTest {
   @Test
   void modifierFilmVu() throws Exception {
     // Given
-    FilmVu filmVu =
+    FilmVu filmVuExistant =
         databaseFilmVuRepository.ajouterUnFilmVu(
-            new FilmVu(1, utilisateurId, "10/10", "Batman c'est ouf"));
+            new FilmVu(1, UTILISATEUR_ID, "10/10", "Batman c'est ouf"));
+
+    filmVuExistant.setNote("5/10");
+    filmVuExistant.setCommentaire("Batman c'est moyen !");
 
     // When
-    databaseFilmVuRepository.modifierUnFilmVu(null); // TODO
+    FilmVu filmVuModifie = databaseFilmVuRepository.modifierUnFilmVu(filmVuExistant);
 
     // Then
-    // TODO
-
+    assertThat(filmVuModifie.getId()).isEqualTo(filmVuExistant.getId());
+    assertThat(filmVuModifie.getFilmId()).isEqualTo(1);
+    assertThat(filmVuModifie.getUtilisateurId()).isEqualTo(UTILISATEUR_ID);
+    assertThat(filmVuModifie.getNote()).isEqualTo("5/10");
+    assertThat(filmVuModifie.getCommentaire()).isEqualTo("Batman c'est moyen !");
   }
 }

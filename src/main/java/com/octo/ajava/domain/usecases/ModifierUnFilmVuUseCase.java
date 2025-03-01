@@ -13,10 +13,16 @@ public class ModifierUnFilmVuUseCase {
     this.filmVuRepository = filmVuRepository;
   }
 
-  public void executer(FilmVu filmVu) throws Exception {
-    // TODO appeler le repository pour vérifier que le FilmVu existe déjà (filmId et userId
-    // identiques), sinon lever une erreur
+  public FilmVu executer(FilmVu filmVu) throws Exception {
+    FilmVu filmVuTrouve =
+        filmVuRepository.chercherUnFilmVu(filmVu.getFilmId(), filmVu.getUtilisateurId());
 
-    // TODO appeler le repository pour effectuer la modification
+    if (filmVuTrouve == null) {
+      return null;
+    }
+
+    filmVuTrouve.setNote(filmVu.getNote());
+    filmVuTrouve.setCommentaire(filmVu.getCommentaire());
+    return filmVuRepository.modifierUnFilmVu(filmVuTrouve);
   }
 }

@@ -1,10 +1,9 @@
 package com.octo.ajava.infra.mapper;
 
-import static com.octo.ajava.fixture.FilmFixture.deuxFilmsRecherches;
+import static com.octo.ajava.fixtures.FilmTestFixture.deuxFilmsRecherches;
+import static com.octo.ajava.utils.ObjectMapperTestUtil.convertirEnPaginatedTMDBMovies;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.octo.ajava.ObjectMapperBuilder;
 import com.octo.ajava.domain.Film;
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
 import java.util.List;
@@ -15,8 +14,7 @@ class TMDBFilmMapperTest {
   private TMDBFilmMapper tmdbFilmMapper = new TMDBFilmMapper();
 
   @Test
-  void quand_il_n_y_a_pas_de_film_dans_la_response_retourne_une_liste_vide()
-      throws JsonProcessingException {
+  void quand_il_n_y_a_pas_de_film_dans_la_response_retourne_une_liste_vide() throws Exception {
     // Given
     String jsonResponse =
         """
@@ -27,8 +25,7 @@ class TMDBFilmMapperTest {
                              "total_results": 0
                          }
                 """;
-    PaginatedTMDBMovies paginatedTMDBMovies =
-        ObjectMapperBuilder.handle().readValue(jsonResponse, PaginatedTMDBMovies.class);
+    PaginatedTMDBMovies paginatedTMDBMovies = convertirEnPaginatedTMDBMovies(jsonResponse);
 
     // When
     List<Film> result = tmdbFilmMapper.convertirEnFilms(paginatedTMDBMovies);
@@ -38,7 +35,7 @@ class TMDBFilmMapperTest {
   }
 
   @Test
-  void devrait_renvoyer_un_Film() throws JsonProcessingException {
+  void devrait_renvoyer_un_Film() throws Exception {
     // Given
     String jsonResponse =
         """
@@ -90,8 +87,7 @@ class TMDBFilmMapperTest {
                           "total_results": 146
                         }
                 """;
-    PaginatedTMDBMovies paginatedTMDBMovies =
-        ObjectMapperBuilder.handle().readValue(jsonResponse, PaginatedTMDBMovies.class);
+    PaginatedTMDBMovies paginatedTMDBMovies = convertirEnPaginatedTMDBMovies(jsonResponse);
 
     // When
     List<Film> result = tmdbFilmMapper.convertirEnFilms(paginatedTMDBMovies);

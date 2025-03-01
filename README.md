@@ -45,7 +45,7 @@ Ouvrir la page `http://localhost:8080/swagger-ui/index.html`
 
 ![Swagger UI](doc/img/swagger.png)
 
-## :white_check_mark: Tests
+## ✅ Tests
 
 Pour lancer tous les tests :
 
@@ -67,15 +67,18 @@ Pour lancer tous les tests :
 Modifier un un film vu déjà existant en BDD, en modifiant la note et le commentaire (par le même utilisateur).
 
 * Compléter le controller `FilmVuController`
+    * Utilisation de l'`int` `filmId` avec l'annotation `@PathVariable`
+    * Utilisation de la classe `CritiqueApi` en paramètre de la fonction du endpoint pour récupérer le body de la request avec l'annotation `@RequestBody`
     * Utilisation de la classe `Authentication` en paramètre de la fonction du endpoint pour récupérer l'information de l'utilisateur connecté
-    * Utilisation de la classe `FilmVuAAjouterApi` en paramètre de la fonction du endpoint pour récupérer le body de la request avec l'annotation `@RequestBody`
 * Compléter le use case `ModifierUnFilmVuUseCase`
     * En utilisant le `FilmVuRepository`
-        * Vérifier que le film vu existe bien, sinon lever une erreur
-        * Modifier le film vu avec la nouvelle note et le nouveau commentaire
+        * Vérifier que le film vu existe bien, sinon renvoyer `null`
+        * Modifier le film vu avec la nouvelle note et le nouveau commentaire, et le renvoyer
 * Compléter le test `DatabaseFilmVuRepositoryFTest`
 * Compléter le test `ModifierUnFilmVuUseCaseTest`
 * Compléter le test `FilmVuControllerFTest`
+
+
 * Vous pourrez aussi, avant de démarrer le swagger pour tester l'application, corriger ou écrire les tests existants pour chaque classes.
 
 ---
