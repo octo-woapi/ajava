@@ -28,7 +28,7 @@ services:
       - keycloak
 
   keycloak:
-    image: quay.io/keycloak/keycloak:19.0.2
+    image: quay.io/keycloak/keycloak:26.1.3
     command: start-dev --import-realm
     depends_on:
       - keycloak_db
