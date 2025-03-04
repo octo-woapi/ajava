@@ -10,7 +10,7 @@ public class RecupererLesFilmsUseCase {
 
   private final FilmRepository filmRepository;
 
-  RecupererLesFilmsUseCase(FilmRepository filmRepository) {
+  public RecupererLesFilmsUseCase(FilmRepository filmRepository) {
     this.filmRepository = filmRepository;
   }
 

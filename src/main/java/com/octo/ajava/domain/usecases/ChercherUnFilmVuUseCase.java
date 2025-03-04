@@ -2,19 +2,18 @@ package com.octo.ajava.domain.usecases;
 
 import com.octo.ajava.domain.FilmVu;
 import com.octo.ajava.domain.repositories.FilmVuRepository;
-import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RecupererMesFilmsVusUseCase {
+public class ChercherUnFilmVuUseCase {
 
   private final FilmVuRepository filmVuRepository;
 
-  public RecupererMesFilmsVusUseCase(FilmVuRepository filmVuRepository) {
+  public ChercherUnFilmVuUseCase(FilmVuRepository filmVuRepository) {
     this.filmVuRepository = filmVuRepository;
   }
 
-  public List<FilmVu> executer(String userId) throws Exception {
-    return filmVuRepository.recupererMesFilmsVus(userId);
+  public FilmVu executer(int filmVu, String utilisateurId) throws Exception {
+    return filmVuRepository.chercherUnFilmVu(filmVu, utilisateurId);
   }
 }

@@ -10,7 +10,7 @@ public class ChercherDesFilmsUseCase {
 
   private final FilmRepository filmRepository;
 
-  ChercherDesFilmsUseCase(FilmRepository filmRepository) {
+  public ChercherDesFilmsUseCase(FilmRepository filmRepository) {
     this.filmRepository = filmRepository;
   }
 

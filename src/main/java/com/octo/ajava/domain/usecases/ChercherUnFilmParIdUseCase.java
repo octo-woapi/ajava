@@ -10,17 +10,16 @@ public class ChercherUnFilmParIdUseCase {
 
   private final FilmRepository filmRepository;
 
-  ChercherUnFilmParIdUseCase(FilmRepository filmRepository) {
+  public ChercherUnFilmParIdUseCase(FilmRepository filmRepository) {
     this.filmRepository = filmRepository;
   }
 
-  public Film executer(String id) throws FilmNotFoundException {
+  public Film executer(int id) throws FilmNotFoundException {
     var response = this.filmRepository.chercherUnFilmParId(id);
 
     if (response.isPresent()) {
       return response.get();
-    } else {
-      throw new FilmNotFoundException(id);
     }
+    throw new FilmNotFoundException(id);
   }
 }

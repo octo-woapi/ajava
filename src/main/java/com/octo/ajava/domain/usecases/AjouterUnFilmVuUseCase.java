@@ -9,7 +9,7 @@ public class AjouterUnFilmVuUseCase {
 
   private final FilmVuRepository filmVuRepository;
 
-  AjouterUnFilmVuUseCase(FilmVuRepository filmVuRepository) {
+  public AjouterUnFilmVuUseCase(FilmVuRepository filmVuRepository) {
     this.filmVuRepository = filmVuRepository;
   }
 

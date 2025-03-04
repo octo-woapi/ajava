@@ -3,8 +3,8 @@ package com.octo.ajava.infra.repositories;
 import static org.mockito.BDDMockito.given;
 
 import com.octo.ajava.domain.Film;
-import com.octo.ajava.fixture.FilmFixture;
-import com.octo.ajava.fixture.TMDBMovieFixture;
+import com.octo.ajava.fixtures.FilmTestFixture;
+import com.octo.ajava.fixtures.TMDBMovieTestFixture;
 import com.octo.ajava.infra.api_client.TMDBHttpClient;
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
 import com.octo.ajava.infra.api_client.entities.TMDBMovie;
@@ -38,13 +38,14 @@ class TMDBFilmRepositoryUTest {
     // Given
     given(tmdbHttpClient.recupererLesFilmsPopulaires())
         .willReturn(
-            new PaginatedTMDBMovies(1, TMDBMovieFixture.deuxFilmsPopulairesVenantDeTMTB(), 2, 1));
+            new PaginatedTMDBMovies(
+                1, TMDBMovieTestFixture.deuxFilmsPopulairesVenantDeTMTB(), 2, 1));
 
     // When
     var result = tmdbFilmRepository.recupererLesFilms();
 
     // Then
-    Assertions.assertEquals(FilmFixture.deuxFilmsPopulaires(), result);
+    Assertions.assertEquals(FilmTestFixture.deuxFilmsPopulaires(), result);
   }
 
   @Test
@@ -52,19 +53,20 @@ class TMDBFilmRepositoryUTest {
     // Given
     given(tmdbHttpClient.chercherDesFilms("batman"))
         .willReturn(
-            new PaginatedTMDBMovies(1, TMDBMovieFixture.deuxFilmsRecherchesVenantDeTMTB(), 2, 1));
+            new PaginatedTMDBMovies(
+                1, TMDBMovieTestFixture.deuxFilmsRecherchesVenantDeTMTB(), 2, 1));
 
     // When
     var result = tmdbFilmRepository.chercherDesFilms("batman");
 
     // Then
-    Assertions.assertEquals(FilmFixture.deuxFilmsRecherches(), result);
+    Assertions.assertEquals(FilmTestFixture.deuxFilmsRecherches(), result);
   }
 
   @Test
   void chercherUnFilmParId_retourne_un_film_quand_il_est_present_dans_la_reponse() {
     // Given
-    given(tmdbHttpClient.chercherUnFilmParId("414906"))
+    given(tmdbHttpClient.chercherUnFilmParId(414906))
         .willReturn(
             Optional.of(
                 new TMDBMovie(
@@ -78,7 +80,7 @@ class TMDBFilmRepositoryUTest {
                     8)));
 
     // When
-    var result = tmdbFilmRepository.chercherUnFilmParId("414906");
+    var result = tmdbFilmRepository.chercherUnFilmParId(414906);
 
     // Then
     var expected =
@@ -95,10 +97,10 @@ class TMDBFilmRepositoryUTest {
   @Test
   void chercherUnFilmParId_retourne_empty_quand_il_n_est_present_pas_dans_la_reponse() {
     // Given
-    given(tmdbHttpClient.chercherUnFilmParId("1")).willReturn(Optional.empty());
+    given(tmdbHttpClient.chercherUnFilmParId(1)).willReturn(Optional.empty());
 
     // When
-    var result = tmdbFilmRepository.chercherUnFilmParId("1");
+    var result = tmdbFilmRepository.chercherUnFilmParId(1);
 
     // Then
     var expected = Optional.empty();
