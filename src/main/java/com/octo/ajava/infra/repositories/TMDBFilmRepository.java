@@ -37,7 +37,7 @@ public class TMDBFilmRepository implements FilmRepository {
   }
 
   @Override
-  public Optional<Film> chercherUnFilmParId(String id) {
+  public Optional<Film> chercherUnFilmParId(int id) {
     var tmdbResponse = this.tmdbHttpClient.chercherUnFilmParId(id);
 
     if (tmdbResponse.isPresent()) {

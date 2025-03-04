@@ -8,14 +8,18 @@ import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+import static com.octo.ajava.fixtures.TMDBJsonResponseTestFixture.deuxFilms;
+import static com.octo.ajava.fixtures.TMDBJsonResponseTestFixture.unFilm;
+import static org.apache.http.HttpStatus.SC_NOT_FOUND;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import com.github.tomakehurst.wiremock.matching.EqualToPattern;
-import com.octo.ajava.fixture.TMDBJsonResponseFixture;
+import com.octo.ajava.infra.api_client.entities.TMDBMovie;
 import java.util.Optional;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,81 +34,87 @@ class TMDBHttpClientITest {
   String jetonTmdb;
 
   @BeforeAll()
-  public void prepare(WireMockRuntimeInfo wmRuntimeInfo) {
+  void prepare(WireMockRuntimeInfo wmRuntimeInfo) {
     tmdbHttpClient = new TMDBHttpClient(wmRuntimeInfo.getHttpBaseUrl(), jetonTmdb);
   }
 
   @Test
-  public void recupererLesFilmsPopulaires() {
-    // given
-    stubFor(get("/movie/popular").willReturn(okJson(TMDBJsonResponseFixture.deuxFilms())));
+  void recupererLesFilmsPopulaires() {
+    // Given
+    stubFor(get("/movie/popular").willReturn(okJson(deuxFilms())));
 
-    // when
-    var result = tmdbHttpClient.recupererLesFilmsPopulaires();
+    // When
+    tmdbHttpClient.recupererLesFilmsPopulaires();
 
-    // then
+    // Then
     verify(
         getRequestedFor(urlEqualTo("/movie/popular"))
             .withHeader("Authorization", equalTo("Bearer " + jetonTmdb)));
   }
 
   @Test
-  public void chercherDesFilms() {
-    // given
-    stubFor(
-        get("/search/movie?query=batman").willReturn(okJson(TMDBJsonResponseFixture.deuxFilms())));
+  void chercherDesFilms() {
+    // Given
+    stubFor(get("/search/movie?query=batman").willReturn(okJson(deuxFilms())));
 
-    // when
-    var result = tmdbHttpClient.chercherDesFilms("batman");
+    // When
+    tmdbHttpClient.chercherDesFilms("batman");
 
-    // then
+    // Then
     verify(
         getRequestedFor(urlEqualTo("/search/movie?query=batman"))
-            .withQueryParam("query", new EqualToPattern("batman"))
+            .withQueryParam("query", equalTo("batman"))
             .withHeader("Authorization", equalTo("Bearer " + jetonTmdb)));
   }
 
-  @Test
-  public void rechercherUnFilmNeFonctionnePasEtRenvoieUneErreur() {
-    // given
-    stubFor(
-        get("/movie/1")
-            .willReturn(
-                aResponse()
-                    .withStatus(404)
-                    .withBody(
-                        """
-                {
-                    "success": false,
-                    "status_code": 34,
-                    "status_message": "The resource you requested could not be found."
-                }
-                """)));
+  @DisplayName("#chercherUnFilmParId")
+  @Nested
+  class ChercherUnFilmParIdTest {
 
-    // when
-    var result = tmdbHttpClient.chercherUnFilmParId("1");
+    @DisplayName("devrait renvoyer une réponse vide lorsque le Film n'existe pas")
+    @Test
+    void filmNonExistant() {
+      // Given
+      stubFor(
+          get("/movie/1")
+              .willReturn(
+                  aResponse()
+                      .withStatus(SC_NOT_FOUND)
+                      .withBody(
+                          """
+                        {
+                            "success": false,
+                            "status_code": 34,
+                            "status_message": "The resource you requested could not be found."
+                        }
+                        """)));
 
-    // then
-    verify(
-        getRequestedFor(urlEqualTo("/movie/1"))
-            .withHeader("Authorization", equalTo("Bearer " + jetonTmdb)));
+      // When
+      Optional<TMDBMovie> filmTrouve = tmdbHttpClient.chercherUnFilmParId(1);
 
-    Assertions.assertEquals(Optional.empty(), result);
-  }
+      // Then
+      verify(
+          getRequestedFor(urlEqualTo("/movie/1"))
+              .withHeader("Authorization", equalTo("Bearer " + jetonTmdb)));
 
-  @Test
-  public void rechercherUnFilmFonctionneEtRenvoieBienUnFilm() {
-    // given
-    stubFor(get("/movie/414906").willReturn(okJson(TMDBJsonResponseFixture.unFilm())));
+      assertThat(filmTrouve).isEmpty();
+    }
 
-    // when
-    var result = tmdbHttpClient.chercherUnFilmParId("414906");
+    @DisplayName("devrait renvoyer le Film recherché par id")
+    @Test
+    public void filmExistant() {
+      // Given
+      stubFor(get("/movie/414906").willReturn(okJson(unFilm())));
 
-    // then
-    verify(
-        getRequestedFor(urlEqualTo("/movie/414906"))
-            .withHeader("Authorization", equalTo("Bearer " + jetonTmdb)));
+      // When
+      Optional<TMDBMovie> filmTrouve = tmdbHttpClient.chercherUnFilmParId(414906);
 
-    Assertions.assertTrue(result.isPresent());
+      // Then
+      verify(
+          getRequestedFor(urlEqualTo("/movie/414906"))
+              .withHeader("Authorization", equalTo("Bearer " + jetonTmdb)));
+
+      assertThat(filmTrouve).isNotEmpty();
+    }
   }
 }

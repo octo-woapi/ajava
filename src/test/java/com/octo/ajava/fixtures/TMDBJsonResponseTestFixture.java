@@ -1,6 +1,6 @@
-package com.octo.ajava.fixture;
+package com.octo.ajava.fixtures;
 
-public class TMDBJsonResponseFixture {
+public class TMDBJsonResponseTestFixture {
 
   public static String unFilm() {
     return """

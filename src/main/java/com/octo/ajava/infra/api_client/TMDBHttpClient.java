@@ -1,11 +1,14 @@
 package com.octo.ajava.infra.api_client;
 
+import static java.util.Optional.empty;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.web.reactive.function.client.WebClient.builder;
+
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
 import com.octo.ajava.infra.api_client.entities.TMDBMovie;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -19,11 +22,7 @@ public class TMDBHttpClient {
 
   public TMDBHttpClient(
       @Value("${tmdb.baseUrl}") String urlTmdb, @Value("${tmdb.token}") String jetonTmdb) {
-    webClient =
-        WebClient.builder()
-            .baseUrl(urlTmdb)
-            .defaultHeader(HttpHeaders.AUTHORIZATION, BEARER + jetonTmdb)
-            .build();
+    webClient = builder().baseUrl(urlTmdb).defaultHeader(AUTHORIZATION, BEARER + jetonTmdb).build();
   }
 
   public PaginatedTMDBMovies recupererLesFilmsPopulaires() {
@@ -44,16 +43,16 @@ public class TMDBHttpClient {
         .block();
   }
 
-  public Optional<TMDBMovie> chercherUnFilmParId(String id) {
+  public Optional<TMDBMovie> chercherUnFilmParId(int id) {
     try {
       return webClient
           .get()
-          .uri("/movie/" + id)
+          .uri("/movie/{id}", id)
           .retrieve()
           .bodyToMono(TMDBMovie.class)
           .blockOptional();
-    } catch (Exception e) {
-      return Optional.empty();
+    } catch (Exception exception) {
+      return empty();
     }
   }
 }

@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FilmRepository {
+
   List<Film> recupererLesFilms();
 
   List<Film> chercherDesFilms(String query);
 
-  Optional<Film> chercherUnFilmParId(String id);
+  Optional<Film> chercherUnFilmParId(int id);
 }

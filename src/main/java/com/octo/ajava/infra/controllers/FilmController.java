@@ -1,5 +1,7 @@
 package com.octo.ajava.infra.controllers;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 import com.octo.ajava.domain.Film;
 import com.octo.ajava.domain.usecases.ChercherDesFilmsUseCase;
 import com.octo.ajava.domain.usecases.ChercherUnFilmParIdUseCase;
@@ -33,16 +35,16 @@ public class FilmController {
 
   @GetMapping
   public ResponseEntity<List<Film>> list() throws Exception {
-    return ResponseEntity.ok().body(this.recupererLesFilmsUseCase.executer());
+    return ok().body(recupererLesFilmsUseCase.executer());
   }
 
   @GetMapping("/search")
   public ResponseEntity<List<Film>> search(@RequestParam String query) throws Exception {
-    return ResponseEntity.ok().body(this.chercherDesFilmsUseCase.executer(query));
+    return ok().body(chercherDesFilmsUseCase.executer(query));
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Film> getById(@PathVariable String id) throws Exception {
-    return ResponseEntity.ok().body(this.chercherUnFilmParIdUseCase.executer(id));
+  public ResponseEntity<Film> getById(@PathVariable int id) throws Exception {
+    return ok().body(chercherUnFilmParIdUseCase.executer(id));
   }
 }

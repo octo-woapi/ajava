@@ -1,7 +1,7 @@
 package com.octo.ajava.infra.configuration.security;
 
+import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import org.junit.jupiter.api.Test;
@@ -23,6 +23,6 @@ public class WebSecurityConfigurationTest {
         mockMvc.perform(get("/api/films_vus")).andReturn().getResponse();
 
     // Then
-    assertThat(response.getStatus()).isEqualTo(UNAUTHORIZED.value());
+    assertThat(response.getStatus()).isEqualTo(SC_UNAUTHORIZED);
   }
 }

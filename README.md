@@ -6,7 +6,7 @@
 
 Vous devez avoir sur votre poste :
 
-* JAVA en version 17
+* JAVA en version 21
 * DOCKER (et docker-compose)
 
 ## 🚀 Démarrage
@@ -45,7 +45,7 @@ Ouvrir la page `http://localhost:8080/swagger-ui/index.html`
 
 ![Swagger UI](doc/img/swagger.png)
 
-## :white_check_mark: Tests
+## ✅ Tests
 
 Pour lancer tous les tests :
 
@@ -59,6 +59,7 @@ Pour lancer tous les tests :
     ```
 
 ---
+
 ## Prerequis pour l'API TMDB
 
 - Doc pour le tp 2 : https://developer.themoviedb.org/reference/movie-popular-list
@@ -72,26 +73,30 @@ Pour lancer tous les tests :
   ![Token API TMDB](doc/img/token-api-TMDB.png)
 * Créer un fichier `src/main/resources/.env`, avec le même contenu que le fichier `.env.exemple`
 * Remplacer `<METTRE ICI LE JETON TMDB>` par votre **Jeton d'accès** à l'API TMDB
+
 ---
 
 # TP Sécuriser son API Java avec [Spring Security](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#web.security)
 
-## :frowning_person: :policewoman: Utilisateurs déjà créés
+## 👥 Utilisateurs déjà créés
 
-| Authentification    | username        | Password | UserId  | Roles  |
-|---------------------|-----------------|----------|---------|--------|
-| Basic Auth          | user            | password | user    | USER |
-| Basic Auth          | jdurant         | password | jdurant | USER |
-| Basic Auth          | admin           | password | admin   | ADMIN, USER |
-| OAuth 2.0 | jeandurant | password | jdurant | USER |
+| Authentification | username   | Password | UserId  | Roles       |
+|------------------|------------|----------|---------|-------------|
+| Basic Auth       | user       | password | user    | USER        |
+| Basic Auth       | jdurant    | password | jdurant | USER        |
+| Basic Auth       | admin      | password | admin   | ADMIN, USER |
+| OAuth 2.0        | jeandurant | password | jdurant | USER        |
 
-## :old_key: Utilisation d'une Basic Authentification
+## 🔑 Utilisation d'une Basic Authentification
 
 ### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
 
 ### Gestion de l'authentification [in-memory](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#in-memory-authentication)
 
-## :key: Utilisation d'OAuth 2.0
+## 🔐 Utilisation d'OAuth 2.0
+
+<details>
+  <summary>Détails</summary>
 
 ### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
 
@@ -102,12 +107,16 @@ Pour lancer tous les tests :
 <img src="doc/img/keycloak.png" width="400" />
 </p>
 
+</details>
+
 ---
 
-<details>
-  <summary>Documentations officielles</summary>
+#### Documentations officielles Spring
 
-### Documentations Spring
+<details>
+  <summary>Détails</summary>
+
+##### Documentations Spring
 
 * [Official Gradle documentation](https://docs.gradle.org)
 * [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.7.1/gradle-plugin/reference/html/)
@@ -121,7 +130,7 @@ Pour lancer tous les tests :
 * [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#data.sql.jpa-and-spring-data)
 * [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#actuator)
 
-### Guides
+##### Guides
 
 * [Securing a Web Application](https://spring.io/guides/gs/securing-web/)
 * [Spring Boot and OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
@@ -132,7 +141,7 @@ Pour lancer tous les tests :
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 * [Building a RESTful Web Service with Spring Boot Actuator](https://spring.io/guides/gs/actuator-service/)
 
-### Liens supplémentaires
+##### Liens supplémentaires
 
 * [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
 
