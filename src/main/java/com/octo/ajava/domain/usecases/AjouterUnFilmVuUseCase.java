@@ -14,6 +14,6 @@ public class AjouterUnFilmVuUseCase {
   }
 
   public FilmVu executer(FilmVu filmVu) throws Exception {
-    return this.filmVuRepository.ajouterUnFilmVu(filmVu);
+    return filmVuRepository.ajouterUnFilmVu(filmVu);
   }
 }

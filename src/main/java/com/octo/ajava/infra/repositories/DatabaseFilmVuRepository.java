@@ -21,19 +21,19 @@ public class DatabaseFilmVuRepository implements FilmVuRepository {
   }
 
   @Override
+  public List<FilmVu> recupererMesFilmsVus(String userId) {
+    return databaseFilmVuDAO.findAllByUtilisateurId(userId);
+  }
+
+  @Override
   @Transactional
   public FilmVu ajouterUnFilmVu(FilmVu filmVu) {
-    return this.databaseFilmVuDAO.save(filmVu);
+    return databaseFilmVuDAO.save(filmVu);
   }
 
   @Override
   @Transactional
   public FilmVu modifierUnFilmVu(FilmVu filmVu) throws Exception {
     return databaseFilmVuDAO.save(filmVu);
-  }
-
-  @Override
-  public List<FilmVu> recupererMesFilmsVus(String userId) {
-    return this.databaseFilmVuDAO.findAllByUtilisateurId(userId);
   }
 }

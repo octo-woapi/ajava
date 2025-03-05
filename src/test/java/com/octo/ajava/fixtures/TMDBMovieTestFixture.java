@@ -6,6 +6,34 @@ import java.util.List;
 
 public class TMDBMovieTestFixture {
 
+  private int id;
+  private String originalTitle;
+  private String originalLanguage;
+  private String title;
+  private String overview;
+  private LocalDate releaseDate;
+  private int popularity;
+  private int voteAverage;
+
+  public static TMDBMovieTestFixture unTMDBMovie() {
+    return new TMDBMovieTestFixture();
+  }
+
+  public TMDBMovieTestFixture avecId(int id) {
+    this.id = id;
+    return this;
+  }
+
+  public TMDBMovieTestFixture avecTitle(String title) {
+    this.title = title;
+    return this;
+  }
+
+  public TMDBMovie build() {
+    return new TMDBMovie(
+        id, originalTitle, originalLanguage, title, overview, releaseDate, popularity, voteAverage);
+  }
+
   public static List<TMDBMovie> deuxFilmsPopulairesVenantDeTMTB() {
     return List.of(
         new TMDBMovie(
