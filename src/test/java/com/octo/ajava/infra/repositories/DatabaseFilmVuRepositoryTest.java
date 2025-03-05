@@ -1,8 +1,14 @@
 package com.octo.ajava.infra.repositories;
 
+import static com.octo.ajava.fixtures.FilmVuTestFixture.unFilmVu;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
+import static org.testcontainers.utility.MountableFile.forClasspathResource;
 
 import com.octo.ajava.domain.FilmVu;
+import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,22 +17,24 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.MountableFile;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 @Testcontainers
 class DatabaseFilmVuRepositoryTest {
 
-  private final String userId = "jdurant";
+  private static final int FILM_ID = 5;
+  private static final String UTILISATEUR_ID = "jdurant";
 
+  private FilmVu filmVuExistant;
+
+  @Autowired private DatabaseFilmVuDAO databaseFilmVuDAO;
   @Autowired private DatabaseFilmVuRepository databaseFilmVuRepository;
 
   @Container
   static PostgreSQLContainer<?> postgreSQLContainer =
       new PostgreSQLContainer<>("postgres:14-alpine")
           .withCopyFileToContainer(
-              MountableFile.forClasspathResource("/docker_postgres_init.sql"),
-              "/docker-entrypoint-initdb.d/");
+              forClasspathResource("/docker_postgres_init.sql"), "/docker-entrypoint-initdb.d/");
 
   @DynamicPropertySource
   static void registerMySQLProperties(DynamicPropertyRegistry registry) {
@@ -35,28 +43,107 @@ class DatabaseFilmVuRepositoryTest {
     registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
   }
 
-  @Test
-  public void doit_ajouter_un_utilisateur_et_retourner_le_film_ajoute_en_base() {
-    // given
-    var filmVu = new FilmVu(1, userId, "10/10", "Batman c'est ouf");
-    // when
-    var result = databaseFilmVuRepository.ajouterUnFilmVu(filmVu);
-    // then
-    assertThat(result).isEqualTo(filmVu);
+  @BeforeEach
+  void setUp() {
+    databaseFilmVuDAO.deleteAll();
+    filmVuExistant =
+        databaseFilmVuDAO.save(
+            unFilmVu()
+                .avecFilmId(FILM_ID)
+                .avecUtilisateurId(UTILISATEUR_ID)
+                .avecNote("10/10")
+                .avecCommentaire("Batman c'est ouf")
+                .build());
   }
 
+  @DisplayName("devrait renvoyer un FilmVu par un utilisateur et son filmId")
   @Test
-  public void doit_retourner_la_liste_des_films_par_utilisateur() {
-    // given
-    var unPremierFilmVu = new FilmVu(1, userId, "10/10", "Batman c'est ouf");
-    var unSecondFilmVu = new FilmVu(2, userId, "1/10", "Star nul");
-    databaseFilmVuRepository.ajouterUnFilmVu(unPremierFilmVu);
-    databaseFilmVuRepository.ajouterUnFilmVu(unSecondFilmVu);
+  void trouverFilmVuExistant() throws Exception {
+    // When
+    FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(FILM_ID, UTILISATEUR_ID);
 
-    // when
-    var result = databaseFilmVuRepository.recupererMesFilmsVus(userId);
+    // Then
+    assertThat(filmVuTrouve).isEqualTo(filmVuExistant);
+  }
 
-    // then
-    assertThat(result.size()).isEqualTo(2);
+  @DisplayName(
+      "devrait renvoyer null quand un FilmVu par un utilisateur et son filmId n'existe pas en BDD")
+  @Test
+  void chercherUnFilmVuNonExistant() throws Exception {
+    // Given
+    int filmIdErrone = 10;
+
+    // When
+    FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(filmIdErrone, UTILISATEUR_ID);
+
+    // Then
+    assertThat(filmVuTrouve).isNull();
+  }
+
+  @DisplayName("devrait renvoyer la liste des FilmVu par un utilisateur")
+  @Test
+  void renvoyerFilmVuUtilisateur() {
+    // Given
+    List<FilmVu> filmVuExistants =
+        List.of(
+            unFilmVu().avecUtilisateurId("dupond").avecFilmId(10).build(),
+            unFilmVu().avecUtilisateurId(UTILISATEUR_ID).build(),
+            unFilmVu().avecUtilisateurId("dupond").avecFilmId(20).build());
+    databaseFilmVuDAO.saveAll(filmVuExistants);
+
+    // When
+    List<FilmVu> filmVuRecuperes = databaseFilmVuRepository.recupererMesFilmsVus("dupond");
+
+    // Then
+    assertThat(filmVuRecuperes)
+        .hasSize(2)
+        .extracting("utilisateurId", "filmId")
+        .contains(tuple("dupond", 10), tuple("dupond", 20));
+  }
+
+  @DisplayName("devrait ajouter un FilmVu en BDD et le renvoyer")
+  @Test
+  void ajouterFilmVu() {
+    // Given
+    FilmVu filmVu =
+        unFilmVu()
+            .avecFilmId(50)
+            .avecUtilisateurId(UTILISATEUR_ID)
+            .avecNote("10/10")
+            .avecCommentaire("Vive le Cinéma !")
+            .build();
+
+    // When
+    FilmVu filmVuAjoute = databaseFilmVuRepository.ajouterUnFilmVu(filmVu);
+
+    // Then
+    assertThat(filmVuAjoute).isEqualTo(filmVu);
+  }
+
+  @DisplayName("devrait modifier un FilmVu déjà existant")
+  @Test
+  void modifierFilmVu() throws Exception {
+    // Given
+    FilmVu filmVuExistant =
+        databaseFilmVuRepository.ajouterUnFilmVu(
+            unFilmVu()
+                .avecFilmId(1)
+                .avecUtilisateurId(UTILISATEUR_ID)
+                .avecNote("08/10")
+                .avecCommentaire("Le Parrain est cool !")
+                .build());
+
+    filmVuExistant.setNote("10/10");
+    filmVuExistant.setCommentaire("Le Parrain finalement c'est génial !");
+
+    // When
+    FilmVu filmVuModifie = databaseFilmVuRepository.modifierUnFilmVu(filmVuExistant);
+
+    // Then
+    assertThat(filmVuModifie.getId()).isEqualTo(filmVuExistant.getId());
+    assertThat(filmVuModifie.getFilmId()).isEqualTo(1);
+    assertThat(filmVuModifie.getUtilisateurId()).isEqualTo(UTILISATEUR_ID);
+    assertThat(filmVuModifie.getNote()).isEqualTo("10/10");
+    assertThat(filmVuModifie.getCommentaire()).isEqualTo("Le Parrain finalement c'est génial !");
   }
 }

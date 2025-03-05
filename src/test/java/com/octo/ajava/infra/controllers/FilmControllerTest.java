@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @Import(WebSecurityConfiguration.class)
 @WebMvcTest(FilmController.class)
-class FilmControllerITest {
+class FilmControllerTest {
 
   @Autowired private MockMvc mockMvc;
 

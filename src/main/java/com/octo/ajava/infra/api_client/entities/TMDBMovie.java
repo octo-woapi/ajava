@@ -18,19 +18,12 @@ import java.time.LocalDate;
 public class TMDBMovie {
 
   private final int id;
-
   private final String originalTitle;
-
   private final String originalLanguage;
-
   private final String title;
-
   private final String overview;
-
   private final LocalDate releaseDate;
-
   private final int popularity;
-
   private final int voteAverage;
 
   @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)

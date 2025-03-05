@@ -1,10 +1,12 @@
 package com.octo.ajava.infra.repositories;
 
-import static java.util.Collections.emptyList;
+import static java.util.Collections.EMPTY_LIST;
 
 import com.octo.ajava.domain.Film;
 import com.octo.ajava.domain.repositories.FilmRepository;
 import com.octo.ajava.infra.api_client.TMDBHttpClient;
+import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
+import com.octo.ajava.infra.api_client.entities.TMDBMovie;
 import com.octo.ajava.infra.mapper.TMDBFilmMapper;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +18,6 @@ import org.springframework.stereotype.Service;
 public class TMDBFilmRepository implements FilmRepository {
 
   private final TMDBHttpClient tmdbHttpClient;
-
   private final TMDBFilmMapper tmdbFilmMapper;
 
   public TMDBFilmRepository(TMDBHttpClient tmdbHttpClient, TMDBFilmMapper tmdbFilmMapper) {
@@ -26,31 +27,30 @@ public class TMDBFilmRepository implements FilmRepository {
 
   @Override
   public List<Film> recupererLesFilms() {
-    var tmdbResponse = this.tmdbHttpClient.recupererLesFilmsPopulaires();
-    return this.tmdbFilmMapper.convertirEnFilms(tmdbResponse);
+    PaginatedTMDBMovies paginatedTMDBMovies = tmdbHttpClient.recupererLesFilmsPopulaires();
+    return tmdbFilmMapper.convertirEnFilms(paginatedTMDBMovies);
   }
 
   @Override
   public List<Film> chercherDesFilms(String query) {
-    var tmdbResponse = this.tmdbHttpClient.chercherDesFilms(query);
-    return this.tmdbFilmMapper.convertirEnFilms(tmdbResponse);
+    PaginatedTMDBMovies paginatedTMDBMovies = tmdbHttpClient.chercherDesFilms(query);
+    return tmdbFilmMapper.convertirEnFilms(paginatedTMDBMovies);
   }
 
   @Override
   public Optional<Film> chercherUnFilmParId(int id) {
-    var tmdbResponse = this.tmdbHttpClient.chercherUnFilmParId(id);
+    Optional<TMDBMovie> oTMDBMovie = tmdbHttpClient.chercherUnFilmParId(id);
 
-    if (tmdbResponse.isPresent()) {
-      var tmdbMovie = tmdbResponse.get();
+    if (oTMDBMovie.isPresent()) {
+      TMDBMovie tmdbMovie = oTMDBMovie.get();
       return Optional.of(
           new Film(
               tmdbMovie.getId(),
               tmdbMovie.getTitle(),
               tmdbMovie.getOverview(),
-              emptyList(),
+              EMPTY_LIST,
               tmdbMovie.getReleaseDate()));
-    } else {
-      return Optional.empty();
     }
+    return Optional.empty();
   }
 }

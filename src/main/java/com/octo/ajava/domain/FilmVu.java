@@ -57,14 +57,14 @@ public class FilmVu {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object object) {
+    if (this == object) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (object == null || getClass() != object.getClass()) {
       return false;
     }
-    FilmVu filmVu = (FilmVu) o;
+    FilmVu filmVu = (FilmVu) object;
     return filmId == filmVu.filmId
         && Objects.equals(utilisateurId, filmVu.utilisateurId)
         && Objects.equals(note, filmVu.note)
