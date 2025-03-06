@@ -17,8 +17,7 @@ import org.springframework.http.HttpStatus;
     classes = AjavaApplication.class)
 class FilmControllerFTest {
 
-  @LocalServerPort
-  private Integer port;
+  @LocalServerPort private Integer port;
 
   @BeforeEach
   void setUp() {
