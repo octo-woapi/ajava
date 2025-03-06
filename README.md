@@ -52,9 +52,15 @@ fichier `docker-compose.yml`
 
 * Objectif : Exposer la liste des films sur la route `http://localhost:8080/api/films`
     * Compléter le usecase `RecupererLesFilmsUseCase`, afin qu'il renvoie la liste de films "in memory"
-      * Il existe une classe avec des `InMemoryFilmRepository` avec des fausses donneés dedans vous pouvez vous en servir
+        * Il existe une classe avec des `InMemoryFilmRepository` avec des fausses donneés dedans vous pouvez vous en servir
     * Se servir de l'Injection de Dépendence pour utiliser un `FilmRepository`
 * Vous pourrez aussi avant de démarrer le swagger pour tester l'application corriger ou écrire les tests existants pour chaques classes
+
+---
+
+```shell
+java -javaagent:./grafana-opentelemetry-java.jar -jar ./build/libs/ajava-0.0.1-SNAPSHOT.jar 
+```
 
 ---
 
