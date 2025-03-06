@@ -29,9 +29,9 @@ class FilmVuControllerFTest {
 
   @Container
   static PostgreSQLContainer<?> postgreSQLContainer =
-          new PostgreSQLContainer<>("postgres:14-alpine")
-                  .withCopyFileToContainer(
-                          forClasspathResource("/docker_postgres_init.sql"), "/docker-entrypoint-initdb.d/");
+      new PostgreSQLContainer<>("postgres:14-alpine")
+          .withCopyFileToContainer(
+              forClasspathResource("/docker_postgres_init.sql"), "/docker-entrypoint-initdb.d/");
 
   @DynamicPropertySource
   static void registerMySQLProperties(DynamicPropertyRegistry registry) {
@@ -40,10 +40,8 @@ class FilmVuControllerFTest {
     registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
   }
 
-  @LocalServerPort
-  private Integer port;
-  @Autowired
-  private DatabaseFilmVuDAO databaseFilmVuDAO;
+  @LocalServerPort private Integer port;
+  @Autowired private DatabaseFilmVuDAO databaseFilmVuDAO;
 
   @BeforeEach
   void setUp() {
