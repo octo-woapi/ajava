@@ -7,7 +7,6 @@ import com.octo.ajava.AjavaApplication;
 import com.octo.ajava.ObjectMapperBuilder;
 import com.octo.ajava.domain.Film;
 import io.restassured.RestAssured;
-import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
