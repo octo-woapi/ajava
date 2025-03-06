@@ -6,14 +6,24 @@ import com.octo.ajava.AjavaApplication;
 import com.octo.ajava.ObjectMapperBuilder;
 import com.octo.ajava.domain.Film;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
 @SpringBootTest(
-    webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = AjavaApplication.class)
 class FilmControllerFTest {
+
+  @LocalServerPort
+  private Integer port;
+
+  @BeforeEach
+  void setUp() {
+    RestAssured.port = port;
+  }
 
   @Test
   void recuperTousLesFilms_devrait_renvoyer_une_HTTP_200_et_une_liste_de_film() throws Exception {
