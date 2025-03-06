@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
 @SpringBootTest(
-    webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = AjavaApplication.class)
 class FilmVuControllerFTest {
 
