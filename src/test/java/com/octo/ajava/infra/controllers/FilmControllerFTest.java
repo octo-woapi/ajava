@@ -8,6 +8,7 @@ import com.octo.ajava.ObjectMapperBuilder;
 import com.octo.ajava.domain.Film;
 import io.restassured.RestAssured;
 import jakarta.annotation.PostConstruct;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -20,9 +21,9 @@ class FilmControllerFTest {
 
   @LocalServerPort private int port;
 
-  @PostConstruct
-  public void init() {
-    RestAssured.baseURI = "http://localhost:" + port;
+  @BeforeEach
+  void setUp() {
+    RestAssured.port = port;
   }
 
   @Test
