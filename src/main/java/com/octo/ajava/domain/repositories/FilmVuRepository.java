@@ -11,5 +11,5 @@ public interface FilmVuRepository {
 
   FilmVu modifierUnFilmVu(FilmVu filmVu) throws Exception;
 
-  List<FilmVu> recupererMesFilmsVus(String userId) throws Exception;
+  List<FilmVu> chercherDesFilmsVusParUnUtilisateur(String userId) throws Exception;
 }

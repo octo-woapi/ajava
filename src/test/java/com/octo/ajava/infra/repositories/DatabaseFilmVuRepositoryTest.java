@@ -2,13 +2,13 @@ package com.octo.ajava.infra.repositories;
 
 import static com.octo.ajava.fixtures.FilmVuTestFixture.unFilmVu;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
 import static org.testcontainers.utility.MountableFile.forClasspathResource;
 
 import com.octo.ajava.domain.FilmVu;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,49 +56,33 @@ class DatabaseFilmVuRepositoryTest {
                 .build());
   }
 
-  @DisplayName("devrait renvoyer un FilmVu par un utilisateur et son filmId")
-  @Test
-  void trouverFilmVuExistant() throws Exception {
-    // When
-    FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(FILM_ID, UTILISATEUR_ID);
+  @DisplayName("#chercherUnFilmVu")
+  @Nested
+  class ChercherUnFilmVuTest {
 
-    // Then
-    assertThat(filmVuTrouve).isEqualTo(filmVuExistant);
-  }
+    @DisplayName("devrait renvoyer un FilmVu par un utilisateur et son filmId")
+    @Test
+    void trouverFilmVuExistant() throws Exception {
+      // When
+      FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(FILM_ID, UTILISATEUR_ID);
 
-  @DisplayName(
-      "devrait renvoyer null quand un FilmVu par un utilisateur et son filmId n'existe pas en BDD")
-  @Test
-  void chercherUnFilmVuNonExistant() throws Exception {
-    // Given
-    int filmIdErrone = 10;
+      // Then
+      assertThat(filmVuTrouve).isEqualTo(filmVuExistant);
+    }
 
-    // When
-    FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(filmIdErrone, UTILISATEUR_ID);
+    @DisplayName(
+        "devrait renvoyer null quand un FilmVu par un utilisateur et son filmId n'existe pas en BDD")
+    @Test
+    void chercherUnFilmVuNonExistant() throws Exception {
+      // Given
+      int filmIdErrone = 10;
 
-    // Then
-    assertThat(filmVuTrouve).isNull();
-  }
+      // When
+      FilmVu filmVuTrouve = databaseFilmVuRepository.chercherUnFilmVu(filmIdErrone, UTILISATEUR_ID);
 
-  @DisplayName("devrait renvoyer la liste des FilmVu par un utilisateur")
-  @Test
-  void renvoyerFilmVuUtilisateur() {
-    // Given
-    List<FilmVu> filmVuExistants =
-        List.of(
-            unFilmVu().avecUtilisateurId("dupond").avecFilmId(10).build(),
-            unFilmVu().avecUtilisateurId(UTILISATEUR_ID).build(),
-            unFilmVu().avecUtilisateurId("dupond").avecFilmId(20).build());
-    databaseFilmVuDAO.saveAll(filmVuExistants);
-
-    // When
-    List<FilmVu> filmVuRecuperes = databaseFilmVuRepository.recupererMesFilmsVus("dupond");
-
-    // Then
-    assertThat(filmVuRecuperes)
-        .hasSize(2)
-        .extracting("utilisateurId", "filmId")
-        .contains(tuple("dupond", 10), tuple("dupond", 20));
+      // Then
+      assertThat(filmVuTrouve).isNull();
+    }
   }
 
   @DisplayName("devrait ajouter un FilmVu en BDD et le renvoyer")
@@ -145,5 +129,22 @@ class DatabaseFilmVuRepositoryTest {
     assertThat(filmVuModifie.getUtilisateurId()).isEqualTo(UTILISATEUR_ID);
     assertThat(filmVuModifie.getNote()).isEqualTo("10/10");
     assertThat(filmVuModifie.getCommentaire()).isEqualTo("Le Parrain finalement c'est génial !");
+  }
+
+  @DisplayName("devrait renvoyer la liste de tous les FilmVu par un utilisateur")
+  @Test
+  void renvoyerFilmVusUtilisateur() throws Exception {
+    // Given
+    databaseFilmVuDAO.saveAll(
+        List.of(
+            unFilmVu().avecFilmId(200).avecUtilisateurId(UTILISATEUR_ID).build(),
+            unFilmVu().avecFilmId(300).avecUtilisateurId(UTILISATEUR_ID).build()));
+
+    // When
+    List<FilmVu> filmVusTrouves =
+        databaseFilmVuRepository.chercherDesFilmsVusParUnUtilisateur(UTILISATEUR_ID);
+
+    // Then
+    assertThat(filmVusTrouves).hasSize(3);
   }
 }
