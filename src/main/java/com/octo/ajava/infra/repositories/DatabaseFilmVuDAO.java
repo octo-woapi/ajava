@@ -10,5 +10,5 @@ public interface DatabaseFilmVuDAO extends CrudRepository<FilmVu, Long> {
 
   FilmVu findByFilmIdAndUtilisateurId(int filmId, String utilisateurId);
 
-  List<FilmVu> findAllByUtilisateurId(String utilisateurId);
+  List<FilmVu> findByUtilisateurId(String utilisateurId);
 }

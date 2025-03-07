@@ -29,26 +29,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/films_vus")
 public class FilmVuController {
 
-  private final RecupererMesFilmsVusUseCase recupererMesFilmsVusUseCase;
   private final ChercherUnFilmVuUseCase chercherUnFilmVuUseCase;
   private final AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase;
   private final ModifierUnFilmVuUseCase modifierUnFilmVuUseCase;
+  private final RecupererMesFilmsVusUseCase recupererMesFilmsVusUseCase;
 
   FilmVuController(
-      RecupererMesFilmsVusUseCase recupererMesFilmsVusUseCase,
       ChercherUnFilmVuUseCase chercherUnFilmVuUseCase,
       AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase,
-      ModifierUnFilmVuUseCase modifierUnFilmVuUseCase) {
-    this.recupererMesFilmsVusUseCase = recupererMesFilmsVusUseCase;
+      ModifierUnFilmVuUseCase modifierUnFilmVuUseCase,
+      RecupererMesFilmsVusUseCase recupererMesFilmsVusUseCase) {
     this.chercherUnFilmVuUseCase = chercherUnFilmVuUseCase;
     this.ajouterUnFilmVuUseCase = ajouterUnFilmVuUseCase;
     this.modifierUnFilmVuUseCase = modifierUnFilmVuUseCase;
-  }
-
-  @GetMapping
-  public ResponseEntity<List<FilmVu>> list(Authentication authentication) throws Exception {
-    String userId = authentication.getName();
-    return ok().body(recupererMesFilmsVusUseCase.executer(userId));
+    this.recupererMesFilmsVusUseCase = recupererMesFilmsVusUseCase;
   }
 
   @GetMapping("/{filmId}")
@@ -94,5 +88,12 @@ public class FilmVuController {
     }
 
     return ok().body(filmVuModifie);
+  }
+
+  @GetMapping
+  public ResponseEntity<List<FilmVu>> recupererMesFilmsVus(Authentication authentication)
+      throws Exception {
+    String userId = authentication.getName();
+    return ok().body(recupererMesFilmsVusUseCase.executer(userId));
   }
 }

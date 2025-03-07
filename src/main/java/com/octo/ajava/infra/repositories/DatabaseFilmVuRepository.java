@@ -21,11 +21,6 @@ public class DatabaseFilmVuRepository implements FilmVuRepository {
   }
 
   @Override
-  public List<FilmVu> recupererMesFilmsVus(String userId) {
-    return databaseFilmVuDAO.findAllByUtilisateurId(userId);
-  }
-
-  @Override
   @Transactional
   public FilmVu ajouterUnFilmVu(FilmVu filmVu) {
     return databaseFilmVuDAO.save(filmVu);
@@ -35,5 +30,10 @@ public class DatabaseFilmVuRepository implements FilmVuRepository {
   @Transactional
   public FilmVu modifierUnFilmVu(FilmVu filmVu) throws Exception {
     return databaseFilmVuDAO.save(filmVu);
+  }
+
+  @Override
+  public List<FilmVu> chercherDesFilmsVusParUnUtilisateur(String utilisateurId) throws Exception {
+    return databaseFilmVuDAO.findByUtilisateurId(utilisateurId);
   }
 }

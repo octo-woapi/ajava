@@ -23,22 +23,18 @@ class RecupererMesFilmsVusUseCaseTest {
   @Mock private FilmVuRepository filmVuRepository;
   @InjectMocks private RecupererMesFilmsVusUseCase recupererMesFilmsVusUseCase;
 
-  @DisplayName("devrait renvoyer la liste des FilmVu par un utilisateur")
+  @DisplayName("devrait appeler le repository et renvoyer une liste de FilmVu")
   @Test
-  void recupererFilmVuParUnUtilisateur() throws Exception {
+  void renvoyerFilmVuUtilisateur() throws Exception {
     // Given
-    List<FilmVu> filmsVuParUtilisateur =
-        List.of(
-            unFilmVu().avecFilmId(1).avecUtilisateurId("user").build(),
-            unFilmVu().avecFilmId(5).avecUtilisateurId("user").build());
-
-    given(filmVuRepository.recupererMesFilmsVus(any())).willReturn(filmsVuParUtilisateur);
+    List<FilmVu> filmVus = List.of(unFilmVu().avecUtilisateurId("user").build());
+    given(filmVuRepository.chercherDesFilmsVusParUnUtilisateur(any())).willReturn(filmVus);
 
     // When
-    List<FilmVu> filmVuTrouves = recupererMesFilmsVusUseCase.executer("user");
+    List<FilmVu> filmVuRenvoyes = recupererMesFilmsVusUseCase.executer("user");
 
     // Then
-    verify(filmVuRepository).recupererMesFilmsVus("user");
-    assertThat(filmVuTrouves).hasSize(2).isEqualTo(filmsVuParUtilisateur);
+    verify(filmVuRepository).chercherDesFilmsVusParUnUtilisateur("user");
+    assertThat(filmVuRenvoyes).singleElement().extracting("utilisateurId").isEqualTo("user");
   }
 }

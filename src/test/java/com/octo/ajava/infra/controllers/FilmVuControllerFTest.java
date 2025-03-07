@@ -257,4 +257,34 @@ class FilmVuControllerFTest {
       assertThat(response).isEmpty();
     }
   }
+
+  @DisplayName("devrait renvoyer tous les FilmVu de l'utilisateur connecté")
+  @Test
+  void renvoyerFilmVusUtilisateur() throws Exception {
+    // Given
+    databaseFilmVuDAO.saveAll(
+        List.of(
+            unFilmVu().avecFilmId(50).avecUtilisateurId(UTILISATEUR_ID).build(),
+            unFilmVu().avecFilmId(55).avecUtilisateurId(UTILISATEUR_ID).build()));
+
+    // When
+    FilmVu[] filmVuTrouves =
+        given()
+            .contentType("application/json")
+            .auth()
+            .basic(UTILISATEUR_ID, MOT_DE_PASSE)
+            .when()
+            .get("/api/films_vus")
+            .then()
+            .statusCode(SC_OK)
+            .extract()
+            .body()
+            .as(FilmVu[].class);
+
+    // Then
+    assertThat(filmVuTrouves)
+        .hasSize(2)
+        .extracting("filmId", "utilisateurId")
+        .contains(tuple(50, UTILISATEUR_ID), tuple(55, UTILISATEUR_ID));
+  }
 }
