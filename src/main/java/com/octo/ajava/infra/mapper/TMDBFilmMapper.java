@@ -1,5 +1,6 @@
 package com.octo.ajava.infra.mapper;
 
+import static java.util.Collections.EMPTY_LIST;
 import static java.util.Collections.emptyList;
 
 import com.octo.ajava.domain.Film;
@@ -14,7 +15,7 @@ public class TMDBFilmMapper {
     var movies = paginatedTMDBMovies.getMovies();
 
     if (movies == null) {
-      return emptyList();
+      return EMPTY_LIST;
     }
 
     return movies.stream()

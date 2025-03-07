@@ -2,27 +2,35 @@ package com.octo.ajava.infra.repositories;
 
 import com.octo.ajava.domain.FilmVu;
 import com.octo.ajava.domain.repositories.FilmVuRepository;
-import jakarta.transaction.Transactional;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DatabaseFilmVuRepository implements FilmVuRepository {
 
-  private final DatabaseFilmDAO databaseFilmDAO;
+  private final DatabaseFilmVuDAO databaseFilmVuDAO;
 
-  public DatabaseFilmVuRepository(DatabaseFilmDAO databaseFilmDAO) {
-    this.databaseFilmDAO = databaseFilmDAO;
+  public DatabaseFilmVuRepository(DatabaseFilmVuDAO databaseFilmVuDAO) {
+    this.databaseFilmVuDAO = databaseFilmVuDAO;
   }
 
   @Override
-  @Transactional
-  public FilmVu ajouterUnFilmVu(FilmVu filmVu) {
-    return this.databaseFilmDAO.save(filmVu);
+  public FilmVu chercherUnFilmVu(int filmId, String utilisateurId) throws Exception {
+    return databaseFilmVuDAO.findByFilmIdAndUtilisateurId(filmId, utilisateurId);
   }
 
   @Override
-  public List<FilmVu> recupererMesFilmsVus(String userId) {
-    return this.databaseFilmDAO.findAllByUtilisateurId(userId);
+  public FilmVu ajouterUnFilmVu(FilmVu filmVu) throws Exception {
+    return databaseFilmVuDAO.save(filmVu);
+  }
+
+  @Override
+  public FilmVu modifierUnFilmVu(FilmVu filmVu) throws Exception {
+    return databaseFilmVuDAO.save(filmVu);
+  }
+
+  @Override
+  public List<FilmVu> chercherDesFilmsVusParUnUtilisateur(String utilisateurId) throws Exception {
+    return databaseFilmVuDAO.findByUtilisateurId(utilisateurId);
   }
 }

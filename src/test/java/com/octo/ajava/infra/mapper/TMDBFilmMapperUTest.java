@@ -1,23 +1,22 @@
 package com.octo.ajava.infra.mapper;
 
-import static java.util.Collections.emptyList;
+import static com.octo.ajava.fixtures.FilmTestFixture.deuxFilmsRecherches;
+import static com.octo.ajava.utils.ObjectMapperTestUtil.convertirEnPaginatedTMDBMovies;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.octo.ajava.ObjectMapperBuilder;
-import com.octo.ajava.fixture.FilmFixture;
+import com.octo.ajava.domain.Film;
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
-import org.junit.jupiter.api.Assertions;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
-class TMDBFilmMapperUTest {
+class TMDBFilmMapperTest {
 
   private TMDBFilmMapper tmdbFilmMapper = new TMDBFilmMapper();
 
   @Test
-  void quand_il_n_y_a_pas_de_film_dans_la_response_retourne_une_liste_vide()
-      throws JsonProcessingException {
-    // GIVEN
-    var jsonResponse =
+  void quand_il_n_y_a_pas_de_film_dans_la_response_retourne_une_liste_vide() throws Exception {
+    // Given
+    String jsonResponse =
         """
                         {
                              "page": 1,
@@ -26,20 +25,19 @@ class TMDBFilmMapperUTest {
                              "total_results": 0
                          }
                 """;
-    var responseBody =
-        ObjectMapperBuilder.handle().readValue(jsonResponse, PaginatedTMDBMovies.class);
+    PaginatedTMDBMovies paginatedTMDBMovies = convertirEnPaginatedTMDBMovies(jsonResponse);
 
-    // WHEN
-    var result = tmdbFilmMapper.convertirEnFilms(responseBody);
+    // When
+    List<Film> result = tmdbFilmMapper.convertirEnFilms(paginatedTMDBMovies);
 
-    // THEN
-    Assertions.assertEquals(emptyList(), result);
+    // Then
+    assertThat(result).isEmpty();
   }
 
   @Test
-  void devrait_renvoyer_un_Film() throws JsonProcessingException {
-    // GIVEN
-    var jsonResponse =
+  void devrait_renvoyer_un_Film() throws Exception {
+    // Given
+    String jsonResponse =
         """
                         {
                           "page": 1,
@@ -89,13 +87,12 @@ class TMDBFilmMapperUTest {
                           "total_results": 146
                         }
                 """;
-    var responseBody =
-        ObjectMapperBuilder.handle().readValue(jsonResponse, PaginatedTMDBMovies.class);
+    PaginatedTMDBMovies paginatedTMDBMovies = convertirEnPaginatedTMDBMovies(jsonResponse);
 
-    // WHEN
-    var result = tmdbFilmMapper.convertirEnFilms(responseBody);
+    // When
+    List<Film> result = tmdbFilmMapper.convertirEnFilms(paginatedTMDBMovies);
 
-    // THEN
-    Assertions.assertEquals(FilmFixture.deuxFilmsRecherches(), result);
+    // Then
+    assertThat(result).isEqualTo(deuxFilmsRecherches());
   }
 }

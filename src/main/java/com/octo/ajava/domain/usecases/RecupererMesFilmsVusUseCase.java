@@ -10,11 +10,11 @@ public class RecupererMesFilmsVusUseCase {
 
   private final FilmVuRepository filmVuRepository;
 
-  RecupererMesFilmsVusUseCase(FilmVuRepository filmVuRepository) {
+  public RecupererMesFilmsVusUseCase(FilmVuRepository filmVuRepository) {
     this.filmVuRepository = filmVuRepository;
   }
 
   public List<FilmVu> executer(String userId) throws Exception {
-    return this.filmVuRepository.recupererMesFilmsVus(userId);
+    return filmVuRepository.chercherDesFilmsVusParUnUtilisateur(userId);
   }
 }

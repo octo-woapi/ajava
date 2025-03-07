@@ -6,7 +6,7 @@
 
 Vous devez avoir sur votre poste :
 
-* JAVA en version 17
+* JAVA en version 21
 * DOCKER (et docker-compose)
 
 ## 🚀 Démarrage
@@ -45,7 +45,7 @@ Ouvrir la page `http://localhost:8080/swagger-ui/index.html`
 
 ![Swagger UI](doc/img/swagger.png)
 
-## :white_check_mark: Tests
+## ✅ Tests
 
 Pour lancer tous les tests :
 
@@ -60,19 +60,23 @@ Pour lancer tous les tests :
 
 ---
 
-# TP 6 ajouter et noter un film vu
----
+# TP 6 Récupérer les films vus par un l'utilisateur connecté
 
 ## Objectif
 
-Ajouter un film vu en bdd provenant de l'API TMDB
+Rechercher et renvoyer tous les films vus par l'utilisateur connecté
 
-* Lancer la commande `docker compose up -d` pour lancer le postgres
-* Compléter le controller FilmVuController
-  * Utilisation des [**query property expressions**](https://docs.spring.io/spring-data/jpa/docs/1.7.1.RELEASE/reference/html/#repositories.query-methods.query-property-expressions)
-  * Bien écrire le test `DatabaseFilmVuRepositoryTest` qui permet de vérifier ma requete SQL
+* Compléter le `DatabaseFilmVuDAO` en utilisant une [**query property expression**](https://docs.spring.io/spring-data/jpa/docs/1.7.1.RELEASE/reference/html/#repositories.query-methods.query-property-expressions)
+* Compléter le repository `DatabaseFilmVuRepository`
+* Compléter le usecase `RecupererMesFilmsVusUseCase`
+    * En utilisant le repository, récuréper les films vus par l'utilisateur
+* Compléter le controller `FilmVuController`
+    * Utiliser la classe `Authentication` en paramètre de la méthode du endpoint pour récupérer les informations de l'utilisateur connecté
+    * Appeler le usecase et renvoyer la liste de films vus trouvés
+
 * Vous pourrez aussi avant de démarrer le swagger pour tester l'application corriger ou écrire les tests existants pour chaques classes
 
+---
 
 <details>
   <summary>Documentations officielles</summary>

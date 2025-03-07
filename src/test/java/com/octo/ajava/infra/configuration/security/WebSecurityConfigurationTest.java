@@ -1,7 +1,7 @@
 package com.octo.ajava.infra.configuration.security;
 
+import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import org.junit.jupiter.api.Test;
@@ -11,9 +11,9 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(WebSecurityConfiguration.class)
-public class WebSecurityConfigurationTest {
+class WebSecurityConfigurationTest {
 
-  @Autowired protected MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
   @Test
   void devrait_renvoyer_http_401_lorsqu_une_route_est_utilisee_sans_authentification()
@@ -23,6 +23,6 @@ public class WebSecurityConfigurationTest {
         mockMvc.perform(get("/api/films_vus")).andReturn().getResponse();
 
     // Then
-    assertThat(response.getStatus()).isEqualTo(UNAUTHORIZED.value());
+    assertThat(response.getStatus()).isEqualTo(SC_UNAUTHORIZED);
   }
 }
