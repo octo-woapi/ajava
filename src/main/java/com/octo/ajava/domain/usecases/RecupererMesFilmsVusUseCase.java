@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RecupererMesFilmsVusUseCase {
+public class RecupererMesFilmsVusUseCase { // TODO
 
   private final FilmVuRepository filmVuRepository;
 
@@ -15,6 +15,6 @@ public class RecupererMesFilmsVusUseCase {
   }
 
   public List<FilmVu> executer(String userId) throws Exception {
-    return filmVuRepository.chercherDesFilmsVusParUnUtilisateur(userId);
+    return null; // TODO Utiliser le repository
   }
 }

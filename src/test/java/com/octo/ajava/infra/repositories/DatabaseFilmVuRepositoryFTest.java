@@ -20,7 +20,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
 @Testcontainers
-class DatabaseFilmVuRepositoryFTest {
+class DatabaseFilmVuRepositoryFTest { // TODO
 
   private static final int FILM_ID = 5;
   private static final String UTILISATEUR_ID = "jdurant";
@@ -134,10 +134,7 @@ class DatabaseFilmVuRepositoryFTest {
   @Test
   void renvoyerFilmVusUtilisateur() throws Exception {
     // Given
-    databaseFilmVuDAO.saveAll(
-        List.of(
-            unFilmVu().avecFilmId(200).avecUtilisateurId(UTILISATEUR_ID).build(),
-            unFilmVu().avecFilmId(300).avecUtilisateurId(UTILISATEUR_ID).build()));
+    // TODO
 
     // When
     List<FilmVu> filmVusTrouves =

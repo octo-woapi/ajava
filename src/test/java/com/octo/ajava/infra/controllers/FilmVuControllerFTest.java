@@ -18,7 +18,6 @@ import com.octo.ajava.infra.controllers.entities.FilmVuAAjouterApi;
 import com.octo.ajava.infra.repositories.DatabaseFilmVuDAO;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -36,7 +35,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = AjavaApplication.class)
 @Testcontainers
-class FilmVuControllerFTest {
+class FilmVuControllerFTest { // TODO
 
   private static final String UTILISATEUR_ID = "user";
   private static final String MOT_DE_PASSE = "password";
@@ -217,12 +216,9 @@ class FilmVuControllerFTest {
 
   @DisplayName("devrait renvoyer tous les FilmVu de l'utilisateur connecté")
   @Test
-  void renvoyerFilmVusUtilisateur() throws Exception {
+  void renvoyerFilmVusUtilisateur() throws Exception { // TODO
     // Given
-    databaseFilmVuDAO.saveAll(
-        List.of(
-            unFilmVu().avecFilmId(50).avecUtilisateurId(UTILISATEUR_ID).build(),
-            unFilmVu().avecFilmId(55).avecUtilisateurId(UTILISATEUR_ID).build()));
+    // TODO
 
     // When
     FilmVu[] filmVuTrouves =

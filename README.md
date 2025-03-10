@@ -60,7 +60,7 @@ Pour lancer tous les tests :
 
 ---
 
-# TP 6 Récupérer les films vus par un l'utilisateur connecté
+# TP 6 Récupérer les films vus par l'utilisateur connecté
 
 ## Objectif
 

@@ -1,10 +1,7 @@
 package com.octo.ajava.domain.usecases;
 
-import static com.octo.ajava.fixtures.FilmVuTestFixture.unFilmVu;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import com.octo.ajava.domain.FilmVu;
@@ -27,8 +24,7 @@ class RecupererMesFilmsVusUseCaseTest {
   @Test
   void renvoyerFilmVuUtilisateur() throws Exception {
     // Given
-    List<FilmVu> filmVus = List.of(unFilmVu().avecUtilisateurId("user").build());
-    given(filmVuRepository.chercherDesFilmsVusParUnUtilisateur(any())).willReturn(filmVus);
+    // TODO
 
     // When
     List<FilmVu> filmVuRenvoyes = recupererMesFilmsVusUseCase.executer("user");

@@ -162,9 +162,4 @@ public class InMemoryFilmRepository implements FilmRepository {
   public List<Film> chercherDesFilms(String query) {
     return FILMS_EN_MEMOIRE.stream().filter(film -> film.titre().equals(query)).toList();
   }
-
-  @Override
-  public List<Film> recupererLesFilmsAvecPagination() throws Exception {
-    return null;
-  }
 }

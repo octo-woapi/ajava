@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Tag(name = "Films Vus", description = "Route public pour la gestion des films vus")
 @RequestMapping("/api/films_vus")
-public class FilmVuController {
+public class FilmVuController { // TODO
 
   private final ChercherUnFilmVuUseCase chercherUnFilmVuUseCase;
   private final AjouterUnFilmVuUseCase ajouterUnFilmVuUseCase;
@@ -91,9 +91,8 @@ public class FilmVuController {
   }
 
   @GetMapping
-  public ResponseEntity<List<FilmVu>> recupererMesFilmsVus(Authentication authentication)
-      throws Exception {
-    String userId = authentication.getName();
-    return ok().body(recupererMesFilmsVusUseCase.executer(userId));
+  public ResponseEntity<List<FilmVu>> recupererMesFilmsVus() throws Exception { // TODO
+    // TODO
+    return null;
   }
 }

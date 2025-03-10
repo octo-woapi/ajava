@@ -32,9 +32,4 @@ public class TMDBFilmRepository implements FilmRepository {
     PaginatedTMDBMovies paginatedTMDBMovies = tmdbHttpClient.chercherDesFilms(query);
     return tmdbFilmMapper.convertirEnFilms(paginatedTMDBMovies);
   }
-
-  @Override
-  public List<Film> recupererLesFilmsAvecPagination() {
-    return null;
-  }
 }

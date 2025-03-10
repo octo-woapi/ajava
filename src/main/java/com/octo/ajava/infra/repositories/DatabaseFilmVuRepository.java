@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DatabaseFilmVuRepository implements FilmVuRepository {
+public class DatabaseFilmVuRepository implements FilmVuRepository { // TODO
 
   private final DatabaseFilmVuDAO databaseFilmVuDAO;
 
@@ -31,6 +31,6 @@ public class DatabaseFilmVuRepository implements FilmVuRepository {
 
   @Override
   public List<FilmVu> chercherDesFilmsVusParUnUtilisateur(String utilisateurId) throws Exception {
-    return databaseFilmVuDAO.findByUtilisateurId(utilisateurId);
+    return null; // TODO
   }
 }
