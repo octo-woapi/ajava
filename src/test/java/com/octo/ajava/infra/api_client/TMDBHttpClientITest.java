@@ -1,11 +1,16 @@
 package com.octo.ajava.infra.api_client;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+import static com.octo.ajava.fixtures.TMDBJsonResponseTestFixture.deuxFilms;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import com.github.tomakehurst.wiremock.matching.EqualToPattern;
-import com.octo.ajava.fixture.TMDBJsonResponseFixture;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -13,45 +18,44 @@ import org.springframework.beans.factory.annotation.Value;
 
 @WireMockTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class TMDBHttpClientITest {
+class TMDBHttpClientTest {
 
   private TMDBHttpClient tmdbHttpClient;
 
   @Value("${tmdb.token}")
-  String jetonTmdb;
+  private String jetonTmdb;
 
   @BeforeAll()
-  public void prepare(WireMockRuntimeInfo wmRuntimeInfo) {
+  void prepare(WireMockRuntimeInfo wmRuntimeInfo) {
     tmdbHttpClient = new TMDBHttpClient(wmRuntimeInfo.getHttpBaseUrl(), jetonTmdb);
   }
 
   @Test
-  public void recupererLesFilmsPopulaires() {
-    // given
-    stubFor(get("/movie/popular").willReturn(okJson(TMDBJsonResponseFixture.deuxFilms())));
+  void recupererLesFilmsPopulaires() {
+    // Given
+    stubFor(get("/movie/popular").willReturn(okJson(deuxFilms())));
 
-    // when
-    var result = tmdbHttpClient.recupererLesFilmsPopulaires();
+    // When
+    tmdbHttpClient.recupererLesFilmsPopulaires();
 
-    // then
+    // Then
     verify(
         getRequestedFor(urlEqualTo("/movie/popular"))
             .withHeader("Authorization", equalTo("Bearer " + jetonTmdb)));
   }
 
   @Test
-  public void chercherDesFilms() {
-    // given
-    stubFor(
-        get("/search/movie?query=batman").willReturn(okJson(TMDBJsonResponseFixture.deuxFilms())));
+  void chercherDesFilms() {
+    // Given
+    stubFor(get("/search/movie?query=batman").willReturn(okJson(deuxFilms())));
 
-    // when
-    var result = tmdbHttpClient.chercherDesFilms("batman");
+    // When
+    tmdbHttpClient.chercherDesFilms("batman");
 
-    // then
+    // Then
     verify(
         getRequestedFor(urlEqualTo("/search/movie?query=batman"))
-            .withQueryParam("query", new EqualToPattern("batman"))
+            .withQueryParam("query", equalTo("batman"))
             .withHeader("Authorization", equalTo("Bearer " + jetonTmdb)));
   }
 }

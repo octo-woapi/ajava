@@ -1,9 +1,10 @@
 package com.octo.ajava.infra.repositories;
 
+import static com.octo.ajava.fixtures.FilmTestFixture.deuxFilmsPopulaires;
+import static com.octo.ajava.fixtures.FilmTestFixture.deuxFilmsRecherches;
 import static org.mockito.BDDMockito.given;
 
-import com.octo.ajava.fixture.FilmFixture;
-import com.octo.ajava.fixture.TMDBMovieFixture;
+import com.octo.ajava.fixtures.TMDBMovieTestFixture;
 import com.octo.ajava.infra.api_client.TMDBHttpClient;
 import com.octo.ajava.infra.api_client.entities.PaginatedTMDBMovies;
 import com.octo.ajava.infra.mapper.TMDBFilmMapper;
@@ -33,13 +34,14 @@ class TMDBFilmRepositoryUTest {
     // Given
     given(tmdbHttpClient.recupererLesFilmsPopulaires())
         .willReturn(
-            new PaginatedTMDBMovies(1, TMDBMovieFixture.deuxFilmsPopulairesVenantDeTMTB(), 2, 1));
+            new PaginatedTMDBMovies(
+                1, TMDBMovieTestFixture.deuxFilmsPopulairesVenantDeTMTB(), 2, 1));
 
     // When
     var result = tmdbFilmRepository.recupererLesFilms();
 
     // Then
-    Assertions.assertEquals(FilmFixture.deuxFilmsPopulaires(), result);
+    Assertions.assertEquals(deuxFilmsPopulaires(), result);
   }
 
   @Test
@@ -47,12 +49,13 @@ class TMDBFilmRepositoryUTest {
     // Given
     given(tmdbHttpClient.chercherDesFilms("batman"))
         .willReturn(
-            new PaginatedTMDBMovies(1, TMDBMovieFixture.deuxFilmsRecherchesVenantDeTMTB(), 2, 1));
+            new PaginatedTMDBMovies(
+                1, TMDBMovieTestFixture.deuxFilmsRecherchesVenantDeTMTB(), 2, 1));
 
     // When
     var result = tmdbFilmRepository.chercherDesFilms("batman");
 
     // Then
-    Assertions.assertEquals(FilmFixture.deuxFilmsRecherches(), result);
+    Assertions.assertEquals(deuxFilmsRecherches(), result);
   }
 }
