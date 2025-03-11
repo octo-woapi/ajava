@@ -1,6 +1,8 @@
 package com.octo.ajava.infra.configuration.security;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+import static org.springframework.security.core.userdetails.User.withUsername;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,8 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,14 +18,17 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @Configuration
-public class WebSecurityConfiguration {
+public class WebSecurityConfiguration { // TODO
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http.headers(withDefaults())
         .sessionManagement(WebSecurityConfiguration::statelessSessionManagement)
         .authorizeHttpRequests(
-                        authorize -> authorize.requestMatchers("route que je veux sécuriser").hasAnyRole("mon role"))
+            authorize ->
+                authorize
+                    .requestMatchers("route que je veux sécuriser")
+                    .hasAnyRole("mon role")) // TODO
         .httpBasic(withDefaults())
         .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
         .csrf(AbstractHttpConfigurer::disable)
@@ -35,12 +38,9 @@ public class WebSecurityConfiguration {
   @Bean
   public InMemoryUserDetailsManager userDetailsService() {
     final UserDetails utilisateurLambda =
-        User.withUsername("user")
-            .password(passwordEncoder().encode("password"))
-            .roles("USER")
-            .build();
+        withUsername("user").password(passwordEncoder().encode("password")).roles("USER").build();
     final UserDetails admin =
-        User.withUsername("admin")
+        withUsername("admin")
             .password(passwordEncoder().encode("password"))
             .roles("ADMIN", "USER")
             .build();
@@ -55,6 +55,6 @@ public class WebSecurityConfiguration {
 
   private static void statelessSessionManagement(
       SessionManagementConfigurer<HttpSecurity> sessionManager) {
-    sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    sessionManager.sessionCreationPolicy(STATELESS);
   }
 }

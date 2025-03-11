@@ -6,7 +6,7 @@
 
 Vous devez avoir sur votre poste :
 
-* JAVA en version 17
+* JAVA en version 21
 * DOCKER (et docker-compose)
 
 ## 🚀 Démarrage
@@ -46,7 +46,7 @@ Ouvrir la page `http://localhost:8080/swagger-ui/index.html`
 
 ![Swagger UI](doc/img/swagger.png)
 
-## :white_check_mark: Tests
+## ✅ Tests
 
 Pour lancer tous les tests :
 
@@ -61,24 +61,24 @@ Pour lancer tous les tests :
 
 ---
 
-# TP Sécuriser son API Java avec [Spring Security](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#web.security)
+## TP 4 - Sécuriser son API Java avec [Spring Security](https://docs.spring.io/spring-boot/docs/2.7.1/reference/htmlsingle/#web.security)
 
-## :frowning_person: :policewoman: Utilisateurs déjà créés
+### 👥 Utilisateurs déjà créés
 
-| Authentification    | username        | Password | UserId  | Roles  |
-|---------------------|-----------------|----------|---------|--------|
-| Basic Auth          | user            | password | user    | USER |
-| Basic Auth          | jdurant         | password | jdurant | USER |
-| Basic Auth          | admin           | password | admin   | ADMIN, USER |
-| OAuth 2.0 | jeandurant | password | jdurant | USER |
+| Authentification | username   | Password | UserId  | Roles       |
+|------------------|------------|----------|---------|-------------|
+| Basic Auth       | user       | password | user    | USER        |
+| Basic Auth       | jdurant    | password | jdurant | USER        |
+| Basic Auth       | admin      | password | admin   | ADMIN, USER |
+| OAuth 2.0        | jeandurant | password | jdurant | USER        |
 
-## :old_key: Utilisation d'une Basic Authentification
+### 🔑 Utilisation d'une Basic Authentification
 
-### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
+#### [Installation d'une sécurité spécifique selon les URLs](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#local-authenticationmanager)
 
-### Gestion de l'authentification [in-memory](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#in-memory-authentication)
+#### Gestion de l'authentification [in-memory](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter#in-memory-authentication)
 
-## Objectif du TP
+### Objectif du TP
 
 * Modifier la classe WebSecurityConfiguration pour sécuriser la route `/api/films_vus`
 * Faire passer au vert le test `WebSecurityConfigurationTest` qui vous permet de vérifier que vos endpoints sont bien sécurisés

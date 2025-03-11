@@ -2,16 +2,18 @@ package com.octo.ajava.infra.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.octo.ajava.domain.Film;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class InMemoryFilmRepositoryTest {
 
   @Test
-  public void doit_retourner_une_liste_de_film() {
-    var inMemoryFilmRepository = new InMemoryFilmRepository();
+  void doit_retourner_une_liste_de_film() throws Exception {
+    InMemoryFilmRepository inMemoryFilmRepository = new InMemoryFilmRepository();
 
-    var result = inMemoryFilmRepository.recupererLesFilms();
+    List<Film> result = inMemoryFilmRepository.recupererLesFilms();
 
-    assertThat(result.size()).isEqualTo(22);
+    assertThat(result).hasSize(23);
   }
 }
