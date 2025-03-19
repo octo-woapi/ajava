@@ -12,7 +12,7 @@ ext {
     springBootVersion = "${globalSpringBootVersion}"
     springDocVersion = '2.8.5'
     springDotenvVersion = '4.0.0'
-    springSecurityVersion = '6.4.3'
+    springSecurityVersion = '6.4.4'
     restAssuredVersion = '5.5.1'
     wiremockStandaloneVersion = '3.12.1'
     testcontainersVersion = '1.20.6'
