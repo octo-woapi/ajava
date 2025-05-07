@@ -10,7 +10,7 @@ ext {
     set('snippetsDir', file("build/generated-snippets"))
     postgresqlVersion = '42.7.5'
     springBootVersion = "${globalSpringBootVersion}"
-    springDocVersion = '2.8.6'
+    springDocVersion = '2.8.8'
     springDotenvVersion = '4.0.0'
     springSecurityVersion = '6.4.5'
     restAssuredVersion = '5.5.1'
