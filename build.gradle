@@ -15,7 +15,7 @@ ext {
     springSecurityVersion = '6.4.5'
     restAssuredVersion = '5.5.5'
     wiremockStandaloneVersion = '3.13.1'
-    testcontainersVersion = '1.21.1'
+    testcontainersVersion = '1.21.2'
 }
 
 group = 'com.octo.ajava'
