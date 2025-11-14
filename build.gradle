@@ -14,7 +14,7 @@ ext {
     springDotenvVersion = '4.0.0'
     springSecurityVersion = '6.4.5'
     restAssuredVersion = '5.5.6'
-    wiremockStandaloneVersion = '3.13.1'
+    wiremockStandaloneVersion = '3.13.2'
     testcontainersVersion = '2.0.2'
 }
 
