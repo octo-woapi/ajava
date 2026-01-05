@@ -11,7 +11,7 @@ ext {
     postgresqlVersion = '42.7.8'
     springBootVersion = "${globalSpringBootVersion}"
     springDocVersion = '2.8.14'
-    springDotenvVersion = '5.0.1'
+    springDotenvVersion = '5.1.0'
     springSecurityVersion = '6.4.5'
     restAssuredVersion = '5.5.6'
     wiremockStandaloneVersion = '3.13.2'
