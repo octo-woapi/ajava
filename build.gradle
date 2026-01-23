@@ -9,6 +9,7 @@ plugins {
 ext {
     set('snippetsDir', file("build/generated-snippets"))
     set('rest-assured.version', '6.0.0')
+    set('spring-security.version', '7.0.2')
 
     postgresqlVersion = '42.7.9'
     springBootVersion = "${globalSpringBootVersion}"
