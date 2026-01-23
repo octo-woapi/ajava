@@ -39,6 +39,7 @@ dependencies {
 
     implementation "me.paulschwarz:spring-dotenv:${springDotenvVersion}"
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}"
+    implementation 'io.micrometer:micrometer-registry-prometheus:latest.release'
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc:${restdocsVersion}"
