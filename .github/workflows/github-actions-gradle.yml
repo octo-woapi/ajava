@@ -25,8 +25,8 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: Validate Gradle wrapper
-        uses: gradle/actions/wrapper-validation@v5.0.0
+        uses: gradle/actions/wrapper-validation@v5.0.1
       - name: Gradle Build Action
-        uses: gradle/actions/setup-gradle@v5.0.0
+        uses: gradle/actions/setup-gradle@v5.0.1
       - name: Execute Gradle build
         run: ./gradlew build
