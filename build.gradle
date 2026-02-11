@@ -11,7 +11,7 @@ ext {
     set('rest-assured.version', '6.0.0')
     set('spring-security.version', '7.0.2')
 
-    postgresqlVersion = '42.7.9'
+    postgresqlVersion = '42.7.10'
     springBootVersion = "${globalSpringBootVersion}"
     springDocVersion = '2.8.14'
     springDotenvVersion = '5.1.0'
