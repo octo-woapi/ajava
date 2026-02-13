@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: ajava_db
-    image: postgres:18.1-alpine
+    image: postgres:18.2-alpine
     restart: always
     ports:
       - "15432:5432"
@@ -14,7 +14,7 @@ services:
 
   keycloak_db:
     container_name: keycloak_db
-    image: postgres:18.1-alpine
+    image: postgres:18.2-alpine
     ports:
       - "5432:5432"
     environment:
