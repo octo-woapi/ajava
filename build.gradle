@@ -13,7 +13,7 @@ ext {
 
     postgresqlVersion = '42.7.10'
     springBootVersion = "${globalSpringBootVersion}"
-    springDocVersion = '2.8.14'
+    springDocVersion = '3.0.1'
     springDotenvVersion = '5.1.0'
     springSecurityVersion = '7.0.3'
     restAssuredVersion = '6.0.0'
